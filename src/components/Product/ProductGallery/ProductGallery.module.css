@@ -1,0 +1,35 @@
+.ProductGallery{
+    height: 500px;
+    padding-left:30px;
+}
+
+.ProductGallery img{
+    width: 400px;
+    height: auto;
+    padding: 10px;
+}
+
+
+@media(max-width: 855px) {
+    .ProductGallery{
+        display: flex;
+        justify-content: center;
+    }
+
+    .ProductGallery img{
+        width: 500px;
+        height: auto;
+    }
+}
+
+@media(max-width: 660px) {
+    .ProductGallery{
+        display: flex;
+        justify-content: center;
+    }
+
+    .ProductGallery img{
+        width: 400px;
+       
+    }
+}

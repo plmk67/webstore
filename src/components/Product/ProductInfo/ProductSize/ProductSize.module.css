@@ -1,0 +1,14 @@
+.ProductSize {
+    display:flex;
+    flex-direction: column;
+}
+
+.ProductSize select{
+    width: 100px;
+    margin: 10px 0px 10px 0px;
+}
+
+.ProductSize ul{
+    font-size: 12px;
+    font-weight: 300px;
+}
