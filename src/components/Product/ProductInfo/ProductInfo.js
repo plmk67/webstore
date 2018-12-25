@@ -8,11 +8,6 @@ const Quantity = {
     fontWeight:"500"
 }
 
-const Cart = {
-    fontSize:"15px",
-    fontWeight:"600"
-}
-
 class ProductInfo extends Component {
     render() {
         return (
@@ -21,7 +16,7 @@ class ProductInfo extends Component {
                 <p><strong>$50.00</strong></p>
                 <ProductSize/>
                 <p style={Quantity}>Quantity</p>
-                <p style={Cart}>Add to Cart</p>
+                <button type="submit">Add to Cart</button>
                 <ProductDesc />
                 
             </div>

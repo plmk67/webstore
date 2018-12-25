@@ -3,10 +3,30 @@
     justify-content: center;
 }
 
+.Product button{
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0;
+    line-height: 1.42;
+    font-family: "HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    background-color: #111;
+    color: #fff;
+}
+
 @media(max-width: 855px) {
     .Product{
         display:flex;
         justify-content: center;
         flex-direction: column;
+        
     }
 }

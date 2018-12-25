@@ -1,12 +1,11 @@
+.ProductCarousel {
+}
+
 .ProductCarousel img{
     justify-content: center;
     width: 75px;
 }
 
-
 @media(max-width: 855px) {
-    .ProductCarousel{
-display: flex;
-       flex-direction: column;
-    }
+    
 }
