@@ -5,7 +5,8 @@ import Modal from '../../UI/Modal/Modal';
 
 class productGallery extends Component {
   state = {
-    imageModal: false
+    imageModal: false,
+    data: []
   }
 
   updateModal = () => {
@@ -17,8 +18,9 @@ class productGallery extends Component {
     }
   }
 
+  
   render() {
- 
+
     return (
         <div className={classes.ProductGallery}>
             <Modal 
@@ -31,7 +33,7 @@ class productGallery extends Component {
               onClick={this.updateModal}
               />   
             </div>
-            <ProductCarousel/>
+            <ProductCarousel />
         </div>
     );
   }
