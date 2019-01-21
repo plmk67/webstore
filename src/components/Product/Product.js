@@ -11,6 +11,7 @@ class product extends Component {
         data: []
     }
 
+    //fetching info from Firebase and pushing into State
     componentDidMount () {
         axios.get('https://ecommerce-1f552.firebaseio.com/Product.json')
         .then(response => {
@@ -20,20 +21,17 @@ class product extends Component {
         .catch( error => console.log(error))
       }
      
-
+    //from state we draw the data and push it into props for ProductInfo component to receive
     render () {
-
-        console.log(this.state.data.price)  
-
         return (
         <div className={classes.Product}>
             <ProductGallery />
             <ProductInfo 
                 description = {this.state.data.description}
-                description_hightlight ={this.state.data.description_highlight}
                 inventory = {this.state.data.inventory}
                 name = {this.state.data.name}
-                price = {this.state.data.price}/>
+                price = {this.state.data.price}
+                />
         </div>
         )
     }

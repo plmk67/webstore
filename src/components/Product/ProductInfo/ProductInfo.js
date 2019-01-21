@@ -16,6 +16,8 @@ const ProductInfo = (props) => (
         <p style={Quantity}>Quantity: {props.inventory}</p>
         <button type="submit">Add to Cart</button>
         <p>{props.description}</p>
+
+        
     </div>
    
 );
