@@ -17,6 +17,7 @@
 .NewProduct label{
     padding-right: 10px;
     text-align: right;
+    width: 200px;
 }
 
 .NewProduct input {

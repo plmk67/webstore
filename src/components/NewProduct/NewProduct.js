@@ -7,52 +7,79 @@ import Form from '../Form/Form';
 class NewProduct extends Component {
     state = {
         name: '',
+        sku: '',
         price: '',
         size: '',
         description: '',
-        images: ''
+        inventory: '',
+        image_url: '',
     }
 
     formFields = [
         {
             //temporary ID 
             id: Math.random().toString(36),
-            name: "Product Name",
+            name: "name",
             placeholder: "product name",
             type:"text" 
         },
 
         {
             id: Math.random().toString(36),
-            name: "SKU",
+            name: "sku",
             placeholder: "SKU",
             type:"text" 
         },
 
-
         {
             id: Math.random().toString(36),
-            name: "Price",
+            name: "price",
             placeholder: "Price",
             type:"text" 
         },
 
         {
             id: Math.random().toString(36),
-            name: "Size",
+            name: "size",
             placeholder: "Size",
+            type:"text" 
+        },
+
+        {
+            //temporary ID 
+            id: Math.random().toString(36),
+            name: "description",
+            placeholder: "product description",
+            type:"text" 
+        },
+
+        {
+            //temporary ID 
+            id: Math.random().toString(36),
+            name: "inventory",
+            placeholder: "quantity",
+            type:"number" 
+        },
+
+        {
+            //temporary ID 
+            id: Math.random().toString(36),
+            name: "image_url",
+            placeholder: "url",
             type:"text" 
         },
         
     ]
 
-    handleSubmit(event) {
+    handleSubmit() {
         const order = {
             name: this.state.name,
+            sku: this.state.sku,
             price: this.state.price,
             size: this.state.size,
             description: this.state.description,
-            images: this.state.images
+            inventory: this.state.inventory,
+            images: this.state.image_url
         }
 
         axios.post('https://ecommerce-1f552.firebaseio.com/Product.json', order)
@@ -60,15 +87,10 @@ class NewProduct extends Component {
 
     inputChangedHandler = ( event, inputIdentifier) => {
         //copy previous state
-        const prevState = {...this.state}
-
         //update into prevState
-        prevState[inputIdentifier] = event.target.value;
-
-        console.log(prevState[inputIdentifier])
-        
-
-        
+    
+        this.setState({[inputIdentifier]: event.target.value}) 
+        console.log(inputIdentifier)
     }
 
     //map out each element for the form
@@ -86,9 +108,10 @@ class NewProduct extends Component {
                             input={(event)=> this.inputChangedHandler(event,element.name)}
                      />
                     ))}
-                    <button onClick={() => this.handleSubmit()}>Create New Product</button>
+
+                    <button style={{display: 'flex', alignSelf: 'center'}} onClick={() => this.handleSubmit()}>Create New Product</button>
                 </div>
-            
+               
            </Aux>
         )
     }
