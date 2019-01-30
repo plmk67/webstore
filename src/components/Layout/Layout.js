@@ -5,6 +5,7 @@ import StoreTitle from '../StoreTitle/StoreTitle';
 import Product from '../Product/Product';
 import NewProduct from '../NewProduct/NewProduct';
 import ProductPage from '../ProductPage/ProductPage';
+import Footer from '../Footer/Footer';
 
 
 const layout = (props) => (
@@ -15,7 +16,7 @@ const layout = (props) => (
                 <Route path='/newproduct' exact component={NewProduct}/>
                 <Route path='/productpage' exact component={ProductPage}/>
             </Switch>
-        <p>footer</p>
+        <Footer/>
     </Aux>
 )
 

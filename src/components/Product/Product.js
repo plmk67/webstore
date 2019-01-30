@@ -13,8 +13,9 @@ class product extends Component {
 
     //fetching info from Firebase and pushing into State
     componentDidMount () {
-        axios.get('https://ecommerce-1f552.firebaseio.com/Product.json')
+        axios.get('https://ecommerce-1f552.firebaseio.com/Product/-LWn4FN2fPVGAbWcJvzt.json')
         .then(response => {
+          console.log(response)
           this.setState( { data: response.data } 
           );
         } )
@@ -25,10 +26,10 @@ class product extends Component {
     render () {
         return (
         <div className={classes.Product}>
-            <ProductGallery />
+            <ProductGallery 
+                image={this.state.data.images}/>
             <ProductInfo 
                 description = {this.state.data.description}
-                inventory = {this.state.data.inventory}
                 name = {this.state.data.name}
                 price = {this.state.data.price}
                 />

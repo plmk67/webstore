@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import classes from './ProductPage.module.css';
 import axios from 'axios';
+
 
 class Product extends Component {
     state = {
         products: [],
     }
+
     componentDidMount() {
         axios.get('https://ecommerce-1f552.firebaseio.com/Product.json')
             .then(res => {
@@ -21,11 +24,9 @@ class Product extends Component {
                 .catch( err => {
                    console.log(err)
                 })
-                }
-    //deleting specific Object
-    //if i want to use a delete function, how to do I pass an ID into it
-                
+    }
 
+    //TODO figure out why ID came back with Apostrophes
     delete(id){
         const idraw = {id};
         const idcode = JSON.stringify(idraw.id).replace(/"/g,'')
@@ -37,19 +38,24 @@ class Product extends Component {
 
     render () {       
         return(
-            <div>
+            <div className={classes.ProductPage}>
                {this.state.products.map(product => (
-                    <button id={product.id} key={product.id} onClick={()=> this.delete(product.id)}>
-                    click</button>
+                    <div className={classes.ProductItem}>
+                        <ul>
+                            <li>Product Name: {product.name}</li>
+                            <li>Size: {product.size}</li>
+                        </ul>
+                        <button 
+                        id={product.id} 
+                        key={product.id} 
+                        onClick={()=> this.delete(product.id)}>Delete</button>
+                    </div>
+                    
                ))}
             </div>
         );
     }
 }
-                
-
-
-    
 
 export default Product;
 
