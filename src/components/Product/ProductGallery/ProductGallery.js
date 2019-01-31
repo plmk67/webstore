@@ -18,7 +18,7 @@ class productGallery extends Component{
     }
   }
 
-  render(images) {
+  render() {
 
     return (
         <div className={classes.ProductGallery}>
@@ -28,7 +28,7 @@ class productGallery extends Component{
               image={this.images}/>
             <div>
               <img           
-              src={this.images}
+              src={this.props.images}
               alt="hat" 
               onClick={this.updateModal}
               />   
