@@ -95,6 +95,23 @@ class NewProduct extends Component {
 
     //map out each element for the form
 
+    //url: https://ecommerce-1f552.firebaseio.com/Product/-LXwIpKppkwXOYOFqVqJ
+
+    handlePut() {
+        const updatedOrder = {
+            name:  'update success!',
+            sku: 'update success!',
+            price: 'update success!',
+            size:  'update success!',
+            description: 'update success!',
+            inventory: 'update success!',
+            images: 'update success!'
+        }
+
+        axios.put('https://ecommerce-1f552.firebaseio.com/Product/-LXwIpKppkwXOYOFqVqJ.json',updatedOrder)
+    }
+
+
     render() {
         return (
             <Aux>
@@ -110,7 +127,11 @@ class NewProduct extends Component {
                     ))}
 
                     <button style={{display: 'flex', alignSelf: 'center'}} onClick={() => this.handleSubmit()}>Create New Product</button>
+
+                    <button style={{display: 'flex', alignSelf: 'center'}} onClick={() => this.handlePut()}>update product</button>
                 </div>
+
+
                
            </Aux>
         )

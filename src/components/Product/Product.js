@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ProductGallery from './ProductGallery/ProductGallery';
 import ProductInfo from './ProductInfo/ProductInfo';
 import classes from './Product.module.css';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -25,6 +26,7 @@ class product extends Component {
     //from state we draw the data and push it into props for ProductInfo component to receive
     render () {
         return (
+        
         <div className={classes.Product}>
             <ProductGallery 
                 images={this.state.data.images}/>
@@ -32,8 +34,11 @@ class product extends Component {
                 description = {this.state.data.description}
                 name = {this.state.data.name}
                 price = {this.state.data.price}
-                />
+                /> 
+                <NavLink to='/productpage'>Back to Main Page</NavLink>    
         </div>
+
+
         )
     }
 }

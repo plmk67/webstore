@@ -1,30 +1,36 @@
 import React, { Component } from 'react';
 import classes from './ProductPage.module.css';
 import axios from 'axios';
+import ProductThumbnail from '../ProductThumbnail/ProductThumbnail'
+import { Redirect } from 'react-router-dom'
+import Aux from '../../hoc/Aux'
 
 
 class Product extends Component {
     state = {
         products: [],
+        redirect: false
     }
 
-    componentDidMount() {
+    componentDidMount () {
         axios.get('https://ecommerce-1f552.firebaseio.com/Product.json')
-            .then(res => {
-                const fetchedProducts = [];
+        .then(response => {
+          
+         const fetchedProduct = [];
+        
+         //TODO figure out how this bypassed the id issue with Firebase
+         for (let key in response.data) {
+            fetchedProduct.push({
+              ...response.data[key],
+              id: key
+            });
+         }
 
-                for (let key in res.data) {
-                    fetchedProducts.push({
-                        ...res.data[key],
-                        id: key});
-                    }
-                    console.log(fetchedProducts)
-                    this.setState({products: fetchedProducts})
-                })
-                .catch( err => {
-                   console.log(err)
-                })
-    }
+         this.setState({products: fetchedProduct})
+         console.log(this.state.products)
+        } )
+        .catch( error => console.log(error))
+      }
 
     //TODO figure out why ID came back with Apostrophes
     delete(id){
@@ -36,23 +42,35 @@ class Product extends Component {
         axios.delete(url)
     }     
 
-    render () {       
+    handleOnClick = () => {
+        this.setState({redirect: true})
+    }
+
+    render () {    
+        
+        if(this.state.redirect) {
+            const url = 'www.google.ca'
+            return <Redirect to='/product' />;
+        }
         return(
-            <div className={classes.ProductPage}>
-               {this.state.products.map(product => (
-                    <div className={classes.ProductItem}>
-                        <ul>
-                            <li>Product Name: {product.name}</li>
-                            <li>Size: {product.size}</li>
-                        </ul>
-                        <button 
+            <Aux>
+                {this.state.products.map( product => (
+                    <Aux>
+                    <ProductThumbnail 
+                        id={product.id}
+                        src={product.images}
+                        alt={product.name}
+                        price={product.price}
+                        name={product.name}
+                        clicked={this.handleOnClick}
+                        />
+                        {/* <button 
                         id={product.id} 
                         key={product.id} 
-                        onClick={()=> this.delete(product.id)}>Delete</button>
-                    </div>
-                    
-               ))}
-            </div>
+                        onClick={()=> this.delete(product.id)}>Delete</button> */}
+                    </Aux>
+                ))}
+            </Aux>
         );
     }
 }
