@@ -3,6 +3,8 @@ import ProductGallery from './ProductGallery/ProductGallery';
 import ProductInfo from './ProductInfo/ProductInfo';
 import classes from './Product.module.css';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/action'
 import axios from 'axios';
 
 
@@ -21,10 +23,13 @@ class product extends Component {
           );
         } )
         .catch( error => console.log(error))
-      }
+    }
+
      
     //from state we draw the data and push it into props for ProductInfo component to receive
     render () {
+        console.log(this.props.match)
+
         return (
         
         <div className={classes.Product}>
@@ -36,12 +41,24 @@ class product extends Component {
                 price = {this.state.data.price}
                 /> 
                 <NavLink to='/productpage'>Back to Main Page</NavLink>    
+            
         </div>
 
 
         )
     }
 }
-    
 
-export default product;
+const mapStateToProps = state => {
+    return {
+        pdt: state.product
+    };
+};
+
+const mapDispatchToProps = dispatch => { 
+    return {
+        onTest: () => dispatch({type: actionTypes.TEST}),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(product);

@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-    "react": "^16.7.0",
+    "query-string": "^5.1.1",
+    "react": "^16.8.1",
     "react-dom": "^16.7.0",
     "react-grid-gallery": "^0.5.3",
     "react-image-gallery": "^0.8.12",

@@ -3,6 +3,7 @@ import classes from './ProductPage.module.css';
 import axios from 'axios';
 import ProductThumbnail from '../ProductThumbnail/ProductThumbnail'
 import { Redirect } from 'react-router-dom'
+
 import Aux from '../../hoc/Aux'
 
 
@@ -43,15 +44,15 @@ class Product extends Component {
     }     
 
     handleOnClick = () => {
-        this.setState({redirect: true})
+        this.setState({redirect: true})    
     }
 
+
     render () {    
-        
         if(this.state.redirect) {
-            const url = 'www.google.ca'
             return <Redirect to='/product' />;
         }
+
         return(
             <Aux>
                 {this.state.products.map( product => (
