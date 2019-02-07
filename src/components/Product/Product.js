@@ -41,7 +41,8 @@ class product extends Component {
                 price = {this.state.data.price}
                 /> 
                 <NavLink to='/productpage'>Back to Main Page</NavLink>    
-            
+            <p>{this.props.inventory}</p>
+            <button onClick={this.props.onAddToCart}>click here to deduct 1 from inventory</button>
         </div>
 
 
@@ -51,13 +52,15 @@ class product extends Component {
 
 const mapStateToProps = state => {
     return {
-        pdt: state.product
+        pdt: state.products,
+        inventory: state.inventory
     };
 };
 
 const mapDispatchToProps = dispatch => { 
     return {
         onTest: () => dispatch({type: actionTypes.TEST}),
+        onAddToCart: () => dispatch({type: actionTypes.TEST2})
     };
 };
 
