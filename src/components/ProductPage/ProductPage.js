@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classes from './ProductPage.module.css';
 import axios from 'axios';
 import ProductThumbnail from '../ProductThumbnail/ProductThumbnail'
-import { Redirect } from 'react-router-dom'
+
 
 import Aux from '../../hoc/Aux'
 
@@ -10,7 +10,6 @@ import Aux from '../../hoc/Aux'
 class Product extends Component {
     state = {
         products: [],
-        redirect: false
     }
 
     componentDidMount () {
@@ -43,15 +42,8 @@ class Product extends Component {
         axios.delete(url)
     }     
 
-    handleOnClick = () => {
-        this.setState({redirect: true})    
-    }
-
-
+   
     render () {    
-        if(this.state.redirect) {
-            return <Redirect to='/product' />;
-        }
 
         return(
             <Aux>
@@ -63,7 +55,6 @@ class Product extends Component {
                         alt={product.name}
                         price={product.price}
                         name={product.name}
-                        clicked={this.handleOnClick}
                         />
                         {/* <button 
                         id={product.id} 

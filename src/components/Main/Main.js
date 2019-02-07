@@ -50,7 +50,7 @@ class layout extends Component {
 
                 <Switch>
                     <Route path='/' exact component={Cover}/>
-                    <Route path='/product' render={(props) =><Product {...props}/>}/>
+                    <Route path='/product/' render={(props) =><Product {...props}/>}/>
                     <Route path='/newproduct' exact component={NewProduct}/>
                     <Route path='/productpage' exact component={ProductPage}/>
                 </Switch>

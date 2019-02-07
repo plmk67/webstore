@@ -14,9 +14,11 @@ class product extends Component {
         data: []
     }
 
+    productId = this.props.location.pathname.substr(this.props.location.pathname.length - 20);
+
     //fetching info from Firebase and pushing into State
     componentDidMount () {
-        axios.get('https://ecommerce-1f552.firebaseio.com/Product/-LXVKBL6G739QGVV07Et.json')
+        axios.get('https://ecommerce-1f552.firebaseio.com/Product/' + this.productId+ '.json')
         .then(response => {
           console.log(response)
           this.setState( { data: response.data } 
@@ -28,7 +30,7 @@ class product extends Component {
      
     //from state we draw the data and push it into props for ProductInfo component to receive
     render () {
-        console.log(this.props.match)
+        console.log(this.productId)
 
         return (
         
