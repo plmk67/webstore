@@ -11,10 +11,6 @@ import {
     Nav,
     NavItem,
     NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
     Container,
     Row,
     Col } from 'reactstrap';
@@ -66,61 +62,48 @@ class Product extends Component {
 
     render () {    
         return(
+            
             <div>
                 <Navbar color="light" light expand="md">
                 <NavbarBrand>Welcome Admin!</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
-                    <NavItem>
-                        <NavLink href="/admin/inventory">Inventory</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink href="/admin/newproduct">Create New Product</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink href="https://github.com/reactstrap/reactstrap">Edit Products</NavLink>
-                    </NavItem>
-                    <UncontrolledDropdown nav inNavbar>
-                        <DropdownToggle nav caret>
-                        Options
-                        </DropdownToggle>
-                        <DropdownMenu right>
-                        <DropdownItem>
-                            Option 1
-                        </DropdownItem>
-                        <DropdownItem>
-                            Option 2
-                        </DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem>
-                            Reset
-                        </DropdownItem>
-                        </DropdownMenu>
-                    </UncontrolledDropdown>
+                        <NavItem>
+                            <NavLink href="/admin/inventory">Inventory</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/admin/newproduct">Create New Product</NavLink>
+                        </NavItem>
                     </Nav>
                 </Collapse>
                 </Navbar>
-                <Container fluid>
-                    <Row>
-                        {this.state.products.map( product => (
-                            <Col sm="4" >
-                                <EditThumbnail 
-                                    id={product.id}
-                                    src={product.images}
-                                    alt={product.name}
-                                    price={product.price}
-                                    name={product.name}
-                                    />
-                            </Col>   
-                        ))}
-                    </Row>
-                </Container>
-            </div>
 
+                <div>
+                    <Container fluid>
+                        
+                            <Row>
+                                {this.state.products.map( product => (
+                                    <Col sm="4" >
+                                        <EditThumbnail 
+                                            id={product.id}
+                                            src={product.images}
+                                            alt={product.name}
+                                            price={product.price}
+                                            name={product.name}
+                                            />
+                                    </Col>   
+                                ))}
+                            </Row>
+                
+                    </Container>
+                </div>
+            </div>
         );
     }
 }
 
 export default Product;
+
+
 

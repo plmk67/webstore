@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './ProductThumbnail.module.css'
 import { Redirect } from 'react-router-dom'
+import axios from 'axios';
 
 class productThumbnail extends Component {
     state = {
@@ -10,6 +11,7 @@ class productThumbnail extends Component {
     handleOnClick = () => {
         this.setState({redirect: true})    
     }
+
 
     render(){
 
