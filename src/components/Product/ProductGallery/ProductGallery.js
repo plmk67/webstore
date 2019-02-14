@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classes from './ProductGallery.module.css'
-import ProductCarousel from './ProductCarousel/ProductCarousel';
+// import ProductCarousel from './ProductCarousel/ProductCarousel';
 import Modal from '../../UI/Modal/Modal';
 
 class productGallery extends Component{
@@ -33,7 +33,6 @@ class productGallery extends Component{
               onClick={this.updateModal}
               />   
             </div>
-            <ProductCarousel />
         </div>
     );
   }

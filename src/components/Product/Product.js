@@ -4,9 +4,9 @@ import ProductInfo from './ProductInfo/ProductInfo';
 import classes from './Product.module.css';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/action'
+import * as actionTypes from '../../store/action';
+import Aux from '../../hoc/Aux';
 import axios from 'axios';
-
 
 class product extends Component {
 
@@ -33,20 +33,24 @@ class product extends Component {
         console.log(this.productId)
 
         return (
-        
-        <div className={classes.Product}>
-            <ProductGallery 
-                images={this.state.data.images}/>
-            <ProductInfo 
-                description = {this.state.data.description}
-                name = {this.state.data.name}
-                price = {this.state.data.price}
+        <Aux>
+            <div className={classes.Product}>
+                <ProductGallery 
+                    images={this.state.data.images}/>
+                <ProductInfo 
+                    description = {this.state.data.description}
+                    name = {this.state.data.name}
+                    price = {this.state.data.price}
+                    inventory ={this.state.data.inventory}
                 /> 
+                   
+                {/* <p>{this.props.inventory}</p>
+                <button onClick={this.props.onAddToCart}>click here to deduct 1 from inventory</button> */}
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center'}}>   
                 <NavLink to='/productpage'>Back to Main Page</NavLink>    
-            <p>{this.props.inventory}</p>
-            <button onClick={this.props.onAddToCart}>click here to deduct 1 from inventory</button>
-        </div>
-
+            </div>
+        </Aux>
 
         )
     }

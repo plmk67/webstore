@@ -1,29 +1,20 @@
 .NewProduct {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    width: 80%;
-    padding: 10px;
-    padding-right: 10%;
-    margin: 20px auto;
-    border: 1px solid #eee;
-    box-sizing: border-box;
-}
-
-.NewProduct form {
-    
+    justify-content: center;
 }
 
 .NewProduct label{
     padding-right: 10px;
     text-align: right;
-    width: 200px;
+    width: 120px;
+
+    
 }
 
 .NewProduct input {
     width: 400px;
     margin: 5px;
-
+   
 }
 
 .NewProduct button {

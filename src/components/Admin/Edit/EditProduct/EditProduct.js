@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import classes from './ProductPage.module.css';
 import axios from 'axios';
 import ProductThumbnail from '../ProductThumbnail/ProductThumbnail'
-
-
 import Aux from '../../hoc/Aux'
 
 
-class Product extends Component {
+class EditProduct extends Component {
     state = {
         products: [],
     }
 
+    //get request to grab all product data
     componentDidMount () {
         axios.get('https://ecommerce-1f552.firebaseio.com/Product.json')
         .then(response => {
@@ -42,7 +40,6 @@ class Product extends Component {
         axios.delete(url)
     }     
 
-   
     render () {    
 
         return(
@@ -56,10 +53,11 @@ class Product extends Component {
                         price={product.price}
                         name={product.name}
                         />
-                        {/* <button 
+                        
+                        <button 
                         id={product.id} 
                         key={product.id} 
-                        onClick={()=> this.delete(product.id)}>Delete</button> */}
+                        onClick={()=> this.delete(product.id)}>Delete</button>
                     </Aux>
                 ))}
             </Aux>
@@ -67,4 +65,5 @@ class Product extends Component {
     }
 }
 
-export default Product;
+export default EditProduct;
+

@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
@@ -6,6 +7,7 @@ import rootReducer from './store/reducers'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
 
 const store = createStore(rootReducer)
 

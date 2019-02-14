@@ -1,3 +1,4 @@
+
 .ProductPage {
     display: flex;
     justify-content: flex-start;
@@ -8,4 +9,3 @@
     height: 500px;
     margin: 10px;
 }
-

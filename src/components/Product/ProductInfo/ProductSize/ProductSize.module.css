@@ -1,5 +1,5 @@
 .ProductSize {
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
 
@@ -24,7 +24,7 @@
 
 .ProductSize ul{
     font-size: 12px;
-    font-weight: 300px;
+    font-weight: 500px;
 }
 
 @media(max-width: 855px) {

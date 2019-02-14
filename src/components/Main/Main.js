@@ -1,5 +1,5 @@
 import React, { Component }from 'react';
-import { Switch, Route, Redirect, HashRouter, NavLink } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Aux from '../../hoc/Aux';
 import StoreTitle from '../StoreTitle/StoreTitle';
@@ -7,8 +7,9 @@ import Cover from '../Cover/Cover'
 import Product from '../Product/Product';
 import NewProduct from '../NewProduct/NewProduct';
 import ProductPage from '../ProductPage/ProductPage';
+import Inventory from '../Inventory/Inventory';
+import Admin from '../Admin/Admin';
 import Footer from '../Footer/Footer';
-
 
 
 class layout extends Component {
@@ -47,25 +48,17 @@ class layout extends Component {
        
             <Aux>
                 <StoreTitle/>
-
-                <Switch>
-                    <Route path='/' exact component={Cover}/>
-                    <Route path='/product/' render={(props) =><Product {...props}/>}/>
-                    <Route path='/newproduct' exact component={NewProduct}/>
-                    <Route path='/productpage' exact component={ProductPage}/>
-                </Switch>
-
-                {/* {this.state.products.map( product => (
-                <ProductThumbnail 
-                    id={product.id}
-                    src={product.images}
-                    alt={product.name}
-                    price={product.price}
-                    name={product.name}
-                    clicked={this.linkHandler}
-                    />
-                ))} */}
-
+                    <Switch>
+                        <Route path='/' exact component={Cover}/>
+                        <Route path='/product/' render={(props) =><Product {...props}/>}/>
+                        <Route path='/productpage' exact component={ProductPage}/>
+                        
+                        {/* Admin Routes  */}
+                        <Route path='/admin/' exact component={Admin}/> 
+                        <Route path='/admin/inventory' exact component={Inventory}/> 
+                        <Route path='/admin/newproduct' exact component={NewProduct}/>
+                        {/* <Route path='/admin/edit' exact component={}/>  */}
+                    </Switch>
                 <Footer/>
             </Aux>
     

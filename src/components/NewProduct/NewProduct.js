@@ -3,6 +3,7 @@ import axios from 'axios';
 import classes from './NewProduct.module.css';
 import Aux from '../../hoc/Aux';
 import Form from '../Form/Form';
+import Label from '../Label/Label';
 
 class NewProduct extends Component {
     state = {
@@ -115,24 +116,25 @@ class NewProduct extends Component {
     render() {
         return (
             <Aux>
-                <div className={classes.NewProduct}>
-                    {this.formFields.map( element => (
-                         <Form
+                {this.formFields.map( element => (
+                    <div className={classes.NewProduct}>
+                       <Aux>
+                            <Label
+                                name={element.name}/>
+                            <Form
                             key={element.id}
                             name={element.name}
                             placeholder={element.placeholder}
                             type={element.type}
                             input={(event)=> this.inputChangedHandler(event,element.name)}
-                     />
+                         />
+                        </Aux>
+                    </div>     
                     ))}
 
                     <button style={{display: 'flex', alignSelf: 'center'}} onClick={() => this.handleSubmit()}>Create New Product</button>
 
-                    <button style={{display: 'flex', alignSelf: 'center'}} onClick={() => this.handlePut()}>update product</button>
-                </div>
-
-
-               
+                    {/* <button style={{display: 'flex', alignSelf: 'center'}} onClick={() => this.handlePut()}>update product</button> */}
            </Aux>
         )
     }
