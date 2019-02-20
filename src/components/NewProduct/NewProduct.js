@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import classes from './NewProduct.module.css';
 import Aux from '../../hoc/Aux';
-import Form from '../Form/Form';
-import Label from '../Label/Label';
+// import Form from '../Form/Form';
+// import Label from '../Label/Label';
+import { Container, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+
 
 class NewProduct extends Component {
     state = {
@@ -86,56 +88,36 @@ class NewProduct extends Component {
         axios.post('https://ecommerce-1f552.firebaseio.com/Product.json', order)
     }
 
-    inputChangedHandler = ( event, inputIdentifier) => {
-        //copy previous state
-        //update into prevState
-    
+    inputChangedHandler = ( event, inputIdentifier) => {    
         this.setState({[inputIdentifier]: event.target.value}) 
         console.log(inputIdentifier)
     }
 
-    //map out each element for the form
-
-    //url: https://ecommerce-1f552.firebaseio.com/Product/-LXwIpKppkwXOYOFqVqJ
-
-    handlePut() {
-        const updatedOrder = {
-            name:  'update success!',
-            sku: 'update success!',
-            price: 'update success!',
-            size:  'update success!',
-            description: 'update success!',
-            inventory: 'update success!',
-            images: 'update success!'
-        }
-
-        axios.put('https://ecommerce-1f552.firebaseio.com/Product/-LXwIpKppkwXOYOFqVqJ.json',updatedOrder)
-    }
-
-
     render() {
         return (
             <Aux>
-                {this.formFields.map( element => (
-                    <div className={classes.NewProduct}>
-                       <Aux>
-                            <Label
-                                name={element.name}/>
-                            <Form
-                            key={element.id}
-                            name={element.name}
-                            placeholder={element.placeholder}
-                            type={element.type}
-                            input={(event)=> this.inputChangedHandler(event,element.name)}
-                         />
-                        </Aux>
-                    </div>     
-                    ))}
-
-                    <button style={{display: 'flex', alignSelf: 'center'}} onClick={() => this.handleSubmit()}>Create New Product</button>
-
-                    {/* <button style={{display: 'flex', alignSelf: 'center'}} onClick={() => this.handlePut()}>update product</button> */}
-           </Aux>
+                <Container>
+                    <Form>
+                        {this.formFields.map( element => (
+                            <FormGroup row>
+                                <Label for={element.name} sm={2}> {element.name}</Label>
+                                <Col sm={10}>
+                                    <Input 
+                                        type={element.type} 
+                                        name={element.name} 
+                                        id={element.id} 
+                                        placeholder={element.placeholder}
+                                        onChange={(event) => this.inputChangedHandler(event, element.name)}
+                                        />
+                                </Col>
+                            </FormGroup>
+                        ))}
+                        <FormGroup className = 'text-center' > 
+                            <Button onClick={() => this.handleSubmit()}>Create New Product</Button>
+                        </FormGroup>
+                    </Form>
+                </Container>
+            </Aux>
         )
     }
 }

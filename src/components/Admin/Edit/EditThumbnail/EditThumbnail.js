@@ -5,13 +5,15 @@ import {
     CardImg, 
     CardBody,
     CardTitle, 
-    CardSubtitle, 
     Button, 
     Modal,
     ModalHeader,
     ModalBody,
-    ModalFooter, } from 'reactstrap';
+    ModalFooter, 
+    } from 'reactstrap';
 import axios from 'axios';
+
+
 
 class editThumbnail extends Component {
     state = {
@@ -35,14 +37,14 @@ class editThumbnail extends Component {
         let url = 'https://ecommerce-1f552.firebaseio.com/Product/'+ productId + '.json';
         
         console.log("delete request works!")
-        // axios.delete(url)
-        //     .then( res => {
-        //         console.log(res) 
-        //         console.log("Product Deleted!")
-        //     })
-        //     .catch(error => {
-        //          console.log(error)
-        //     })
+        axios.delete(url)
+            .then( res => {
+                console.log(res) 
+                console.log("Product Deleted!")
+            })
+            .catch(error => {
+                 console.log(error)
+            })
 
         this.setState(prevState => ({
             modal: !prevState.modal
@@ -57,18 +59,17 @@ class editThumbnail extends Component {
             return <Redirect to={url}/>;
         }
         return(
-                <div>
-                    <Card >
+               
+                    <Card className="Card">
                         <CardImg
                             top 
                             src= {this.props.src}
                             alt={this.props.name}
                             onClick={this.handleOnClick}
                             />
-                        <CardBody>
-                            <CardTitle><strong>{this.props.name}</strong></CardTitle>
-                            <CardSubtitle>${this.props.price}</CardSubtitle>
-                            <div style={{textAlign: "center"}} >
+                        <CardBody classId="Card">
+                            <CardTitle className="text-center"><strong>{this.props.name}</strong></CardTitle>
+                            <div className="Button">
                                 <Button color="outline-info">Edit</Button>
                                 <Button color="outline-danger" onClick={this.toggle}>Delete</Button>
                             </div>
@@ -84,7 +85,7 @@ class editThumbnail extends Component {
                             </ModalFooter>
                         </Modal>
                     </Card>
-                </div>
+             
         )
     }
 

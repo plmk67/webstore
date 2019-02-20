@@ -1,0 +1,11 @@
+.Inventory {
+    display: flex;
+    justify-content: center;
+}
+
+.Button{
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    width: auto;
+}

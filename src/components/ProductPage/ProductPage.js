@@ -31,17 +31,6 @@ class Product extends Component {
         } )
         .catch( error => console.log(error))
       }
-
-    //TODO figure out why ID came back with Apostrophes
-    delete(id){
-        const idraw = {id};
-        const idcode = JSON.stringify(idraw.id).replace(/"/g,'')
-        let url = 'https://ecommerce-1f552.firebaseio.com/Product/'+ idcode + '.json';
-    
-        console.log(url)
-        axios.delete(url)
-    }     
-
    
     render () {    
 
@@ -56,10 +45,6 @@ class Product extends Component {
                         price={product.price}
                         name={product.name}
                         />
-                        {/* <button 
-                        id={product.id} 
-                        key={product.id} 
-                        onClick={()=> this.delete(product.id)}>Delete</button> */}
                     </Aux>
                 ))}
             </Aux>

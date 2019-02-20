@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import EditThumbnail from '../Admin/Edit/EditThumbnail/EditThumbnail';
-import Aux from '../../hoc/Aux'
+import classes from './Admin.module.css';
 
 import {
     Collapse,
@@ -48,17 +48,7 @@ class Product extends Component {
          console.log(this.state.products)
         } )
         .catch( error => console.log(error))
-      }
-
-    //TODO figure out why ID came back with Apostrophes
-    delete(id){
-        const idraw = {id};
-        const idcode = JSON.stringify(idraw.id).replace(/"/g,'')
-        let url = 'https://ecommerce-1f552.firebaseio.com/Product/'+ idcode + '.json';
-    
-        console.log(url)
-        axios.delete(url)
-    }     
+      } 
 
     render () {    
         return(
@@ -79,12 +69,11 @@ class Product extends Component {
                 </Collapse>
                 </Navbar>
 
-                <div>
-                    <Container fluid>
-                        
-                            <Row>
+                <div className="Content" >
+                    <Container >
+                            <Row >
                                 {this.state.products.map( product => (
-                                    <Col sm="4" >
+                                    <Col md={4}>
                                         <EditThumbnail 
                                             id={product.id}
                                             src={product.images}
