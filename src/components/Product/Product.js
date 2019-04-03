@@ -4,9 +4,9 @@ import ProductInfo from './ProductInfo/ProductInfo';
 import classes from './Product.module.css';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/action';
 import Aux from '../../hoc/Aux';
 import axios from 'axios';
+import { itemsFetchData }from '../../actions/items';
 
 class product extends Component {
 
@@ -18,7 +18,7 @@ class product extends Component {
 
     //fetching info from Firebase and pushing into State
     componentDidMount () {
-        axios.get('https://ecommerce-1f552.firebaseio.com/Product/' + this.productId+ '.json')
+        axios.get('https://ecommerce-1f552.firebaseio.com/Product/' + this.productId + '.json')
         .then(response => {
           console.log(response)
           this.setState( { data: response.data } 
@@ -26,11 +26,12 @@ class product extends Component {
         } )
         .catch( error => console.log(error))
     }
-
+    
+    //need to use Redux version of grabbing ID and display images
      
     //from state we draw the data and push it into props for ProductInfo component to receive
     render () {
-        console.log(this.productId)
+        console.log(this.props.items)
 
         return (
         <Aux>
@@ -56,17 +57,18 @@ class product extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        pdt: state.products,
-        inventory: state.inventory
+        items: ownProps.items,
+        hasErrored: ownProps.itemsHasErrored,
+        isLoading: ownProps.itemsIsLoading
     };
 };
 
-const mapDispatchToProps = dispatch => { 
+// 1. Send API address to Action.js
+const mapDispatchToProps = (dispatch) => {
     return {
-        onTest: () => dispatch({type: actionTypes.TEST}),
-        onAddToCart: () => dispatch({type: actionTypes.TEST2})
+        fetchData: (url) => dispatch(itemsFetchData(url))
     };
 };
 

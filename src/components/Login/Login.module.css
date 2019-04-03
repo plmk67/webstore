@@ -1,0 +1,40 @@
+.Main{
+    display: flex;
+    justify-content: center;
+}
+
+.Form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 70%;
+}
+
+.FormGroup{
+    display: flex;
+    justify-content: center;
+  
+}
+
+.FormTitle {
+    margin: 15px;
+    width: 80%;
+}
+
+.FormButton {
+    display: flex;
+    justify-content: center;
+}
+
+::-webkit-input-placeholder {
+    font-weight: 600;
+}
+::-moz-placeholder {
+    font-weight: 600;
+}
+:-ms-input-placeholder {
+    font-weight: 600;
+}
+::placeholder {
+    font-weight: 600;
+}

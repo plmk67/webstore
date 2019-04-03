@@ -25,7 +25,7 @@ class Cover extends Component {
             <div 
             className={classes.Cover}>
                 <img src="https://timedotcom.files.wordpress.com/2013/10/lon28321.jpg?quality=85&w=838" 
-                alt="cover photo"
+                alt="black white congregation food"
                 onClick={this.handleOnClick} 
                 ></img>
             </div>

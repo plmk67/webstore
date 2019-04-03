@@ -13,11 +13,9 @@ import {
     } from 'reactstrap';
 import axios from 'axios';
 
-
-
 class editThumbnail extends Component {
     state = {
-        redirect: false,
+        // redirect: false,
         modal: false
     }
 
@@ -27,9 +25,10 @@ class editThumbnail extends Component {
           }));
       }
 
-    handleOnClick = () => {
-        this.setState({redirect: true})    
-    }
+    //canceling
+    // handleOnClick = () => {
+    //     this.setState({redirect: true})    
+    // }
 
     deleteProductHandler = event => {
         event.preventDefault();
@@ -67,23 +66,26 @@ class editThumbnail extends Component {
                             alt={this.props.name}
                             onClick={this.handleOnClick}
                             />
-                        <CardBody classId="Card">
+                        <CardBody>
                             <CardTitle className="text-center"><strong>{this.props.name}</strong></CardTitle>
                             <div className="Button">
                                 <Button color="outline-info">Edit</Button>
                                 <Button color="outline-danger" onClick={this.toggle}>Delete</Button>
                             </div>
                         </CardBody>
-                        <Modal isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className}>
-                            <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-                            <ModalBody>
-                                Are you sure you want to delete {this.props.name}?
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button color="danger" onClick={this.deleteProductHandler}>Delete</Button>{' '}
-                                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                            </ModalFooter>
-                        </Modal>
+                        <div>
+                            <Modal isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className}>
+                                <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                                <ModalBody>
+                                    Are you sure you want to delete {this.props.name}?
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button color="danger" onClick={this.deleteProductHandler}>Delete</Button>{' '}
+                                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                </ModalFooter>
+                            </Modal>
+                        </div>
+                        
                     </Card>
              
         )

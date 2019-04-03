@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import classes from './NewProduct.module.css';
-import Aux from '../../hoc/Aux';
-// import Form from '../Form/Form';
-// import Label from '../Label/Label';
-import { Container, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Container, Button, Form, FormGroup, Label, Input} from 'reactstrap';
 
 
 class NewProduct extends Component {
@@ -17,62 +14,6 @@ class NewProduct extends Component {
         inventory: '',
         image_url: '',
     }
-
-    formFields = [
-        {
-            //temporary ID 
-            id: Math.random().toString(36),
-            name: "name",
-            placeholder: "product name",
-            type:"text" 
-        },
-
-        {
-            id: Math.random().toString(36),
-            name: "sku",
-            placeholder: "SKU",
-            type:"text" 
-        },
-
-        {
-            id: Math.random().toString(36),
-            name: "price",
-            placeholder: "Price",
-            type:"text" 
-        },
-
-        {
-            id: Math.random().toString(36),
-            name: "size",
-            placeholder: "Size",
-            type:"text" 
-        },
-
-        {
-            //temporary ID 
-            id: Math.random().toString(36),
-            name: "description",
-            placeholder: "product description",
-            type:"text" 
-        },
-
-        {
-            //temporary ID 
-            id: Math.random().toString(36),
-            name: "inventory",
-            placeholder: "quantity",
-            type:"number" 
-        },
-
-        {
-            //temporary ID 
-            id: Math.random().toString(36),
-            name: "image_url",
-            placeholder: "url",
-            type:"text" 
-        },
-        
-    ]
 
     handleSubmit() {
         const order = {
@@ -95,29 +36,50 @@ class NewProduct extends Component {
 
     render() {
         return (
-            <Aux>
-                <Container>
-                    <Form>
-                        {this.formFields.map( element => (
-                            <FormGroup row>
-                                <Label for={element.name} sm={2}> {element.name}</Label>
-                                <Col sm={10}>
-                                    <Input 
-                                        type={element.type} 
-                                        name={element.name} 
-                                        id={element.id} 
-                                        placeholder={element.placeholder}
-                                        onChange={(event) => this.inputChangedHandler(event, element.name)}
-                                        />
-                                </Col>
+           
+                <div className={classes.NewProduct}>
+                    <Container>
+                        <Form>
+                            <FormGroup>
+                                <Label>Product Name</Label>
+                                <Input 
+                                    type="text" 
+                                    name="product" 
+                                    onChange={(event) => this.inputChangedHandler(event, 'name')}></Input>
                             </FormGroup>
-                        ))}
-                        <FormGroup className = 'text-center' > 
-                            <Button onClick={() => this.handleSubmit()}>Create New Product</Button>
-                        </FormGroup>
-                    </Form>
-                </Container>
-            </Aux>
+                            <FormGroup>
+                                <Label>Description</Label>
+                                <Input 
+                                    type="textarea" 
+                                    name="description" 
+                                    onChange={(event) => this.inputChangedHandler(event, 'description')}
+                                    ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Price</Label>
+                                <Input 
+                                    type="number" 
+                                    name="price"
+                                    onChange={(event) => this.inputChangedHandler(event, 'price')}
+                                    ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Image URL</Label>
+                                <Input 
+                                    type="text" 
+                                    name="image"
+                                    onChange={(event) => this.inputChangedHandler(event, 'image_url')}
+                                ></Input>
+                            </FormGroup>
+
+                            <FormGroup className = 'text-center' > 
+                                <Button onClick={() => this.handleSubmit()}>Create New Product</Button>
+                            </FormGroup>
+                        </Form>
+                    </Container>
+                </div>
+            
+    
         )
     }
 }

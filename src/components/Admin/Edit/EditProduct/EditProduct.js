@@ -1,69 +1,87 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import ProductThumbnail from '../ProductThumbnail/ProductThumbnail'
-import Aux from '../../hoc/Aux'
+import classes from './NewProduct.module.css';
+import { Container, Button, Form, FormGroup, Label, Input} from 'reactstrap';
 
 
 class EditProduct extends Component {
     state = {
-        products: [],
+        name: '',
+        sku: '',
+        price: '',
+        size: '',
+        description: '',
+        inventory: '',
+        image_url: '',
     }
 
-    //get request to grab all product data
-    componentDidMount () {
-        axios.get('https://ecommerce-1f552.firebaseio.com/Product.json')
-        .then(response => {
-          
-         const fetchedProduct = [];
-        
-         //TODO figure out how this bypassed the id issue with Firebase
-         for (let key in response.data) {
-            fetchedProduct.push({
-              ...response.data[key],
-              id: key
-            });
-         }
+    handleSubmit() {
+        const order = {
+            name: this.state.name,
+            sku: this.state.sku,
+            price: this.state.price,
+            size: this.state.size,
+            description: this.state.description,
+            inventory: this.state.inventory,
+            images: this.state.image_url
+        }
 
-         this.setState({products: fetchedProduct})
-         console.log(this.state.products)
-        } )
-        .catch( error => console.log(error))
-      }
+        axios.post('https://ecommerce-1f552.firebaseio.com/Product.json', order)
+    }
 
-    //TODO figure out why ID came back with Apostrophes
-    delete(id){
-        const idraw = {id};
-        const idcode = JSON.stringify(idraw.id).replace(/"/g,'')
-        let url = 'https://ecommerce-1f552.firebaseio.com/Product/'+ idcode + '.json';
+    inputChangedHandler = ( event, inputIdentifier) => {    
+        this.setState({[inputIdentifier]: event.target.value}) 
+        console.log(inputIdentifier)
+    }
+
+    render() {
+        return (
+           
+                <div className={classes.NewProduct}>
+                    <Container>
+                        <Form>
+                            <FormGroup>
+                                <Label>Product Name</Label>
+                                <Input 
+                                    type="text" 
+                                    name="product" 
+                                    onChange={(event) => this.inputChangedHandler(event, 'name')}></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Description</Label>
+                                <Input 
+                                    type="textarea" 
+                                    name="description" 
+                                    onChange={(event) => this.inputChangedHandler(event, 'description')}
+                                    ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Price</Label>
+                                <Input 
+                                    type="number" 
+                                    name="price"
+                                    onChange={(event) => this.inputChangedHandler(event, 'price')}
+                                    ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Image URL</Label>
+                                <Input 
+                                    type="text" 
+                                    name="image"
+                                    onChange={(event) => this.inputChangedHandler(event, 'image_url')}
+                                ></Input>
+                            </FormGroup>
+
+                            <FormGroup className = 'text-center' > 
+                                <Button onClick={() => this.handleSubmit()}>Create New Product</Button>
+                            </FormGroup>
+                        </Form>
+                    </Container>
+                </div>
+            
     
-        console.log(url)
-        axios.delete(url)
-    }     
-
-    render () {    
-
-        return(
-            <Aux>
-                {this.state.products.map( product => (
-                    <Aux>
-                    <ProductThumbnail 
-                        id={product.id}
-                        src={product.images}
-                        alt={product.name}
-                        price={product.price}
-                        name={product.name}
-                        />
-                        
-                        <button 
-                        id={product.id} 
-                        key={product.id} 
-                        onClick={()=> this.delete(product.id)}>Delete</button>
-                    </Aux>
-                ))}
-            </Aux>
-        );
+        )
     }
 }
 
 export default EditProduct;
-

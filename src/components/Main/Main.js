@@ -1,6 +1,5 @@
 import React, { Component }from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import axios from 'axios';
 import Aux from '../../hoc/Aux';
 import StoreTitle from '../StoreTitle/StoreTitle';
 import Cover from '../Cover/Cover'
@@ -10,62 +9,65 @@ import ProductPage from '../ProductPage/ProductPage';
 import Inventory from '../Inventory/Inventory';
 import Admin from '../Admin/Admin';
 import Footer from '../Footer/Footer';
-
+import { itemsFetchData }from '../../actions/items';
+import { connect } from 'react-redux';
+import NavBar from '../NavBar/NavBar';
+import Login from '../Login/Login';
 
 class layout extends Component {
-    state = {
-      products: []
-    }
 
-    // fetching info from Firebase and pushing into State
-    componentDidMount () {
-        axios.get('https://ecommerce-1f552.firebaseio.com/Product.json')
-        .then(response => {
-          
-         const fetchedProduct = [];
+    componentDidMount() {
+        this.props.fetchData('https://ecommerce-1f552.firebaseio.com/Product.json');
+        console.log("API called!")
         
-         //TODO figure out how this bypassed the id issue with Firebase
-         for (let key in response.data) {
-            fetchedProduct.push({
-              ...response.data[key],
-              id: key
-            });
-         }
-
-         this.setState({products: fetchedProduct})
-         console.log(this.state.products)
-        } )
-        .catch( error => console.log(error))
-      }
+    }
 
     linkHandler () {
         return <Redirect to='/product'/>
     }  
     
     render(){
+        
+        console.log(this.props.items)
 
         return(
-       
             <Aux>
+                <NavBar/>
                 <StoreTitle/>
                     <Switch>
                         <Route path='/' exact component={Cover}/>
-                        <Route path='/product/' render={(props) =><Product {...props}/>}/>
-                        <Route path='/productpage' exact component={ProductPage}/>
+                        <Route path='/product' render={(props) =><Product {...props}/>}/>
+                        <Route path='/productpage' exact render={(props) => <ProductPage {...props}/>}/>
+                        <Route path='/login' component={Login}/>
                         
                         {/* Admin Routes  */}
-                        <Route path='/admin/' exact component={Admin}/> 
+                        <Route path='/admin' exact component={Admin}/> 
                         <Route path='/admin/inventory' exact component={Inventory}/> 
                         <Route path='/admin/newproduct' exact component={NewProduct}/>
                         {/* <Route path='/admin/edit' exact component={}/>  */}
                     </Switch>
                 <Footer/>
             </Aux>
-    
         )
     }
 }
     
+const mapStateToProps = (state) => {
+    return {
+        items: state.items,
+        hasErrored: state.itemsHasErrored,
+        isLoading: state.itemsIsLoading
+    };
+};
+
+// 1. Send API address to Action.js
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchData: (url) => dispatch(itemsFetchData(url))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(layout);
 
 
-export default layout;
+

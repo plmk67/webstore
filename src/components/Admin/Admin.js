@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import EditThumbnail from '../Admin/Edit/EditThumbnail/EditThumbnail';
-import classes from './Admin.module.css';
+import { itemsFetchData }from '../../actions/items';
 
 import {
     Collapse,
@@ -15,11 +15,9 @@ import {
     Row,
     Col } from 'reactstrap';
 
-
-
 class Product extends Component {
     state = {
-        products: []
+        isOpen: false
     }
 
     toggle = this.toggle.bind(this);
@@ -30,29 +28,12 @@ class Product extends Component {
     });
     }
 
-    componentDidMount () {
-        axios.get('https://ecommerce-1f552.firebaseio.com/Product.json')
-        .then(response => {
-          
-         const fetchedProduct = [];
-        
-         //TODO figure out how this bypassed the id issue with Firebase
-         for (let key in response.data) {
-            fetchedProduct.push({
-              ...response.data[key],
-              id: key
-            });
-         }
-
-         this.setState({products: fetchedProduct})
-         console.log(this.state.products)
-        } )
-        .catch( error => console.log(error))
-      } 
+    componentDidMount() {
+        this.props.fetchData('https://ecommerce-1f552.firebaseio.com/Product.json');
+    }  
 
     render () {    
         return(
-            
             <div>
                 <Navbar color="light" light expand="md">
                 <NavbarBrand>Welcome Admin!</NavbarBrand>
@@ -72,19 +53,18 @@ class Product extends Component {
                 <div className="Content" >
                     <Container >
                             <Row >
-                                {this.state.products.map( product => (
-                                    <Col md={4}>
+                                {this.props.items.map( item => (
+                                    <Col key = {item.id} md={4}>
                                         <EditThumbnail 
-                                            id={product.id}
-                                            src={product.images}
-                                            alt={product.name}
-                                            price={product.price}
-                                            name={product.name}
+                                            id={item.id}
+                                            src={item.images}
+                                            alt={item.name}
+                                            price={item.price}
+                                            name={item.name}
                                             />
                                     </Col>   
                                 ))}
                             </Row>
-                
                     </Container>
                 </div>
             </div>
@@ -92,7 +72,22 @@ class Product extends Component {
     }
 }
 
-export default Product;
+const mapStateToProps = (state) => {
+    return {
+        items: state.items,
+        hasErrored: state.itemsHasErrored,
+        isLoading: state.itemsIsLoading
+    };
+};
+
+// 1. Send API address to Action.js
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchData: (url) => dispatch(itemsFetchData(url))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
 
 
 

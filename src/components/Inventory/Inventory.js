@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { Table, Container, Input, Button} from 'reactstrap';
 import classes from './Inventory.module.css'
+import { itemsFetchData } from '../../actions/items';
+
 
 class Inventory extends Component {
     state = {
@@ -50,7 +53,6 @@ class Inventory extends Component {
     
     updateInventoryHandler = () => {
         Object.values(this.state.inventory).map( item => (
-        
             axios.put(
                 'https://ecommerce-1f552.firebaseio.com/Product/'+ item.id +'/inventory.json',
                 item.inventory)
@@ -59,10 +61,11 @@ class Inventory extends Component {
                 .catch ( error => 
                     console.log(error))
             )
-        )        
+        )
     }  
 
     render(){
+        console.log(this.props.items)
 
         return(
             <div className ={classes.Inventory}>
@@ -75,7 +78,7 @@ class Inventory extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.products.map( (product, index) => (
+                            {this.props.items.map( (product, index) => (
                                <tr key={product.id}  >
                                     <td > 
                                         {product.name}
@@ -95,4 +98,24 @@ class Inventory extends Component {
             </div>
             )}
 }
-export default Inventory
+
+//might be because when we called the ComponentWillMount, after switching the data it gets lost
+
+const mapStateToProps = (state) => {
+    return {
+        items: state.items,
+        hasErrored: state.itemsHasErrored,
+        isLoading: state.itemsIsLoading
+    };
+};
+
+// 1. Send API address to Action.js
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchData: (url) => dispatch(itemsFetchData(url))
+    };
+};
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Inventory);

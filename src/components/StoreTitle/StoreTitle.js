@@ -10,23 +10,23 @@ class storeTitle extends Component {
     }
     
     render() {
+        
         if(this.state.redirect) {
-            
             this.setState({redirect:false})
             return (
                 <Aux>
                     <Redirect to="/" />
-                    <div className={classes.StoreTitle}>
-                        <h1>corduroi club</h1>
-                    </div>
                 </Aux>
             )
         }
 
         return(
-            <div className={classes.StoreTitle} onClick={()=> this.setState({redirect: true})}>
-                <h1>corduroi club</h1>
-            </div>
+            <Aux>
+                 <div className={classes.StoreTitle} onClick={()=> this.setState({redirect: true})}>
+                    <h1>corduroi club</h1>
+                </div>
+            </Aux>
+           
         )
     }
 } 
