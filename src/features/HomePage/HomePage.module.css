@@ -1,0 +1,47 @@
+.HomePage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 50px 0px 50px;
+}
+
+.HomePage img {
+    margin-top: 50px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.Title {
+    width: 1116px;
+}
+
+.Title img {
+    width: 142px;
+    height: 50px;
+    margin: 110px 0 80px;
+}
+
+.StoreDescription {
+    display: flex;
+    justify-content: flex-start;
+    width: 1116px;
+}
+
+.StoreDescription__Text {
+    width: 45%;
+    padding-right: 50px;
+}
+
+.StoreDescription li {
+   margin-bottom: 0.25em;
+   font-size: 13px;
+   font-weight: bold;
+   clear: both;
+   list-style: none;
+}
+
+.Footer {
+    width: 1130px;
+    display: flex;
+    justify-content: flex-end
+}
