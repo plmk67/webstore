@@ -7,14 +7,14 @@ import './index.css';
 import App from './app/components/layout/App'
 
 //State that was grouped together
-// import configureStore from './store/configureStore';
+import configureStore from './app/store/configureStore';
 
 //Redux-Thunk configuration
-// const store = configureStore();
+const store = configureStore();
 
 ReactDOM.render(
     // <Provider store={store}>
-    <Provider>
+    <Provider store={store}>
         <BrowserRouter>
             <App/>
         </BrowserRouter>

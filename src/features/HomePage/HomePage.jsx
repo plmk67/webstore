@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Row, NavItem} from 'react-bootstrap';
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import classes from './HomePage.module.css'
 import Footer from '../../app/components/layout/Footer/Footer'
 
