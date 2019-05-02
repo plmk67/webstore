@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     margin: 0px 50px 0px 50px;
+    max-width: 1030px;
 }
 
 .HomePage img {
@@ -12,7 +13,9 @@
 }
 
 .Title {
-    width: 1116px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 .Title img {
@@ -24,7 +27,7 @@
 .StoreDescription {
     display: flex;
     justify-content: flex-start;
-    width: 1116px;
+    
 }
 
 .StoreDescription__Text {
@@ -41,7 +44,12 @@
 }
 
 .Footer {
-    width: 1130px;
     display: flex;
-    justify-content: flex-end
+    justify-content: flex-end;
+    width: 100%;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
 }

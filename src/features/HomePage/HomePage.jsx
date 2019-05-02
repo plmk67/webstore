@@ -1,5 +1,6 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, NavItem} from 'react-bootstrap';
+import { NavLink, Link } from 'react-router-dom'
 import classes from './HomePage.module.css'
 import Footer from '../../app/components/layout/Footer/Footer'
 
@@ -7,50 +8,42 @@ import Footer from '../../app/components/layout/Footer/Footer'
 const HomePage = ({history}) => {
     return (
       
-            <Container className={classes.HomePage}>
-            <div className={classes.Cover}>
-                <img 
+        <Container className={classes.HomePage}>
+            <Row as={Link} to={'/collection'} className={classes.Cover}>
+                <img
                     src="https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/slide_1.jpg?713"
                     alt="kids"
                 />
-            </div>
-            
-            <div className={classes.Title}>
+            </Row>
+            <Row className={classes.Title}>
                 <img src="//cdn.shopify.com/s/files/1/0818/5483/t/10/assets/cc-logo.svg?713" alt=""/>
-            </div>
-            <div className={classes.StoreDescription}>
-                <div className={classes.StoreDescription__Text}>
+            </Row>
+            <Row className={classes.StoreDescription}>
+                <Row className={classes.StoreDescription__Text}>
                     <strong>[corduroi club]</strong> is derived from the French term “cœur du roi” meaning the heart of the King—the pursuit of excellence and good work in our daily lives. This stands as the sole focus of the brand in creating “everyday wearables” where the simpleness of the garments highlights the uniqueness and beauty of each individual.
                     <br/>
                     <br/>
                     Everyday goods for extraordinary people.
-                </div>
-                <div className={classes.StoreDescription__Link}>
+                </Row>
+                <Row className={classes.StoreDescription__Link}>
                     <li>
-                        <a href=''>Home</a>
+                        <NavItem as={Link} to={'/'}>Home</NavItem>
                     </li>
                     <li>
-                        <a href=''>Blog</a>
+                        <NavItem>Blog</NavItem>
                     </li>
                     <li>
-                        <a href=''>Contact Us</a>
+                        <NavItem>Contact Us</NavItem>
                     </li>
                     <li>
-                        <a href=''>Stockist</a>
+                        <NavItem as={Link} to={'/collection'}>Online Shop</NavItem>
                     </li>
-                    <li>
-                        <a href=''>Online Shop</a>
-                    </li>
-                </div>
-            </div>
-            <div className={classes.Footer}>
-                <Footer/> 
-            </div>
-
-                 
+                </Row>
+            </Row>
+            <Row className={classes.Footer}>
+                <Footer /> 
+            </Row>
         </Container>
-
-        
     )
 }
 

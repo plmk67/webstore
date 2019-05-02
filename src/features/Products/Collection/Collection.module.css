@@ -1,0 +1,51 @@
+.Collection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1030px;
+    background-color: lightblue;
+}
+
+.Header {
+    padding: 30px;
+}
+
+.ProductList {
+    background-color: pink;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.ProductList__Col {
+    margin: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.ProductList__Card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 289px;
+}
+
+.ProductList__Card__Img {
+    width: 100%;
+    
+}
+
+.ProductList__ProductName {
+    text-align: center;
+    font-size: 11px;
+    font-color: #000000;
+    font-weight: 700;
+}
+
+.ProductList__ProductPrice {
+    text-align: center;
+    font-size: 9px;
+    color: #1a1a1a;
+    font-weight: 400
+}
