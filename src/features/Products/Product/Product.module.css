@@ -1,6 +1,5 @@
 .Product {
-    max-width: 1020px;
-    
+    max-width: 1020px; 
 }
 
 .Header {
@@ -17,7 +16,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    
 }
 
 .Product_Info__Gallery {
@@ -25,31 +23,64 @@
     justify-content: center;
     /* background-color: pink; */
     width: 50%;
+    padding-right: 60px;
 }
 
 .Product_Info__Gallery img {
     width: 100%;
+    height: 100%;
     max-width: 460px;
-    margin-left: 25px;
-    margin-right: 50px;
+    max-height: 460px;
+    padding-right: 15px;
+}
+
+.Product_Info_Alt_Image {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    max-width: 460px;
+    padding-top: 30px;
+}
+
+.Product_Info_Alt_Image img{
+    max-width: 117px;
+    max-height: 117px;
 }
 
 .Product_Info__Detail {
     /* background-color: lightblue; */
     width: 50%;
     padding-left: 20px;
+    
 }
 
 .Price {
     color: #111;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
+    margin-top: 5px;
 }
 
 .Quantity {
-    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    
+    font-size: 10px;
     line-height: 1.7;
     font-weight: bold;
+    padding-left: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+.Quantity_InputField {
+    width: 70px;
+
+}
+
+.Add_To_Cart {
+    padding: 20px 0px 20px 0px;
 }
 
 p {

@@ -27,11 +27,13 @@ class Collection extends Component {
 
     <div>
         <Container className={classes.Collection}>
-           <Row className={classes.Header}>
-              <h1>corduroi club</h1>
+            <Row className={classes.Header}>
+              <img
+              src="//cdn.shopify.com/s/files/1/0818/5483/t/10/assets/cc-logo.svg?713"
+              alt='Store Logo'></img>
             </Row>
             <Row className={classes.ProductList}>
-              <Container >
+              <Container className={classes.ProductList__Container}>
                 <Row>
                   <Col >
                     <Card className={classes.ProductList__Card}>
@@ -44,16 +46,14 @@ class Collection extends Component {
                           alt="blue hat"
                           />
                       </Row>
-                      <Row>
+                      <Row className={classes.ProductList__CardDetail}>
                         <Card.Text 
                         className={classes.ProductList__ProductName}>{Products.Product_Name}</Card.Text>
                         <Card.Text className={classes.ProductList__ProductPrice}>{Products.Product_Price}</Card.Text>
                       </Row>
                     </Card>
                   </Col>
-
                 </Row>
-
               </Container>
             </Row>
             <Row>

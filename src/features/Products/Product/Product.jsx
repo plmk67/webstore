@@ -3,7 +3,27 @@ import { Container, Row, Col, FormControl, Button} from 'react-bootstrap'
 import classes from './Product.module.css'
  
 class Product extends Component {
+  
+  state = {
+    hero_image: 'https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05636_grande.jpg?v=1496378162'
+  }
+
+  handleImageChange = (payload) => {
+
+   
+    this.setState({
+      hero_image: payload.image
+    })
+  }
+
   render() {
+
+    const images = [
+     'https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05636_grande.jpg?v=1496378162',
+     'https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05640-Edit_grande.jpg?v=1496378162',
+     'https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05633-Edit_grande.jpg?v=1496378178'
+    ]
+
     return (
       <Container className={classes.Product}>
         <Row className={classes.Header}>
@@ -15,30 +35,37 @@ class Product extends Component {
           <Container className={classes.Product_Info}>
             <Row className={classes.Product_Info__Gallery}>
               <Col>
-                <img
-                src="https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05636_1024x1024.jpg?v=1496378162"></img>
+                <Row>
+                  <img
+                  src={this.state.hero_image}
+                  alt={this.state.hero_image}></img>
+                </Row>
+                <Row className={classes.Product_Info_Alt_Image}>
+                  {images && images.map(image => 
+                    <img onClick={() => this.handleImageChange({image})} src={image}></img>)}
+                </Row>
               </Col>
+
             </Row>
             <Row className={classes.Product_Info__Detail}>
               <Col>
                 <Row>
-                  <h3>{this.props.match.params.ProductName}</h3>
+                  <h5>{this.props.match.params.ProductName}</h5>
                 </Row>
                 <Row className={classes.Price}>
                   <span>$20.00</span>
                 </Row>
-                <br/>
                 <Row className={classes.Quantity}>
                   <Row>
                     <span>Quantity</span>
                   </Row>
-                  <Row>
-                    <FormControl type="number" min={0} value={1}></FormControl>
+                  <Row className={classes.Quantity_InputField}>
+                    {/* TDL fix placeholder text */}
+                    <FormControl type="number" min={0} max={20} placeholder={1}></FormControl>
                   </Row>
                 </Row>
-                <br/>
-              
-                <Row>
+                <Row className={classes.Add_To_Cart}>
+                  {/* TDL fix Add to Cart color */}
                   <Button variant="dark">Add to Cart</Button>
                 </Row>
 
@@ -55,7 +82,6 @@ class Product extends Component {
                   </ul>
                 </Row>
               </Col>
-              
             </Row>
           </Container>
         </Row>

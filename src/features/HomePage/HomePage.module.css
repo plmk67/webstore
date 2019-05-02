@@ -4,18 +4,28 @@
     align-items: center;
     margin: 0px 50px 0px 50px;
     max-width: 1030px;
+    
 }
 
-.HomePage img {
-    margin-top: 50px;
-    max-width: 100%;
-    max-height: 100%;
+.Cover {
+    margin: 0px;
+    
 }
+
+.Cover img {
+    object-fit: contain;
+    max-width: 1030px;
+    
+}
+
+
 
 .Title {
     display: flex;
+    flex-direction: row;
     justify-content: flex-start;
-    width: 100%;
+    
+    width: 1030px;
 }
 
 .Title img {
@@ -27,12 +37,18 @@
 .StoreDescription {
     display: flex;
     justify-content: flex-start;
-    
+}
+
+.StoreDescription__Link {
+    display: flex;
+    flex-direction: column
 }
 
 .StoreDescription__Text {
     width: 45%;
     padding-right: 50px;
+    margin: 0px;
+    font-size: 13px;
 }
 
 .StoreDescription li {
