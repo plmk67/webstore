@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     max-width: 1030px;
-    background-color: lightblue;
+    /* background-color: lightblue; */
 }
 
 .Header {
@@ -13,28 +13,31 @@
 }
 
 .ProductList {
-    background-color: pink;
-    width: 100%;
-    
+    /* background-color: pink; */
+    width: 100%; 
 }
 
 .ProductList__Container {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    
 }
 
 .ProductList__Col {
-    margin: 10px;
     display: flex;
     width: 100%;
-    justify-content: space-evenly;
 }
 
 .ProductList__Card {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px 30px 10px 30px;
     max-width: 289px;
+}
+
+.ProductList__Card .card{
+    border: none;
 }
 
 .ProductList__CardDetail {

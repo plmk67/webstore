@@ -1,16 +1,15 @@
 import React, { Component} from 'react'
+import { connect } from 'react-redux'
 import { Container, Row, Col, FormControl, Button} from 'react-bootstrap'
 import classes from './Product.module.css'
  
 class Product extends Component {
   
   state = {
-    hero_image: 'https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05636_grande.jpg?v=1496378162'
+    hero_image: this.props.product.product_image
   }
 
   handleImageChange = (payload) => {
-
-   
     this.setState({
       hero_image: payload.image
     })
@@ -18,11 +17,8 @@ class Product extends Component {
 
   render() {
 
-    const images = [
-     'https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05636_grande.jpg?v=1496378162',
-     'https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05640-Edit_grande.jpg?v=1496378162',
-     'https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05633-Edit_grande.jpg?v=1496378178'
-    ]
+    const images = this.props.product.product_image
+    const {product} = this.props
 
     return (
       <Container className={classes.Product}>
@@ -50,10 +46,10 @@ class Product extends Component {
             <Row className={classes.Product_Info__Detail}>
               <Col>
                 <Row>
-                  <h5>{this.props.match.params.ProductName}</h5>
+                  <h5>{product.product_name}</h5>
                 </Row>
                 <Row className={classes.Price}>
-                  <span>$20.00</span>
+                  <span>{product.product_price}</span>
                 </Row>
                 <Row className={classes.Quantity}>
                   <Row>
@@ -71,14 +67,12 @@ class Product extends Component {
 
                 <Row>
                     <p>
-                      The vintage 90s Koh-I-Noor Rapidomatic mechanical pencils were an industry standard instrument used by design students, drafters, and engineers. Known for its balance and simple aesthetic, these deadstock Rapidomatic pencils feature a diamond-cut grip area, lead degree indicator and a red hexagonal body.
+                      {product.product_description}
                     </p>
                 </Row>
                 <Row>
                   <ul>
-                    <li>Model Number: 5633</li>
-                    <li>Lead Diameter: 0.3mm</li>
-                    <li>Deadstock, Brand new in original package</li>
+                    {product.bulletpoint.map(bulletpoint => <li>{bulletpoint}</li>)}
                   </ul>
                 </Row>
               </Col>
@@ -86,13 +80,22 @@ class Product extends Component {
           </Container>
         </Row>
       </Container>
-   
-        
-   
     )
   }
-    
-  
 }
 
-export default Product
+const mapToState = (state, ownProps) => {
+  const productId = ownProps.match.params.ProductName
+
+  let product ={};
+
+  if (productId && state.product.length > 0) {
+    product = state.product.filter(product => productId === product.product_name)[0]
+  }
+
+  return {
+    product
+  }
+}
+
+export default connect(mapToState)(Product)

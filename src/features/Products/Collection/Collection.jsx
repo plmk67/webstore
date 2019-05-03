@@ -22,10 +22,9 @@ class Collection extends Component {
             </Row>
             <Row className={classes.ProductList}>
               <Container className={classes.ProductList__Container}>
-              <Col >
                 {products && products.map(product => 
-
-                      <Card className={classes.ProductList__Card}>
+                    <Col >
+                      <Row className={classes.ProductList__Card }>
                         <Row as={Link}
                             to={{pathname:`/collection/product/${product.product_name}`}}
                             >
@@ -40,13 +39,13 @@ class Collection extends Component {
                           className={classes.ProductList__ProductName}>{product.product_name}</Card.Text>
                           <Card.Text className={classes.ProductList__ProductPrice}>{product.product_price}</Card.Text>
                         </Row>
-                      </Card>
+                      </Row>
+                      </Col>
                 )}
-              </Col>
               </Container>
             </Row>
             <Row>
-                <Footer /> 
+            <Footer /> 
             </Row>
         </Container>
     </div>
