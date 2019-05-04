@@ -1,1 +1,1 @@
-export const CREATE_EVENT = "CREATE_EVENT";
+export const ADD_TO_CART = "ADD_TOCART";

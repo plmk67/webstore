@@ -1,5 +1,5 @@
 import { createReducer } from '../../common/util/reducerUtil'
-import { CREATE_EVENT } from './productsConstants'
+import { ADD_TO_CART } from './productsConstants'
 
 const initialState = [{
   product_sku: 'SKU 001',
@@ -7,8 +7,7 @@ const initialState = [{
   product_price: '$20.00',
   product_description: 'The vintage 90s Koh-I-Noor Rapidomatic mechanical pencils were an industry standard instrument used by design students, drafters, and engineers. Known for its balance and simple aesthetic, these deadstock Rapidomatic pencils feature a diamond-cut grip area, lead degree indicator and a red hexagonal body.',
   bulletpoint: [ 'Model Number: 5633','Lead Diameter: 0.3mm','Deadstock, Brand new in original package'],
-  product_image: ['https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05636_1024x1024.jpg?v=1496378162','https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05640-Edit_grande.jpg?v=1496378162','https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05633-Edit_grande.jpg?v=1496378178'
-]
+  product_image: ['https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05636_1024x1024.jpg?v=1496378162','https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05640-Edit_grande.jpg?v=1496378162','https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05633-Edit_grande.jpg?v=1496378178']
 },
 {
   product_sku: 'SKU 002',
@@ -33,9 +32,9 @@ const initialState = [{
   product_image: ['https://cdn.shopify.com/s/files/1/0818/5483/products/DSC04747-Edit-2_1024x1024.jpg?v=1496369761', 'https://cdn.shopify.com/s/files/1/0818/5483/products/DSC04753-Edit_grande.jpg?v=1496369774']
 }]
 
-  export const createEvent = (state, payload) => {
+export const addToCart = (state, payload) => {
     //review
-    return [...state, Object.assign({}, payload.event)]
+    return [...state, Object.assign({}, payload.shopping_cart)]
 }
 
-export default createReducer (initialState, {[CREATE_EVENT]: createEvent})
+export default createReducer (initialState, {[ADD_TO_CART]: addToCart})
