@@ -1,5 +1,5 @@
 import { createReducer } from '../../common/util/reducerUtil'
-import { ADD_TO_CART } from './productsConstants'
+
 
 const initialState = [{
   product_sku: 'SKU 001',
@@ -23,7 +23,7 @@ const initialState = [{
   product_image: ['https://cdn.shopify.com/s/files/1/0818/5483/products/R0000436-Edit_1024x1024.jpg?v=1496215388','https://cdn.shopify.com/s/files/1/0818/5483/products/R0000438-Edit_grande.jpg?v=1496215403','https://cdn.shopify.com/s/files/1/0818/5483/products/R0000447-Edit_grande.jpg?v=1496215412']
 },
 {
-  product_sku: 'SKU 002',
+  product_sku: 'SKU 003',
   product_name: 'Oatmeal Melange Socks',
   product_price: '$12.00',
   product_description: 'Featuring a unique slubby texture from cotton and nylon blend, we have found the perfect thickness that is comfortable for all seasons. Our Oatmeal Melange Socks are designed for everyday use and will withstand many cycles of washing and drying.',
@@ -32,9 +32,4 @@ const initialState = [{
   product_image: ['https://cdn.shopify.com/s/files/1/0818/5483/products/DSC04747-Edit-2_1024x1024.jpg?v=1496369761', 'https://cdn.shopify.com/s/files/1/0818/5483/products/DSC04753-Edit_grande.jpg?v=1496369774']
 }]
 
-export const addToCart = (state, payload) => {
-    //review
-    return [...state, Object.assign({}, payload.shopping_cart)]
-}
-
-export default createReducer (initialState, {[ADD_TO_CART]: addToCart})
+export default createReducer (initialState, {})

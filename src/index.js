@@ -12,8 +12,8 @@ import configureStore from './app/store/configureStore';
 //Redux-Thunk configuration
 const store = configureStore();
 
+
 ReactDOM.render(
-    // <Provider store={store}>
     <Provider store={store}>
         <BrowserRouter>
             <App/>
