@@ -1,6 +1,7 @@
 import React, { Component} from 'react'
 import { connect } from 'react-redux'
 import { Container, Row, Col, FormControl, Button} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { addToCart } from '../../Checkout/checkoutActions'
 import classes from './Product.module.css'
  
@@ -9,7 +10,6 @@ class Product extends Component {
   state = {
     hero_image: this.props.product.product_image,
     shopping_cart_input: null,
-    checkout_quantity: 0,
     update_order: false,
     order: {} 
   }
@@ -44,11 +44,12 @@ class Product extends Component {
       product_sku: product.product_sku,
       product_name: product.product_name,
       product_image: product.product_image[0],
-      order_quantity: this.state.shopping_cart
+      product_price: product.product_price,
+      order_quantity: this.state.shopping_cart_input
     }
     const order_quantity = this.state.shopping_cart_input;
   
-    console.log(this.order)
+    console.log(this.state.shopping_cart_input)
 
     return (
       <Container className={classes.Product}>
@@ -60,6 +61,7 @@ class Product extends Component {
         {/* temporary testing zone */}
         <Row> 
           <h4> Cart: {this.state.checkout_quantity}</h4>
+          <Button as={Link} to={`/checkout`}>Go to Checkout</Button>
         </Row>
         
         <Row >

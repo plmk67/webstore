@@ -1,0 +1,137 @@
+.CheckoutPage {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.CheckoutPage__Header{
+    display:flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.CheckoutPage__Header img {
+    padding-top: 75px;
+    padding-bottom: 50px;
+    width: 142px;
+}
+
+.CheckoutPage__Quantity_Price_Header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 850px;
+    text-align: right;
+    
+}
+.CheckoutPage__Quantity_Price_Header p{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+.CheckoutPage__Items{
+    display: flex;
+    justify-content: center;
+    width: 850px;
+   
+}
+
+.CheckoutPage__Items img {
+    margin: 20px;
+    width: 157px;
+    height: 157px;
+}
+
+.CheckoutPage_ItemList{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.CheckoutPage__Thumbnail_Info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+}
+
+.CheckoutPage__Quantity_Price {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50%;
+}
+
+.CheckoutPage__Quantity_Price col{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50%;
+}
+.CheckoutPage__Price {
+    display: flex;
+    justify-content: flex-end
+}
+
+.CheckoutPage__Quantity{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 24px;
+
+}
+
+.CheckoutPage__Quantity input{
+    width: 60px;
+    text-align: center;
+}
+
+.CheckoutPage__Total {
+    display: flex;
+    justify-content: flex-end
+}
+
+
+.CheckoutPage__Update_Checkout{
+    display: flex;
+    justify-content: flex-end;
+    width: 850px;
+}
+
+.CheckoutPage__Update_Checkout button{
+    margin: 10px;
+    width: 140px
+}
+
+
+.CheckoutPage__Subtotal {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 5px 0px 0px;
+    width: 850px;
+}
+
+.CheckoutPage__Subtotal p {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.CheckoutPage__Line hr{
+    width: 850px;
+}
+
+
+
+
+hr {
+    display: flex;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
