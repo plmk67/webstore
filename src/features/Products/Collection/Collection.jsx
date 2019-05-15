@@ -37,7 +37,7 @@ class Collection extends Component {
                         <Row className={classes.ProductList__CardDetail}>
                           <Card.Text 
                           className={classes.ProductList__ProductName}>{product.product_name}</Card.Text>
-                          <Card.Text className={classes.ProductList__ProductPrice}>{product.product_price}</Card.Text>
+                          <Card.Text className={classes.ProductList__ProductPrice}>${product.product_price.toFixed(2)}</Card.Text>
                         </Row>
                       </Row>
                       </Col>

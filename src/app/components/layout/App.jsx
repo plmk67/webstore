@@ -4,7 +4,7 @@ import { Switch, Route} from 'react-router-dom'
 import HomePage from '../../../features/HomePage/HomePage'
 import Collection from '../../../features/Products/Collection/Collection'
 import Product from '../../../features/Products/Product/Product'
-import CheckoutPage from '../../../features/Checkout/CheckoutPage/CheckoutPage'
+import Cart from '../../../features/Checkout/Cart/Cart'
 import classes from './App.module.css';
 
 class App extends Component {
@@ -23,7 +23,7 @@ class App extends Component {
               <Switch>
                 <Route path="/collection" exact component={Collection} />
                 <Route path="/collection/product/:ProductName" exact component={Product} />
-                <Route path="/checkout" exact component={CheckoutPage} />
+                <Route path="/cart" exact component={Cart} />
               </Switch>
             </Container>
           </div>

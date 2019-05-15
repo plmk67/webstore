@@ -10,6 +10,3 @@ export const addToCart = (state, payload) => {
 export default createReducer(initialState, {
     [ADD_TO_CART]: addToCart
 })
-
-
-

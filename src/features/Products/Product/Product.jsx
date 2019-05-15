@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import { connect } from 'react-redux'
-import { Container, Row, Col, FormControl, Button} from 'react-bootstrap'
+import { Container, Row, Col, FormControl, Button, Modal} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { addToCart } from '../../Checkout/checkoutActions'
 import classes from './Product.module.css'
@@ -11,7 +11,9 @@ class Product extends Component {
     hero_image: this.props.product.product_image,
     shopping_cart_input: null,
     update_order: false,
-    order: {} 
+    order: {},
+    show_modal: false,
+    image_modal: false
   }
 
   handleImageChange = (payload) => {
@@ -34,6 +36,11 @@ class Product extends Component {
     })
 
     this.props.addToCart(payload)
+    this.setState({show_modal: false})
+  }
+
+  handleImageModal = () => {
+    this.setState({image_modal: true})
   }
 
   render() {
@@ -52,7 +59,54 @@ class Product extends Component {
     console.log(this.state.shopping_cart_input)
 
     return (
+      
       <Container className={classes.Product}>
+        <Modal
+          show={this.state.image_modal}>
+          <Row className={classes.Product__ImageModal}>
+            <img
+                src={product.product_image[0]}
+                alt={product.product_sku}
+                />
+          </Row>
+          
+        </Modal>
+        <Modal 
+          className={classes.Product_Modal} 
+          show={this.state.show_modal} 
+          onHide={this.handleClose}>
+            <Row>
+              <Col className={classes.Product__Modal_Body}>
+                <h4>Added to Cart</h4>
+              </Col>
+              <Col className={classes.Product__Modal_Image}>
+                <img
+                src={product.product_image[0]}
+                alt={product.product_sku}
+                />
+                <h6>{product.product_name} </h6>
+              </Col>
+              
+            </Row>
+            <Row className={classes.Product__Modal_Buttons}>
+              <Button 
+              variant="secondary"
+              // as={Link} 
+              // to={`/collection`}
+              
+              onClick={this.handleClose}>
+                Continue Shopping
+              </Button>
+              <Button 
+                variant="dark"
+                // as={Link} 
+                // to={`/checkout`}
+                onClick={this.handleClose}>
+                Go to Checkout
+              </Button>
+            </Row>
+        </Modal>
+
         <Row className={classes.Header}>
           <img
           src="//cdn.shopify.com/s/files/1/0818/5483/t/10/assets/cc-logo.svg?713"
@@ -63,7 +117,6 @@ class Product extends Component {
           <h4> Cart: {this.state.checkout_quantity}</h4>
           <Button as={Link} to={`/checkout`}>Go to Checkout</Button>
         </Row>
-        
         <Row >
           <Container className={classes.Product_Info}>
             <Row className={classes.Product_Info__Gallery}>
@@ -71,14 +124,14 @@ class Product extends Component {
                 <Row>
                   <img
                   src={this.state.hero_image}
-                  alt={this.state.hero_image}></img>
+                  alt={this.state.hero_image}
+                  ></img>
                 </Row>
                 <Row className={classes.Product_Info_Alt_Image}>
                   {images && images.map(image => 
                     <img key={image} onClick={() => this.handleImageChange({image})} src={image}></img>)}
                 </Row>
               </Col>
-
             </Row>
             <Row className={classes.Product_Info__Detail}>
               <Col>
@@ -86,7 +139,7 @@ class Product extends Component {
                   <h5>{product.product_name}</h5>
                 </Row>
                 <Row className={classes.Price}>
-                  <span>{product.product_price}</span>
+                  <span>${product.product_price.toFixed(2)}</span>
                 </Row>
                 <Row className={classes.Quantity}>
                   <Row>
