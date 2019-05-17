@@ -2,7 +2,7 @@ import React, { Component} from 'react'
 import { connect } from 'react-redux'
 import { Container, Row, Col, FormControl, Button, Modal} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { addToCart } from '../../Checkout/checkoutActions'
+import { addToCart } from '../../Cart/cartActions'
 import classes from './Product.module.css'
  
 class Product extends Component {

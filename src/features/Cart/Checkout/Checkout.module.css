@@ -1,0 +1,170 @@
+.Checkout {
+    display: flex;
+}
+
+.Checkout__Header img {
+    padding: 15px 0px 20px 15px;
+}
+
+.Checkout__ContactInfo {
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    /* background-color: pink; */
+}
+
+.Checkout__ContactInfo_Form {
+    width: 520px;
+}
+
+.Checkout__Shipping_Method {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 15px;
+}
+
+.Checkout_OrderSummary {
+    background-color: #fafafa;
+    margin-left: 40px;
+}
+
+.Checkout_OrderSummary__Box{
+    width: 80%;
+    margin-top: 50px;
+    margin-left: 20px;
+    border-color: gray;
+}
+
+.Checkout__Line{
+    
+}
+
+.Checkout__Items {
+    display: flex;
+    width: 550px;
+}
+
+.Checkout__Order_Info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 620px;
+}
+
+.Checkout__Thumbnail_ProductName {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: center;
+    width: 75%;
+    padding: 5px;
+    flex-wrap: nowrap;
+}
+
+.Checkout__Thumbnail_ProductName p{
+    padding-bottom: 10px;
+}
+
+.Checkout__Thumbnail_Image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Checkout__Thumbnail_Product_Name {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.Checkout__Thumbnail_Product_Name p {
+    font-size: 15px;
+    font-weight:500;
+}
+.Checkout__Order_Quantity{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 12px;
+    background: darkgray;
+    color: white;
+    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+    margin: 0px 0px 70px -15px;
+}
+
+.Checkout__Price {
+    display: flex;
+    justify-content: flex-end;
+    width: 200px;
+    padding-right: 20px;
+}
+
+.Checkout__Price p {
+    font-size: 15px;
+    font-weight: 545;
+}
+
+.Checkout__Order_Info img {
+    width: 80px;
+    border-radius: 8px;
+    margin: 5px 5px 5px 0px;
+}
+
+.Checkout__Discount {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 10px 0px 15px 0px;
+}
+
+.Checkout__Discount_Code{
+    width: 200px;
+    margin: 0 10px 0 20px;
+}
+.Checkout__Discount_Button {
+    width: 150px;
+}
+
+.Checkout__Subtotal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding-left: 15px;
+    width: 665px;
+}
+
+.Checkout__Subtotal p {
+    margin: 5px 5px 5px 5px;
+    font-size: 14px;
+}
+
+.Checkout__Shipping {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    width: 665px;
+}
+
+.Checkout__Shipping p{
+    margin: 5px 5px 5px 5px;
+    font-size: 14px;
+}
+
+.Checkout__Grand_Total {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 5px 0 5px 0;
+    padding:0 5px 0 18px;
+    width: 665px;
+}

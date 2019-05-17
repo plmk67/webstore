@@ -4,7 +4,8 @@ import { Switch, Route} from 'react-router-dom'
 import HomePage from '../../../features/HomePage/HomePage'
 import Collection from '../../../features/Products/Collection/Collection'
 import Product from '../../../features/Products/Product/Product'
-import Cart from '../../../features/Checkout/Cart/Cart'
+import Cart from '../../../features/Cart/Cart/Cart'
+import Checkout from '../../../features/Cart/Checkout/Checkout'
 import classes from './App.module.css';
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
                 <Route path="/collection" exact component={Collection} />
                 <Route path="/collection/product/:ProductName" exact component={Product} />
                 <Route path="/cart" exact component={Cart} />
+                <Route path="/checkout" exact component={Checkout} />
               </Switch>
             </Container>
           </div>

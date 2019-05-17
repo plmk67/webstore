@@ -1,5 +1,5 @@
 import {createReducer} from '../../common/util/reducerUtil'
-import { ADD_TO_CART } from './checkoutConstants'
+import { ADD_TO_CART } from './cartConstants'
 
 const initialState = [];
 
