@@ -115,7 +115,7 @@ class Product extends Component {
         {/* temporary testing zone */}
         <Row> 
           <h4> Cart: {this.state.checkout_quantity}</h4>
-          <Button as={Link} to={`/checkout`}>Go to Checkout</Button>
+          <Button as={Link} to={`/cart`}>Go to Checkout</Button>
         </Row>
         <Row >
           <Container className={classes.Product_Info}>

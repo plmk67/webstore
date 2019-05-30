@@ -125,7 +125,7 @@
 }
 
 .Checkout__Discount_Code{
-    width: 200px;
+    width: 450px;
     margin: 0 10px 0 20px;
 }
 .Checkout__Discount_Button {
@@ -165,6 +165,6 @@
     flex-direction: row;
     justify-content: space-between;
     margin: 5px 0 5px 0;
-    padding:0 5px 0 18px;
+    padding: 0 5px 0 18px;
     width: 665px;
 }

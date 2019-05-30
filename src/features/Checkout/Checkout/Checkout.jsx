@@ -6,7 +6,6 @@ import classes from './Checkout.module.css'
  
 class Checkout extends Component {
 
-    
     render() {
         const {order_items} = this.props;
         console.log(order_items)
@@ -25,7 +24,7 @@ class Checkout extends Component {
                             
                             <Form.Control type="email" placeholder="Email" />
                         </Form.Group>
-                       
+
                        <Form.Label>Shipping Address</Form.Label>
                         <Form.Row>
                             <Form.Group as={Col}>
@@ -44,7 +43,7 @@ class Checkout extends Component {
                         <Form.Group>
                             <Form.Control type="text" placeholder="City" />
                         </Form.Group>
-
+            
                         <Form.Row>
                             <Form.Group as={Col}>
                                 <Form.Control type="text" placeholder="Country" />
@@ -135,10 +134,10 @@ class Checkout extends Component {
 
 const mapToState = (state, ownProps) => {
 
-    let order_items = state.product
+    let checkout_items = this.state.checkout
 
     return{
-        order_items
+        checkout_items
     }
   
   }

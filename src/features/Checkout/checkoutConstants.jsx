@@ -1,0 +1,1 @@
+export const ADD_TO_CHECKOUT = "ADD_TO_CHECKOUT";
