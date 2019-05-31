@@ -5,7 +5,7 @@ import HomePage from '../../../features/HomePage/HomePage'
 import Collection from '../../../features/Products/Collection/Collection'
 import Product from '../../../features/Products/Product/Product'
 import Cart from '../../../features/Cart/Cart/Cart'
-import Checkout from '../../../features/Cart/Checkout/Checkout'
+import Checkout from '../../../features/Checkout/Checkout/Checkout'
 import classes from './App.module.css';
 
 class App extends Component {

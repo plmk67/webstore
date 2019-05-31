@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Container, Row, Col, FormControl, Button} from 'react-bootstrap'
 import classes from './Cart.module.css'
-import { addToCheckout } from '../../Checkout/checkoutActions'
+// import { addToCheckout } from '../../Checkout/checkoutActions'
  
 
 class Cart extends Component {
@@ -147,7 +147,7 @@ const mapToState = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-    addToCheckout
+    // addToCheckout
 }
 
 export default connect(mapToState, mapDispatchToProps)(Cart)

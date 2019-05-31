@@ -10,13 +10,24 @@ import App from './app/components/layout/App'
 import configureStore from './app/store/configureStore';
 
 //Redux-Thunk configuration
+
+// ReactDOM.render(
+//     <Provider store={store}>
+//         <BrowserRouter>
+//             <App/>
+//         </BrowserRouter>
+//     </Provider>
+// , document.getElementById('root'));
+
 const store = configureStore();
 
-
 ReactDOM.render(
-    <Provider store={store}>
+    (<Provider store={store}>
         <BrowserRouter>
             <App/>
         </BrowserRouter>
-    </Provider>
-, document.getElementById('root'));
+    </Provider>)
+, document.getElementById('root') || document.createElement('div')
+);
+
+
