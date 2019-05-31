@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Container, Row, Col, FormControl, Button} from 'react-bootstrap'
 import classes from './Cart.module.css'
-// import { addToCheckout } from '../../Checkout/checkoutActions'
+import { addToCheckout } from '../../Checkout/checkoutActions'
  
 
 class Cart extends Component {
@@ -112,7 +112,11 @@ class Cart extends Component {
                             >Update Cart</Button>
                         <Button 
                             variant="dark"
-                            onClick={()=> this.handleAddToCheckout({cart_items})}>Checkout</Button>
+                            onClick={()=> this.handleAddToCheckout({cart_items})}
+                            >
+                                <Row className={classes.Cart__CheckoutButton}
+                                as={Link}
+                                to={`/checkout`}>Checkout</Row></Button>
                     </Row>
 
                 </Row>
@@ -133,6 +137,10 @@ class Cart extends Component {
                 <Row>
                     {checkout}
                 </Row>
+
+                <Row className={classes.Cart__PreviousPage}>
+                    <Col as={Link} to ={`/collection`}>Back to Collections</Col>
+                </Row>
             </Container>
         )
     }
@@ -147,7 +155,7 @@ const mapToState = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-    // addToCheckout
+    addToCheckout
 }
 
 export default connect(mapToState, mapDispatchToProps)(Cart)

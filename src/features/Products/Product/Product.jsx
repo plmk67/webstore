@@ -24,7 +24,7 @@ class Product extends Component {
 
   handleQuantityInput = (event) => {
     this.setState({
-      shopping_cart_input: event.target.value
+      shopping_cart_input: parseInt(event.target.value)
     })
   }
 
@@ -52,11 +52,11 @@ class Product extends Component {
       product_name: product.product_name,
       product_image: product.product_image[0],
       product_price: product.product_price,
-      order_quantity: this.state.shopping_cart_input
+      order_quantity: this.state.shopping_cart_input,
+      order_cost: product.product_price * this.state.shopping_cart_input
     }
     const order_quantity = this.state.shopping_cart_input;
-  
-    console.log(this.state.shopping_cart_input)
+
 
     return (
       
@@ -107,16 +107,15 @@ class Product extends Component {
             </Row>
         </Modal>
 
-        <Row className={classes.Header}>
-          <img
+        <Row 
+        className={classes.Header}
+        as={Link} 
+        to={`/collection`}>
+          <img 
           src="//cdn.shopify.com/s/files/1/0818/5483/t/10/assets/cc-logo.svg?713"
           alt='Store Logo'></img>
         </Row>
-        {/* temporary testing zone */}
-        <Row> 
-          <h4> Cart: {this.state.checkout_quantity}</h4>
-          <Button as={Link} to={`/cart`}>Go to Checkout</Button>
-        </Row>
+
         <Row >
           <Container className={classes.Product_Info}>
             <Row className={classes.Product_Info__Gallery}>
@@ -153,6 +152,8 @@ class Product extends Component {
                 <Row className={classes.Add_To_Cart}>
                   {/* TDL fix Add to Cart color */}
                   <Button onClick={()=> this.handleAddToCart({item})} variant="dark">Add to Cart</Button>
+                  <Button variant="secondary" as={Link} to={`/cart`}>
+                    Go to Checkout</Button>
                 </Row>
                 <Row>
                     <p>
@@ -166,7 +167,11 @@ class Product extends Component {
                 </Row>
               </Col>
             </Row>
+           
           </Container>
+        </Row>
+        <Row className={classes.Product__PreviousPage}>
+            <Col as={Link} to ={`/collection`}>Back to Collections</Col>
         </Row>
       </Container>
     )

@@ -131,8 +131,6 @@
     width: 850px;
 }
 
-
-
 hr {
     display: flex;
     height: 1px;
@@ -140,4 +138,17 @@ hr {
     border-top: 1px solid #ccc;
     margin: 1em 0;
     padding: 0;
+}
+
+.Cart__PreviousPage {
+    display: flex;
+    text-align: center;
+    padding-top: 20px;
+    width: 100%;
+}
+
+.Cart__CheckoutButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

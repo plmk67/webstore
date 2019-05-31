@@ -12,6 +12,10 @@
     padding: 30px;
 }
 
+.Header img{
+    width: 142px;
+}
+
 .ProductList {
     /* background-color: pink; */
     width: 100%; 

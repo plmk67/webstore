@@ -66,21 +66,21 @@ class Checkout extends Component {
                 <Col className={classes.Checkout_OrderSummary}>
                     <Col className={classes.Checkout_OrderSummary__Box}>
                         <Col>
-                            {order_items && order_items.map( (order_item) => (
+                            {order_items && order_items.map( (items) => (
                                 <Row className={classes.Checkout__Items}>
                                     <div className={classes.Checkout__Order_Info}>
                                         <div className={classes.Checkout__Thumbnail_ProductName}>
                                             <div className={classes.Checkout__Thumbnail_Image}>
-                                                <img src={order_item.product_image}
-                                                alt={order_item.product_sku}/>
-                                                <span className={classes.Checkout__Order_Quantity}>1</span>
+                                                <img src={items.item.product_image}
+                                                alt={items.item.product_sku}/>
+                                                <span className={classes.Checkout__Order_Quantity}>{items.item.order_quantity}</span>
                                             </div>
                                             <div className={classes.Checkout__Thumbnail_Product_Name}>
-                                                <p>{order_item.product_name}</p>
+                                                <p>{items.item.product_name}</p>
                                             </div>
                                         </div>
                                         <div className={classes.Checkout__Price}>
-                                             <p>${order_item.product_price.toFixed(2)}</p>
+                                             <p>${(items.item.order_quantity*items.item.product_price).toFixed(2)}</p>
                                         </div>
                                     </div>
                                 </Row>
@@ -103,7 +103,7 @@ class Checkout extends Component {
                                     <p>Subtotal</p>
                                 </div>
                                 <div>
-                                    <p>$132.00</p>
+                                    <p>${order_items && order_items.reduce( (acc, items) => acc + items.item.order_cost, 0).toFixed(2)}</p>
                                 </div>
                             </div>
                             <div className={classes.Checkout__Shipping}>
@@ -121,7 +121,7 @@ class Checkout extends Component {
                                     <h5>Total</h5>
                                 </div>
                                 <div>
-                                    <h4>$157.00</h4>
+                                    <h4>${order_items && order_items.reduce( (acc, items) => acc + items.item.order_cost, 25).toFixed(2)}</h4>
                                 </div>
                             </div>
                         </Row>
@@ -134,10 +134,10 @@ class Checkout extends Component {
 
 const mapToState = (state, ownProps) => {
 
-    let checkout_items = this.state.checkout
+    let order_items = state.cart
 
     return{
-        checkout_items
+        order_items
     }
   
   }

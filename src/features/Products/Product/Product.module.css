@@ -150,3 +150,11 @@ li {
     font-weight: 500;
 }
 
+.Product__PreviousPage {
+    display: flex;
+    text-align: center;
+    padding-top: 20px;
+    width: 100%;
+
+}
+

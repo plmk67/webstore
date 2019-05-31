@@ -15,7 +15,10 @@ class Collection extends Component {
 
     <div>
         <Container className={classes.Collection}>
-            <Row className={classes.Header}>
+            <Row 
+            className={classes.Header}
+            as={Link} 
+            to={`/`}>
               <img
               src="//cdn.shopify.com/s/files/1/0818/5483/t/10/assets/cc-logo.svg?713"
               alt='Store Logo'></img>
