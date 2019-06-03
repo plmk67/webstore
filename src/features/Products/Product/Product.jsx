@@ -12,8 +12,7 @@ class Product extends Component {
     shopping_cart_input: null,
     update_order: false,
     order: {},
-    show_modal: false,
-    image_modal: false
+    item_added_to_cart: false,
   }
 
   handleImageChange = (payload) => {
@@ -29,19 +28,20 @@ class Product extends Component {
   }
 
   handleAddToCart = (payload, order_quantity) => {
-    
-    this.setState({
-      order: payload,
-      checkout_quantity: order_quantity
-    })
+  
+    if (this.state.item_added_to_cart === false) {
+      this.setState({
+        order: payload,
+        checkout_quantity: order_quantity,
+        item_added_to_cart: true
+      })
+      this.props.addToCart(payload)
 
-    this.props.addToCart(payload)
-    this.setState({show_modal: false})
+    } else if (this.state.item_added_to_cart === true) {
+      console.log(this.props.cart.filter(item => item.item.product_sku === this.props.product.product_sku).length > 0)
+    }
   }
 
-  handleImageModal = () => {
-    this.setState({image_modal: true})
-  }
 
   render() {
 
@@ -61,52 +61,6 @@ class Product extends Component {
     return (
       
       <Container className={classes.Product}>
-        <Modal
-          show={this.state.image_modal}>
-          <Row className={classes.Product__ImageModal}>
-            <img
-                src={product.product_image[0]}
-                alt={product.product_sku}
-                />
-          </Row>
-          
-        </Modal>
-        <Modal 
-          className={classes.Product_Modal} 
-          show={this.state.show_modal} 
-          onHide={this.handleClose}>
-            <Row>
-              <Col className={classes.Product__Modal_Body}>
-                <h4>Added to Cart</h4>
-              </Col>
-              <Col className={classes.Product__Modal_Image}>
-                <img
-                src={product.product_image[0]}
-                alt={product.product_sku}
-                />
-                <h6>{product.product_name} </h6>
-              </Col>
-              
-            </Row>
-            <Row className={classes.Product__Modal_Buttons}>
-              <Button 
-              variant="secondary"
-              // as={Link} 
-              // to={`/collection`}
-              
-              onClick={this.handleClose}>
-                Continue Shopping
-              </Button>
-              <Button 
-                variant="dark"
-                // as={Link} 
-                // to={`/checkout`}
-                onClick={this.handleClose}>
-                Go to Checkout
-              </Button>
-            </Row>
-        </Modal>
-
         <Row 
         className={classes.Header}
         as={Link} 
@@ -146,7 +100,7 @@ class Product extends Component {
                   </Row>
                   <Row className={classes.Quantity_InputField}>
                     {/* TDL fix placeholder text */}
-                    <FormControl onChange={this.handleQuantityInput} type="number" min={0} max={20} placeholder={1}></FormControl>
+                    <FormControl onChange={this.handleQuantityInput} type="number" min={0} max={20} placeholder={1} defaultValue={1}></FormControl>
                   </Row>
                 </Row>
                 <Row className={classes.Add_To_Cart}>
@@ -182,14 +136,15 @@ const mapToState = (state, ownProps) => {
   const productId = ownProps.match.params.ProductName
 
   let product ={};
-  let order = state.order;
+  let cart = state.cart;
 
   if (productId && state.product.length > 0) {
     product = state.product.filter(product => productId === product.product_name)[0]
   }
 
   return {
-    product
+    product,
+    cart
   }
 
 }
