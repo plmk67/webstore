@@ -1,15 +1,39 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Row, Col, Form, Button} from 'react-bootstrap'
+import { Container, Row, Col, Form, FormControl, Button} from 'react-bootstrap'
 import classes from './Checkout.module.css'
+import {addToCheckout} from '../checkoutActions'
+import cuid from 'cuid'
 
  
 class Checkout extends Component {
+    
+    state = {
+        order_date: new Date(),
+        order_items: this.props.order_items
+    }
+
+    handleFormInput = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+    handleFormSubmit = (payload) => {
+        this.props.addToCheckout(payload)
+    }
 
     render() {
         const {order_items} = this.props;
-        console.log(order_items)
 
+        const order_id = cuid()
+        const order = {
+            [order_id]: this.state,
+        } 
+
+        console.log(this.state)
+        
+        
         return(
             <Container className={classes.Checkout}>
                 <Row className={classes.Checkout__ContactInfo} >
@@ -22,45 +46,76 @@ class Checkout extends Component {
                         <Form.Group>
                             <Form.Label>Contact Information</Form.Label>
                             
-                            <Form.Control type="email" placeholder="Email" />
+                            <Form.Control 
+                            name="email"
+                            onChange={this.handleFormInput} 
+                            type="email" 
+                            placeholder="Email" />
                         </Form.Group>
 
                        <Form.Label>Shipping Address</Form.Label>
                         <Form.Row>
                             <Form.Group as={Col}>
-                                <Form.Control type="text" placeholder="First Name" />
+                                <Form.Control 
+                                name='first_name'
+                                onChange={this.handleFormInput} type="text" placeholder="First Name" />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Control type="text" placeholder="Last Name" />
+                                <Form.Control 
+                                name='last_name'
+                                onChange={this.handleFormInput} type="text" placeholder="Last Name" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Group>
-                            <Form.Control type="text" placeholder="Address" />
+                            <Form.Control 
+                             name='address1'
+                             onChange={this.handleFormInput} 
+                            type="text" placeholder="Address" />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control type="text" placeholder="Apartment, Suite, etc. (optional)" />
+                            <Form.Control
+                             name='address2'
+                             onChange={this.handleFormInput} 
+                             type="text" placeholder="Apartment, Suite, etc. (optional)" />
                         </Form.Group>               
                         <Form.Group>
-                            <Form.Control type="text" placeholder="City" />
+                            <Form.Control
+                             name='city'
+                             onChange={this.handleFormInput} 
+                             type="text" placeholder="City" />
                         </Form.Group>
             
                         <Form.Row>
                             <Form.Group as={Col}>
-                                <Form.Control type="text" placeholder="Country" />
+                                <Form.Control 
+                                 name='country'
+                                 onChange={this.handleFormInput} 
+                                type="text" placeholder="Country" />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Control type="text" placeholder="Province" />
+                                <Form.Control
+                                 name='province'
+                                 onChange={this.handleFormInput} 
+                                type="text" placeholder="Province" />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Control type="text" placeholder="Postal Code" />
+                                <Form.Control 
+                                 name='postal_code'
+                                 onChange={this.handleFormInput} 
+                                type="text" placeholder="Postal Code" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Group>
-                            <Form.Control type="text" placeholder="Phone Number" />
+                            <Form.Control 
+                             name='phone_number'
+                             onChange={this.handleFormInput} 
+                            type="text" placeholder="Phone Number" />
                         </Form.Group>
                     </Form>
                     <Row className={classes.Checkout__Shipping_Method}>
-                        <Button variant="secondary"> Continue to Shipping Method</Button>         
+                        <Button 
+                        onClick={() => this.handleFormSubmit({order}) }
+                        variant="secondary"> Continue to Shipping Method</Button>         
                     </Row>
                 </Row>
                 <Col className={classes.Checkout_OrderSummary}>
@@ -133,13 +188,15 @@ class Checkout extends Component {
 }
 
 const mapToState = (state, ownProps) => {
-
     let order_items = state.cart
 
     return{
         order_items
     }
-  
-  }
+}
 
-export default connect(mapToState)(Checkout)
+const mapDispatchToProps = {
+    addToCheckout
+}
+
+export default connect(mapToState, mapDispatchToProps)(Checkout)

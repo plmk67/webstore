@@ -9,10 +9,10 @@ class Product extends Component {
   
   state = {
     hero_image: this.props.product.product_image,
-    shopping_cart_input: null,
+    shopping_cart_input: 1,
     update_order: false,
     order: {},
-    item_added_to_cart: false,
+    added_to_cart: this.props.cart.filter(item => item.item.product_sku === this.props.product.product_sku).length > 0,
   }
 
   handleImageChange = (payload) => {
@@ -27,21 +27,28 @@ class Product extends Component {
     })
   }
 
-  handleAddToCart = (payload, order_quantity) => {
+  handleAddToCart = (payload) => {
   
-    if (this.state.item_added_to_cart === false) {
+    if (this.state.added_to_cart === false) {
       this.setState({
         order: payload,
-        checkout_quantity: order_quantity,
-        item_added_to_cart: true
+        added_to_cart: true
       })
       this.props.addToCart(payload)
 
-    } else if (this.state.item_added_to_cart === true) {
-      console.log(this.props.cart.filter(item => item.item.product_sku === this.props.product.product_sku).length > 0)
-    }
-  }
+    } else if(this.state.added_to_cart === true 
+      && this.props.cart.filter(item => item.item.product_sku === this.props.product.product_sku)[0].item.order_quantity !== this.state.shopping_cart_input){
+      console.log('shopping input updated')
 
+    } else {
+      console.log('quantity is the same')
+    }
+
+    // console.log('shopping cart input:', this.state.shopping_cart_input)
+    // console.log('product sku:', this.props.product.product_sku )
+    // console.log('checking if item has been added', this.props.cart.filter(item => item.item.product_sku === this.props.product.product_sku).length > 0)
+    // // console.log(this.props.cart.filter(item => item.item.product_sku === this.props.product.product_sku).length > 0)
+  }
 
   render() {
 
@@ -55,8 +62,6 @@ class Product extends Component {
       order_quantity: this.state.shopping_cart_input,
       order_cost: product.product_price * this.state.shopping_cart_input
     }
-    const order_quantity = this.state.shopping_cart_input;
-
 
     return (
       
@@ -99,8 +104,7 @@ class Product extends Component {
                     <span>Quantity</span>
                   </Row>
                   <Row className={classes.Quantity_InputField}>
-                    {/* TDL fix placeholder text */}
-                    <FormControl onChange={this.handleQuantityInput} type="number" min={0} max={20} placeholder={1} defaultValue={1}></FormControl>
+                    <FormControl onChange={this.handleQuantityInput} type="number" min={0} max={20} placeholder={1} defaultValue={this.state.shopping_cart_input}></FormControl>
                   </Row>
                 </Row>
                 <Row className={classes.Add_To_Cart}>
