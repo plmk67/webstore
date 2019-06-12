@@ -26,6 +26,7 @@ class App extends Component {
                 <Route path="/collection/product/:ProductName" exact component={Product} />
                 <Route path="/cart" exact component={Cart} />
                 <Route path="/checkout" exact component={Checkout} />
+                <Route path="/checkout/:OrderId" exact component={Checkout} />
               </Switch>
             </Container>
           </div>

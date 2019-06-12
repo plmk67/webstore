@@ -150,7 +150,6 @@ const mapToState = (state, ownProps) => {
     product,
     cart
   }
-
 }
 
 const mapDispatchToProps = {

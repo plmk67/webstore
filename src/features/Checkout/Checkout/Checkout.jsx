@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Row, Col, Form, FormControl, Button} from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, Dropdown} from 'react-bootstrap'
 import classes from './Checkout.module.css'
 import {addToCheckout} from '../checkoutActions'
+import { Link } from 'react-router-dom'
 import cuid from 'cuid'
 
  
@@ -10,7 +11,8 @@ class Checkout extends Component {
     
     state = {
         order_date: new Date(),
-        order_items: this.props.order_items
+        order_items: this.props.order_items,
+        order_id: false
     }
 
     handleFormInput = (event) => {
@@ -19,28 +21,30 @@ class Checkout extends Component {
         })
     }
 
-    handleFormSubmit = (payload) => {
+    handleFormSubmit = (payload, order_id) => {
         this.props.addToCheckout(payload)
+        this.setState({
+            order_id: order_id
+        })
     }
 
     render() {
+        let form
         const {order_items} = this.props;
-
         const order_id = cuid()
         const order = {
-            [order_id]: this.state,
+            [order_id]: this.state
         } 
 
         console.log(this.state)
         
-        
-        return(
-            <Container className={classes.Checkout}>
+        if ((this.state.order_id) === false) {
+            form = 
                 <Row className={classes.Checkout__ContactInfo} >
                     <Row className={classes.Checkout__Header}>
-                        <img 
-                        src='https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713'
-                        alt='corduroi club logo'/>
+                            <img 
+                            src='https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713'
+                            alt='corduroi club logo'/>
                     </Row>
                     <Form className={classes.Checkout__ContactInfo_Form}>
                         <Form.Group>
@@ -52,72 +56,171 @@ class Checkout extends Component {
                             type="email" 
                             placeholder="Email" />
                         </Form.Group>
-
-                       <Form.Label>Shipping Address</Form.Label>
-                        <Form.Row>
-                            <Form.Group as={Col}>
+                        <Form.Label>Shipping Address</Form.Label>
+                            <Form.Row>
+                                <Form.Group as={Col}>
+                                    <Form.Control 
+                                    name='shipping_first_name'
+                                    onChange={this.handleFormInput} type="text" placeholder="First Name" />
+                                </Form.Group>
+                                <Form.Group as={Col}>
+                                    <Form.Control 
+                                    name='shipping_last_name'
+                                    onChange={this.handleFormInput} type="text" placeholder="Last Name" />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Group>
                                 <Form.Control 
-                                name='first_name'
-                                onChange={this.handleFormInput} type="text" placeholder="First Name" />
+                                name='shipping_address1'
+                                onChange={this.handleFormInput} 
+                                type="text" placeholder="Address" />
                             </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Control 
-                                name='last_name'
-                                onChange={this.handleFormInput} type="text" placeholder="Last Name" />
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Group>
-                            <Form.Control 
-                             name='address1'
-                             onChange={this.handleFormInput} 
-                            type="text" placeholder="Address" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Control
-                             name='address2'
-                             onChange={this.handleFormInput} 
-                             type="text" placeholder="Apartment, Suite, etc. (optional)" />
-                        </Form.Group>               
-                        <Form.Group>
-                            <Form.Control
-                             name='city'
-                             onChange={this.handleFormInput} 
-                             type="text" placeholder="City" />
-                        </Form.Group>
-            
-                        <Form.Row>
-                            <Form.Group as={Col}>
-                                <Form.Control 
-                                 name='country'
-                                 onChange={this.handleFormInput} 
-                                type="text" placeholder="Country" />
-                            </Form.Group>
-                            <Form.Group as={Col}>
+                            <Form.Group>
                                 <Form.Control
-                                 name='province'
-                                 onChange={this.handleFormInput} 
-                                type="text" placeholder="Province" />
+                                name='shipping_address2'
+                                onChange={this.handleFormInput} 
+                                type="text" placeholder="Apartment, Suite, etc. (optional)" />
+                            </Form.Group>               
+                            <Form.Group>
+                                <Form.Control
+                                name='shipping_city'
+                                onChange={this.handleFormInput} 
+                                type="text" placeholder="City" />
                             </Form.Group>
-                            <Form.Group as={Col}>
+                
+                            <Form.Row>
+                                <Form.Group as={Col}>
+                                    <Form.Control 
+                                    name='shipping_country'
+                                    onChange={this.handleFormInput} 
+                                    type="text" placeholder="Country" />
+                                </Form.Group>
+                                <Form.Group as={Col}>
+                                    <Form.Control
+                                    name='shipping_province'
+                                    onChange={this.handleFormInput} 
+                                    type="text" placeholder="Province" />
+                                </Form.Group>
+                                <Form.Group as={Col}>
+                                    <Form.Control 
+                                    name='shipping_postal_code'
+                                    onChange={this.handleFormInput} 
+                                    type="text" placeholder="Postal Code" />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Group>
                                 <Form.Control 
-                                 name='postal_code'
-                                 onChange={this.handleFormInput} 
-                                type="text" placeholder="Postal Code" />
+                                name='phone_number'
+                                onChange={this.handleFormInput} 
+                                type="text" 
+                                placeholder="Phone Number" />
                             </Form.Group>
-                        </Form.Row>
-                        <Form.Group>
-                            <Form.Control 
-                             name='phone_number'
-                             onChange={this.handleFormInput} 
-                            type="text" placeholder="Phone Number" />
-                        </Form.Group>
-                    </Form>
-                    <Row className={classes.Checkout__Shipping_Method}>
-                        <Button 
-                        onClick={() => this.handleFormSubmit({order}) }
-                        variant="secondary"> Continue to Shipping Method</Button>         
-                    </Row>
+                        </Form>
+                        <Row 
+                            as={Link}
+                            to={{pathname:`/checkout/${cuid()}`}}
+                            className={classes.Checkout__Shipping_Method}>
+                            <Button 
+                            onClick={ () => this.handleFormSubmit({order}, this.order_id)}
+                            variant="secondary"> Continue to Shipping Method</Button>       
+                        </Row>
                 </Row>
+        } else {
+            form = 
+            <Row className={classes.Checkout__ContactInfo} >
+            <Row className={classes.Checkout__Header}>
+                    <img 
+                    src='https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713'
+                    alt='corduroi club logo'/>
+            </Row>
+            <Form className={classes.Checkout__ContactInfo_Form}>
+                <Form.Group>
+                    <Form.Label>Shipping Method</Form.Label>
+                    
+                    <Form.Control 
+                        name="email"
+                        onChange={this.handleFormInput} 
+                        type="email" 
+                        placeholder="Email" />
+                </Form.Group>
+                <Form.Label>Billing Address</Form.Label>
+                    <Form.Row>
+                        <Form.Group as={Col}>
+                            <Form.Control 
+                            name='shipping_first_name'
+                            onChange={this.handleFormInput} type="text" placeholder="First Name" />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Control 
+                            name='shipping_last_name'
+                            onChange={this.handleFormInput} type="text" placeholder="Last Name" />
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Group>
+                        <Form.Control 
+                        name='shipping_address1'
+                        onChange={this.handleFormInput} 
+                        type="text" placeholder="Address" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                        name='shipping_address2'
+                        onChange={this.handleFormInput} 
+                        type="text" placeholder="Apartment, Suite, etc. (optional)" />
+                    </Form.Group>               
+                    <Form.Group>
+                        <Form.Control
+                        name='shipping_city'
+                        onChange={this.handleFormInput} 
+                        type="text" placeholder="City" />
+                    </Form.Group>
+        
+                    <Form.Row>
+                        <Form.Group as={Col}>
+                            <Form.Control 
+                            name='shipping_country'
+                            onChange={this.handleFormInput} 
+                            type="text" placeholder="Country" />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Control
+                            name='shipping_province'
+                            onChange={this.handleFormInput} 
+                            type="text" placeholder="Province" />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Control 
+                            name='shipping_postal_code'
+                            onChange={this.handleFormInput} 
+                            type="text" placeholder="Postal Code" />
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Group>
+                        <Form.Control 
+                        name='phone_number'
+                        onChange={this.handleFormInput} 
+                        type="text" 
+                        placeholder="Phone Number" />
+                    </Form.Group>
+                </Form>
+                <Row 
+                    as={Link}
+                    to={{pathname:`/checkout/${cuid()}`}}
+                    className={classes.Checkout__Shipping_Method}>
+                    <Button 
+                    onClick={ () => this.handleFormSubmit({order}, this.order_id)}
+                    variant="secondary"> Continue to Payment Method</Button>       
+                </Row>
+        </Row>
+        }
+
+        
+        return(
+            <Container className={classes.Checkout}>
+                
+                 {form}   
+                    
+                
                 <Col className={classes.Checkout_OrderSummary}>
                     <Col className={classes.Checkout_OrderSummary__Box}>
                         <Col>

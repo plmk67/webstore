@@ -7,7 +7,7 @@ import { addToCheckout } from '../../Checkout/checkoutActions'
  
 
 class Cart extends Component {
-
+    
     state = {
         cart_items: this.props.cart_items,
         order_items: null
@@ -112,7 +112,6 @@ class Cart extends Component {
                             >Update Cart</Button>
                         <Button 
                             variant="dark"
-                            onClick={()=> this.handleAddToCheckout({cart_items})}
                             >
                                 <Row className={classes.Cart__CheckoutButton}
                                 as={Link}
