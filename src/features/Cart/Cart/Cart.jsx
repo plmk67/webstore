@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { Container, Row, Col, FormControl, Button} from 'react-bootstrap'
 import classes from './Cart.module.css'
 import { addToCheckout } from '../../Checkout/checkoutActions'
- 
 
 class Cart extends Component {
     
@@ -136,6 +135,8 @@ class Cart extends Component {
                 <Row>
                     {checkout}
                 </Row>
+
+                
 
                 <Row className={classes.Cart__PreviousPage}>
                     <Col as={Link} to ={`/collection`}>Back to Collections</Col>

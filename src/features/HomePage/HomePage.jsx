@@ -46,6 +46,10 @@ const HomePage = ({history}) => {
                 </Row>
             </Row>
 
+        
+
+           
+
             <Row className={classes.Footer}>
                 <Footer /> 
             </Row>

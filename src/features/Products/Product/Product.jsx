@@ -53,7 +53,7 @@ class Product extends Component {
   render() {
 
     const images = this.props.product.product_image
-    const {product} = this.props
+    const { product } = this.props
     const item = {
       product_sku: product.product_sku,
       product_name: product.product_name,

@@ -6,6 +6,7 @@ import Collection from '../../../features/Products/Collection/Collection'
 import Product from '../../../features/Products/Product/Product'
 import Cart from '../../../features/Cart/Cart/Cart'
 import Checkout from '../../../features/Checkout/Checkout/Checkout'
+import Payment from '../../../features/Payment/Payment/Payment'
 import classes from './App.module.css';
 
 class App extends Component {
@@ -27,6 +28,8 @@ class App extends Component {
                 <Route path="/cart" exact component={Cart} />
                 <Route path="/checkout" exact component={Checkout} />
                 <Route path="/checkout/:OrderId" exact component={Checkout} />
+                <Route path="/payment/:OrderId" exact component={Payment} />
+                
               </Switch>
             </Container>
           </div>
