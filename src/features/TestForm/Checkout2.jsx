@@ -1,23 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Row, Col, Form, Button, Control} from 'react-bootstrap'
-import {addToCheckout} from '../checkoutActions'
+import { Container, Row, Col, Form, Button, Control, InputGroup} from 'react-bootstrap'
+import {addToCheckout} from '../Checkout/checkoutActions'
 import { Link } from 'react-router-dom'
 import cuid from 'cuid'
-import classes from './Checkout.module.css'
-import StripeCheckout from '../../Stripe/StripeCheckout'
+import classes from './Checkout2.module.css'
 
 
-class Checkout extends Component {
+class Checkout2 extends Component {
     
     state = {
         order_date: new Date(),
         order_items: this.props.order_items,
-        errorMessage:'',
+        order_id: false,
         shipping_cost: 0,
-        shipping_selected: false,
-        shipping_type: '',
-        validated: false
+        validated: false,
+        test: null
     }
 
     handleFormInput = (event) => {
@@ -26,56 +24,54 @@ class Checkout extends Component {
         })
     }
 
-    handleFormSubmit = (payload, id) => {
-        this.setState({
-            order_id: id
-        })
-        this.props.addToCheckout(payload)
-        let path = '/payment/' + id;
+    handleFormSubmit = (event) => {
+       event.preventDefault();
+       const form = event.target;
+       const data = {}
+       for (let element of form.elements) {
+        if (element.tagName === 'BUTTON') { continue; }
+        data[element.name] = element.value;
+      }
+        data['date'] = new Date();
+        data['order_id'] = JSON.stringify(cuid())
+        data['order_items'] = this.order_items
 
-        if(this.state.validated === true ){
-            this.props.history.push(path);
-            console.log('true')
-            } else { 
-            console.log('error')}
+      if (!event.target.checkValidity()) {
+        this.setState({ displayErrors: true })
+        console.log('not valid');
+      } else {
+        this.props.addToCheckout(data)
+        this.setState({ displayErrors: false })
+        console.log(data)
+      }
     }
 
     handleSelect = (event) => {
         this.setState({
             shipping_cost: JSON.parse(event.target.value)[0].toFixed(2),
             shipping_selected: true,
-            shipping_type: JSON.parse(event.target.value)[1],
-            
+            shipping_type: JSON.parse(event.target.value)[1]
         })
     }
 
-    handleSubmit(event) {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        this.setState({ validated: true });
-        console.log(form)
-      }
-
     render() {
+        const { displayErrors } = this.state;
         const { validated } = this.state;
         let form
         const {order_items} = this.props;
-        let order_id = cuid()
+        //give it a unique ID
+        const order_id = cuid()
+        //pushing all state information into Order with Unique ID
         const order = {
             [order_id]: this.state
         } 
 
         let shipping = ''
-
         if(this.state.shipping_selected === false){
             shipping = <p>Calculate at Checkout</p>
         } else {
             shipping = <p>${this.state.shipping_cost}</p>}
 
-        
         return(
             <Container className={classes.Checkout}>
                  <Row className={classes.Checkout__ContactInfo} >
@@ -84,17 +80,19 @@ class Checkout extends Component {
                             src='https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713'
                             alt='corduroi club logo'/>
                     </Row>
+                   
                     <Form 
                         className={classes.Checkout__ContactInfo_Form}
-                        noValidate
                         validated={validated}
-                        onSubmit={e => this.handleSubmit(e)}
+                        onSubmit={this.handleFormSubmit}
+                        noValidate
+                        
                         >
-                    <Form.Group>
+                        <Form.Group>
                             <Form.Label>Contact Information</Form.Label>
                             <Form.Control 
                                 name="email"
-                                onChange={this.handleFormInput} 
+                              
                                 type="email" 
                                 placeholder="Email"
                                 required />
@@ -107,7 +105,7 @@ class Checkout extends Component {
                                 <Form.Group as={Col}>
                                     <Form.Control 
                                     name='shipping_first_name'
-                                    onChange={this.handleFormInput} 
+                                  
                                     type="text" 
                                     placeholder="First Name" 
                                     required/>
@@ -119,7 +117,7 @@ class Checkout extends Component {
                                 <Form.Group as={Col}>
                                     <Form.Control 
                                     name='shipping_last_name'
-                                    onChange={this.handleFormInput} 
+                                  
                                     type="text" 
                                     placeholder="Last Name"
                                     required  />
@@ -132,7 +130,7 @@ class Checkout extends Component {
                             <Form.Group>
                                 <Form.Control 
                                 name='shipping_address1'
-                                onChange={this.handleFormInput} 
+                                
                                 type="text" 
                                 placeholder="Address"
                                 required 
@@ -144,7 +142,7 @@ class Checkout extends Component {
                             <Form.Group>
                                 <Form.Control
                                 name='shipping_address2'
-                                onChange={this.handleFormInput} 
+                          
                                 type="text" 
                                 placeholder="Apartment, Suite, etc. (optional)"
                                 />
@@ -152,7 +150,7 @@ class Checkout extends Component {
                             <Form.Group>
                                 <Form.Control
                                 name='shipping_city'
-                                onChange={this.handleFormInput} 
+                                
                                 type="text" 
                                 placeholder="City"
                                 required  />
@@ -164,21 +162,21 @@ class Checkout extends Component {
                                 <Form.Group as={Col}>
                                     <Form.Control 
                                     name='shipping_country'
-                                    onChange={this.handleFormInput} 
+                                  
                                     type="text" placeholder="Country"
                                     required  />
                                 </Form.Group>
                                 <Form.Group as={Col}>
                                     <Form.Control
                                     name='shipping_province'
-                                    onChange={this.handleFormInput} 
+                              
                                     type="text" placeholder="Province"
                                     required  />
                                 </Form.Group>
                                 <Form.Group as={Col}>
                                     <Form.Control 
                                     name='shipping_postal_code'
-                                    onChange={this.handleFormInput} 
+                                  
                                     type="text" placeholder="Postal Code"
                                     required  />
                                 </Form.Group>
@@ -186,7 +184,7 @@ class Checkout extends Component {
                             <Form.Group>
                                 <Form.Control 
                                 name='phone_number'
-                                onChange={this.handleFormInput} 
+                                // onChange={this.handleFormInput} 
                                 type="text" 
                                 placeholder="Phone Number"
                                 required />
@@ -195,23 +193,33 @@ class Checkout extends Component {
                                 <Form.Label>Shipping Method</Form.Label>
                                 <Form.Control
                                     as="select"
-                                    onChange={this.handleSelect.bind(this)}
+                                    name="shipping_method"
+                                    // onChange={this.handleSelect.bind(this)}
                                     required >
                                         <option 
-                                        type="number" value={JSON.stringify([new Number(12), new String('Standard')])}
-                                        required >Standard</option>
-                                        <option type="number" value={JSON.stringify([new Number(30), new String('Express')])}>Express</option>
+                                            placeholder="Select Shipping Method"></option>
+                                        <option 
+                                            value={JSON.stringify([new Number(12).toFixed(2), new String('Standard')])}
+                                            required 
+                                            >Standard</option>
+                                        <option 
+                                            value={JSON.stringify([new Number(30).toFixed(2), new String('Express')])}
+                                            required
+                                            >Express</option>
                                 </Form.Control>    
                             </Form.Group>
                             <Row 
-                            className={classes.Checkout__Shipping_Method}>
-                                <Button
-                                type="submit"
-                                onClick={ () => this.handleFormSubmit({order}, order_id)}
-                                variant="secondary"> Continue to Payment Method</Button>       
+                                // as={Link}
+                                // to={{pathname:`/payment/${order_id}`}}
+                                className={classes.Checkout__Shipping_Method}>
+                                <Button 
+                                    // onClick={ () => this.handleFormSubmit({order}, order_id)}
+                                    type="submit"
+                                    variant="secondary"> Continue to Payment Method</Button>       
                             </Row>
+                           
                         </Form>
-                        
+
                 </Row>
                 <Col className={classes.Checkout_OrderSummary}>
                     <Col className={classes.Checkout_OrderSummary__Box}>
@@ -276,18 +284,7 @@ class Checkout extends Component {
                             </div>
                         </Row>
                         <Row>
-                            <StripeCheckout
-                                description='Corduroi Club'
-                                amount= {order_items && 
-                                    ( Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0).toFixed(2)) + Number(this.state.shipping_cost)) }
-                                billingAddress
-                                zipCode
-                                image="https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713"
-                                locale="auto"
-                                name="www.corduroiclub.com"
-                                stripeKey= 'pk_test_K8hH1MLjoGyYmB6mTVgLIEf900Aop4KNCd'
-                                token={this.onToken}
-                            />
+                            
                         </Row>
                         
                     </Col>
@@ -309,4 +306,4 @@ const mapDispatchToProps = {
     addToCheckout
 }
 
-export default connect(mapToState, mapDispatchToProps)(Checkout)
+export default connect(mapToState, mapDispatchToProps)(Checkout2)
