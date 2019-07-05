@@ -17,7 +17,6 @@ class Checkout extends Component {
         shipping_cost: 0,
         shipping_selected: false,
         shipping_type: '',
-        validated: false
     }
 
     handleFormInput = (event) => {
@@ -26,40 +25,34 @@ class Checkout extends Component {
         })
     }
 
-    handleFormSubmit = (payload, id) => {
-        this.setState({
-            order_id: id
-        })
-        this.props.addToCheckout(payload)
-        let path = '/payment/' + id;
-
-        if(this.state.validated === true ){
-            this.props.history.push(path);
-            console.log('true')
-            } else { 
-            console.log('error')}
-    }
-
-    handleSelect = (event) => {
-        this.setState({
-            shipping_cost: JSON.parse(event.target.value)[0].toFixed(2),
-            shipping_selected: true,
-            shipping_type: JSON.parse(event.target.value)[1],
-            
-        })
-    }
-
-    handleSubmit(event) {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
+    handleFormSubmit = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const data = {}
+        for (let element of form.elements) {
+            if (element.tagName === 'BUTTON') { continue; }
+            data[element.name] = element.value;
         }
-        this.setState({ validated: true });
-        console.log(form)
+        data['date'] = new Date();
+        data['order_id'] = JSON.stringify(cuid())
+        data['order_items'] = this.order_items
+
+      if (!event.target.checkValidity()) {
+        this.setState({ displayErrors: true })
+        console.log('not valid');
+      } else {
+        this.props.addToCheckout(data)
+        this.setState({ displayErrors: false })
+
+        let path = '/payment/' + cuid();
+
+        this.props.history.push(path)
+        
       }
+    }
 
     render() {
+        const { displayErrors } = this.state;
         const { validated } = this.state;
         let form
         const {order_items} = this.props;
@@ -86,15 +79,14 @@ class Checkout extends Component {
                     </Row>
                     <Form 
                         className={classes.Checkout__ContactInfo_Form}
-                        noValidate
                         validated={validated}
-                        onSubmit={e => this.handleSubmit(e)}
+                        onSubmit={this.handleFormSubmit}
+                        noValidate
                         >
                     <Form.Group>
                             <Form.Label>Contact Information</Form.Label>
                             <Form.Control 
-                                name="email"
-                                onChange={this.handleFormInput} 
+                                name="email"                           
                                 type="email" 
                                 placeholder="Email"
                                 required />
@@ -107,7 +99,6 @@ class Checkout extends Component {
                                 <Form.Group as={Col}>
                                     <Form.Control 
                                     name='shipping_first_name'
-                                    onChange={this.handleFormInput} 
                                     type="text" 
                                     placeholder="First Name" 
                                     required/>
@@ -119,7 +110,6 @@ class Checkout extends Component {
                                 <Form.Group as={Col}>
                                     <Form.Control 
                                     name='shipping_last_name'
-                                    onChange={this.handleFormInput} 
                                     type="text" 
                                     placeholder="Last Name"
                                     required  />
@@ -132,7 +122,6 @@ class Checkout extends Component {
                             <Form.Group>
                                 <Form.Control 
                                 name='shipping_address1'
-                                onChange={this.handleFormInput} 
                                 type="text" 
                                 placeholder="Address"
                                 required 
@@ -144,7 +133,6 @@ class Checkout extends Component {
                             <Form.Group>
                                 <Form.Control
                                 name='shipping_address2'
-                                onChange={this.handleFormInput} 
                                 type="text" 
                                 placeholder="Apartment, Suite, etc. (optional)"
                                 />
@@ -152,7 +140,6 @@ class Checkout extends Component {
                             <Form.Group>
                                 <Form.Control
                                 name='shipping_city'
-                                onChange={this.handleFormInput} 
                                 type="text" 
                                 placeholder="City"
                                 required  />
@@ -164,21 +151,18 @@ class Checkout extends Component {
                                 <Form.Group as={Col}>
                                     <Form.Control 
                                     name='shipping_country'
-                                    onChange={this.handleFormInput} 
                                     type="text" placeholder="Country"
                                     required  />
                                 </Form.Group>
                                 <Form.Group as={Col}>
                                     <Form.Control
                                     name='shipping_province'
-                                    onChange={this.handleFormInput} 
                                     type="text" placeholder="Province"
                                     required  />
                                 </Form.Group>
                                 <Form.Group as={Col}>
                                     <Form.Control 
                                     name='shipping_postal_code'
-                                    onChange={this.handleFormInput} 
                                     type="text" placeholder="Postal Code"
                                     required  />
                                 </Form.Group>
@@ -186,7 +170,6 @@ class Checkout extends Component {
                             <Form.Group>
                                 <Form.Control 
                                 name='phone_number'
-                                onChange={this.handleFormInput} 
                                 type="text" 
                                 placeholder="Phone Number"
                                 required />
@@ -195,19 +178,24 @@ class Checkout extends Component {
                                 <Form.Label>Shipping Method</Form.Label>
                                 <Form.Control
                                     as="select"
-                                    onChange={this.handleSelect.bind(this)}
+                                    name="shipping_method"
                                     required >
                                         <option 
-                                        type="number" value={JSON.stringify([new Number(12), new String('Standard')])}
-                                        required >Standard</option>
-                                        <option type="number" value={JSON.stringify([new Number(30), new String('Express')])}>Express</option>
+                                            placeholder="Select Shipping Method"></option>
+                                        <option 
+                                            value={JSON.stringify([new Number(12).toFixed(2), new String('Standard')])}
+                                            required 
+                                            >Standard</option>
+                                        <option 
+                                            value={JSON.stringify([new Number(30).toFixed(2), new String('Express')])}
+                                            required
+                                            >Express</option>
                                 </Form.Control>    
                             </Form.Group>
                             <Row 
                             className={classes.Checkout__Shipping_Method}>
                                 <Button
                                 type="submit"
-                                onClick={ () => this.handleFormSubmit({order}, order_id)}
                                 variant="secondary"> Continue to Payment Method</Button>       
                             </Row>
                         </Form>
@@ -217,7 +205,7 @@ class Checkout extends Component {
                     <Col className={classes.Checkout_OrderSummary__Box}>
                         <Col>
                             {order_items && order_items.map( (items) => (
-                                <Row className={classes.Checkout__Items}>
+                                <Row key={items.item.product_sku} className={classes.Checkout__Items}>
                                     <div className={classes.Checkout__Order_Info}>
                                         <div className={classes.Checkout__Thumbnail_ProductName}>
                                             <div className={classes.Checkout__Thumbnail_Image}>

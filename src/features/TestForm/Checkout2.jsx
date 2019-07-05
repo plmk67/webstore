@@ -86,7 +86,6 @@ class Checkout2 extends Component {
                         validated={validated}
                         onSubmit={this.handleFormSubmit}
                         noValidate
-                        
                         >
                         <Form.Group>
                             <Form.Label>Contact Information</Form.Label>

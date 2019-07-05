@@ -63,7 +63,7 @@ class Payment extends Component {
         let order = ''
 
         if(this.props.order_info){
-            order = this.props.order_info.order
+            order = this.props.order_info
         }
             
         
@@ -87,7 +87,7 @@ class Payment extends Component {
                                         <Card.Text>Contact</Card.Text>
                                     </Col>
                                     <Col md={8}>
-                                        <Card.Text>{order[id] && order[id].email }</Card.Text>
+                                        <Card.Text>{order && order.email }</Card.Text>
                                     </Col>
                                     <Col md={2}>
                                         <Card.Text>Change</Card.Text>
@@ -99,8 +99,8 @@ class Payment extends Component {
                                     </Col>
                                     <Col md={8}>
                                         <Card.Text>
-                                        {order[id] && 
-                                            order[id].shipping_address1 + ' ' + order[id].shipping_address2 + ' ' + order[id].shipping_city + ' ' + order[id].shipping_province + ' ' + order[id].shipping_country + ' ' + order[id].shipping_postal_code}</Card.Text>
+                                        {order && 
+                                            order.shipping_address1 + ' ' + order.shipping_address2 + ' ' + order.shipping_city + ' ' + order.shipping_province + ' ' + order.shipping_country + ' ' + order.shipping_postal_code}</Card.Text>
                                     </Col>
                                     <Col md={2}>
                                         <Card.Text>Change</Card.Text>
@@ -111,8 +111,8 @@ class Payment extends Component {
                                         <Card.Text>Method</Card.Text>
                                     </Col>
                                     <Col md={8}>
-                                        <Card.Text>{order[id] && 
-                                            order[id].shipping_address1}</Card.Text>
+                                        <Card.Text>{order && 
+                                            order.shipping_address1}</Card.Text>
                                     </Col>
                                     <Col md={2}>
                                         <Card.Text>Change</Card.Text>
@@ -134,7 +134,6 @@ class Payment extends Component {
                                 name="www.corduroiclub.com"
                                 stripeKey= 'pk_test_K8hH1MLjoGyYmB6mTVgLIEf900Aop4KNCd'
                                 token={this.onToken}
-                                    
                             />  
                         </Col>
                         
