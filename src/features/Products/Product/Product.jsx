@@ -2,7 +2,7 @@ import React, { Component} from 'react'
 import { connect } from 'react-redux'
 import { Container, Row, Col, FormControl, Button, Modal} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { addToCart } from '../../Cart/cartActions'
+import { addToCart, updateToCartItem } from '../../Cart/cartActions'
 import classes from './Product.module.css'
  
 class Product extends Component {
@@ -13,47 +13,61 @@ class Product extends Component {
     update_order: false,
     order: {},
     added_to_cart: this.props.cart.filter(item => item.item.product_sku === this.props.product.product_sku).length > 0,
+    show_modal: false
   }
 
+  handleClose = () => {
+    this.setState({ cart_modal: false });
+  }
+
+  handleShow = () => {
+      
+  }
+
+  //for location the image
   handleImageChange = (payload) => {
     this.setState({
       hero_image: payload.image
     })
   }
 
+  //for the Quantity input form
   handleQuantityInput = (event) => {
     this.setState({
       shopping_cart_input: parseInt(event.target.value)
     })
+
   }
 
+  //for pushing into Redux
   handleAddToCart = (payload) => {
   
     if (this.state.added_to_cart === false) {
       this.setState({
         order: payload,
-        added_to_cart: true
+        added_to_cart: true,
+        cart_modal: true
       })
       this.props.addToCart(payload)
 
     } else if(this.state.added_to_cart === true 
       && this.props.cart.filter(item => item.item.product_sku === this.props.product.product_sku)[0].item.order_quantity !== this.state.shopping_cart_input){
-      console.log('shopping input updated')
+
+      this.setState({cart_modal: true})
+      this.props.updateToCartItem(payload)
 
     } else {
+
       console.log('quantity is the same')
     }
 
-    // console.log('shopping cart input:', this.state.shopping_cart_input)
-    // console.log('product sku:', this.props.product.product_sku )
-    // console.log('checking if item has been added', this.props.cart.filter(item => item.item.product_sku === this.props.product.product_sku).length > 0)
-    // // console.log(this.props.cart.filter(item => item.item.product_sku === this.props.product.product_sku).length > 0)
   }
 
   render() {
 
     const images = this.props.product.product_image
     const { product } = this.props
+    const { cart } = this.props
     const item = {
       product_sku: product.product_sku,
       product_name: product.product_name,
@@ -104,14 +118,17 @@ class Product extends Component {
                     <span>Quantity</span>
                   </Row>
                   <Row className={classes.Quantity_InputField}>
-                    <FormControl onChange={this.handleQuantityInput} type="number" min={0} max={20} placeholder={1} defaultValue={this.state.shopping_cart_input}></FormControl>
+                    <FormControl onChange={this.handleQuantityInput} type="number" min={1} max={20} placeholder={1} defaultValue={this.state.shopping_cart_input}></FormControl>
                   </Row>
                 </Row>
                 <Row className={classes.Add_To_Cart}>
                   {/* TDL fix Add to Cart color */}
                   <Button onClick={()=> this.handleAddToCart({item})} variant="dark">Add to Cart</Button>
-                  <Button variant="secondary" as={Link} to={`/cart`}>
-                    Go to Checkout</Button>
+                  <Button variant= "secondary" bsStyle="default" style={{ color: 'white' }} >
+                     <Row as={Link} to={`/cart`} >
+                        Go to Checkout
+                     </Row>
+                  </Button>
                 </Row>
                 <Row>
                     <p>
@@ -131,6 +148,29 @@ class Product extends Component {
         <Row className={classes.Product__PreviousPage}>
             <Col as={Link} to ={`/collection`}>Back to Collections</Col>
         </Row>
+
+        <Modal show={this.state.cart_modal} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>{this.state.shopping_cart_input} item(s) added to Cart</Modal.Title>
+            </Modal.Header>
+                <Row>
+                  <Col md={8}>
+                    <Modal.Body> <strong>Subtotal || </strong> {cart.reduce( (acc, item) => acc + item.item.order_quantity,0)} item(s)  </Modal.Body>
+                  </Col>
+                  <Col md={4}>
+                    <Modal.Body> <strong>CAD ${cart.reduce( (acc, item) => acc + item.item.order_cost, 0).toFixed(2)}</strong></Modal.Body>
+                  </Col>
+                </Row>
+              <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}  to={`/cart`}>
+                Go to Cart
+            </Button>
+            <Button variant="primary" onClick={this.handleClose}  to={`/collection`}>
+                Continue Shopping
+            </Button>
+            </Modal.Footer>
+        </Modal>
+
       </Container>
     )
   }
@@ -153,7 +193,8 @@ const mapToState = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-  addToCart
+  addToCart,
+  updateToCartItem
 }
 
 export default connect(mapToState, mapDispatchToProps)(Product)

@@ -1,1 +1,1 @@
-export const ADD_TO_CART2 = "ADD_TO_CART2";
+// export const ADD_TO_CART2 = "ADD_TO_CART2";

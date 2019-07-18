@@ -20,6 +20,7 @@ class Checkout extends Component {
     }
 
     handleFormInput = (event) => {
+        
         this.setState({
             [event.target.name]: event.target.value
         })

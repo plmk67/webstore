@@ -8,21 +8,21 @@ import StripeCheckout from '../../Stripe/StripeCheckout'
 import StripeElementCheckout from '../../Stripe/StripeElementCheckout'
 
 const createOptions = () => {
-return {
-    style: {
-    base: {
-        fontSize: '16px',
-        color: '#424770',
-        letterSpacing: '0.025em',
-        '::placeholder': {
-        color: '#aab7c4',
+    return {
+        style: {
+        base: {
+            fontSize: '16px',
+            color: '#424770',
+            letterSpacing: '0.025em',
+            '::placeholder': {
+            color: '#aab7c4',
+            },
         },
-    },
-    invalid: {
-        color: '#c23d4b',
-    },
-    },
-};
+        invalid: {
+            color: '#c23d4b',
+        },
+        },
+    };
 };  
 
 class Payment extends Component {
@@ -216,7 +216,7 @@ class Payment extends Component {
 
 const mapToState = (state, ownProps) => {
     let order_items = state.cart;
-    let order_info = state.checkout[0];
+    let order_info = state.checkout[state.checkout.length-1];
 
     return{
         order_items,

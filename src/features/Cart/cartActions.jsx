@@ -1,5 +1,5 @@
 import {ADD_TO_CART} from './cartConstants'
-import {UPDATE_CART} from './cartConstants'
+import {UPDATE_TO_CART_ITEM} from './cartConstants'
 
 export const addToCart = (cartItem) => {
     return {
@@ -8,9 +8,9 @@ export const addToCart = (cartItem) => {
     }
 }
 
-export const updateCart = (cartItem) => {
+export const updateToCartItem = (cartItem) => {
     return {
-        type: UPDATE_CART,
+        type: UPDATE_TO_CART_ITEM,
         payload: cartItem
     }
 }

@@ -1,6 +1,5 @@
 import { createReducer } from '../../common/util/reducerUtil'
 
-
 const initialState = [{
   product_sku: 'SKU 001',
   product_name: 'Deadstock Koh-I-Noor Rapidomatic Pencil',

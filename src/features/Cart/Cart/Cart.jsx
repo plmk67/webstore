@@ -1,7 +1,7 @@
 import React, { Component} from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Container, Row, Col, FormControl, Button, Form} from 'react-bootstrap'
+import { Container, Row, Col, FormControl, Button, Form, Modal} from 'react-bootstrap'
 import classes from './Cart.module.css'
 import { addToCheckout } from '../../Checkout/checkoutActions'
 
@@ -9,16 +9,15 @@ class Cart extends Component {
     
     state = {
         //this is grouped from props
-        cart_items: this.props.cart_items
+        cart_items: this.props.cart_items,
+        cart_modal: false
     }
 
-    handleAddToCheckout = (payload) => {
-        this.props.addToCheckout(payload)
-    }
-
+   
     handleUpdateQuantity= (event) => {
         event.preventDefault()
         
+       
         if(this.state.cart_items.length > 1){
             let other_items = this.state.cart_items.filter( item => item.item.product_sku !== event.target.id)
             
@@ -41,10 +40,6 @@ class Cart extends Component {
         }
         
        
-    }
-
-    handleUpdateOrder = (event) => {
-
     }
 
     render() {
@@ -103,7 +98,7 @@ class Cart extends Component {
                                         <FormControl
                                         type="number"
                                         id={order_item.item.product_sku}
-                                        min={0}
+                                        min={1}
                                         placeholder={order_item.item.order_quantity}
                                         onChange={this.handleUpdateQuantity}
                                         ></FormControl>
@@ -116,11 +111,6 @@ class Cart extends Component {
                                 
                             </Row>
                         ))}
-
-                        <Button 
-                            variant="secondary"
-                            type="submit"
-                            >Update Cart</Button>
                     </Form>
                     
                     
@@ -135,21 +125,17 @@ class Cart extends Component {
                     </Row>
 
                     <Row className={classes.Cart__Update_Checkout}>
-                        <Button 
+                        {/* <Button 
                             variant="secondary"
                             type="submit"
                             onClick={this.handleUpdateQuantity}
-                            >Update Cart</Button>
+                            >Update Cart</Button> */}
                         <Button 
-                            variant="dark"
-                            onClick={this.handleAddToCheckout()}
-                            >
-
-                        Checkout
-                        {/* <Row className={classes.Cart__CheckoutButton}
-                        as={Link}
-                        to={`/checkout`}>Checkout</Row> */}
-                            </Button>
+                            variant="dark">
+                                <Row className={classes.Cart__CheckoutButton}
+                                as={Link}
+                                to={`/checkout`}>Checkout</Row>
+                                    </Button>
                         </Row>
                     
                 </Row>
@@ -171,12 +157,13 @@ class Cart extends Component {
                     {checkout}
                 </Row>
 
-                
-
                 <Row className={classes.Cart__PreviousPage}>
                     <Col as={Link} to ={`/collection`}>Back to Collections</Col>
                 </Row>
             </Container>
+
+            
+
         )
     }
 }
