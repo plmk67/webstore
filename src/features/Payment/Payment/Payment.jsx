@@ -32,15 +32,6 @@ class Payment extends Component {
         order_items: this.props.order_items,
         order_id: false,
         errorMessage:'',
-        shipping_cost: 0,
-        shipping_selected: false
-    }
-
-    handleSelect = (event) => {
-        this.setState({
-            shipping_cost: Number(event.target.value).toFixed(2),
-            shipping_selected: true
-        })
     }
 
     render() {
@@ -49,16 +40,7 @@ class Payment extends Component {
         const order_id = cuid()
         
 
-        let shipping = ''
-
-        if(this.state.shipping_selected === false){
-            shipping = <p>Calculate at Checkout</p>
-        } else {
-            shipping = <p>${this.state.shipping_cost}</p>}
-
         let id = window.location.href.substr(-25,25)
-
-        // const test = this.props.order_info.order[id] ? this.props.order_info.order[id].shipping_cost : null;
 
         let order = ''
 
@@ -66,7 +48,10 @@ class Payment extends Component {
             order = this.props.order_info
         }
             
-        
+        let ship = JSON.parse(order.shipping_method)
+        let shipping_cost = ship[0]
+
+        let cart_total = (Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0)) + Number(shipping_cost)).toFixed(2)
 
         return(
             <Container className={classes.Checkout}>
@@ -126,7 +111,7 @@ class Payment extends Component {
                             <StripeCheckout
                                 description='Corduroi Club'
                                 amount= {order_items && 
-                                    ( Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0).toFixed(2)) + Number(this.state.shipping_cost)) }
+                                    ( Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0).toFixed(2)) + Number(shipping_cost)) }
                                 billingAddress
                                 zipCode
                                 image="https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713"
@@ -188,7 +173,7 @@ class Payment extends Component {
                                     <p>Shipping</p>
                                 </div>
                                 <div>
-                                    <p>{shipping}</p>
+                                    <p>${shipping_cost}</p>
                                 </div>
                             </div>
                         </Row>
@@ -199,7 +184,7 @@ class Payment extends Component {
                                 </div>
                                 <div>
                                     <h4>${order_items && 
-                                    ( Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0).toFixed(2)) + Number(this.state.shipping_cost)).toFixed(2) }</h4>
+                                    cart_total}</h4>
                                 </div>
                             </div>
                         </Row>
