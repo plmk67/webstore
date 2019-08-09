@@ -260,25 +260,10 @@ class Checkout extends Component {
                                 </div>
                                 <div>
                                     <h4>${order_items && 
-                                    ( Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0).toFixed(2)) + Number(this.state.shipping_cost)).toFixed(2) }</h4>
+                                    ( Number(order_items.reduce( (acc, items) => acc + items.item.product_price*items.item.order_quantity, 0).toFixed(2)) + Number(this.state.shipping_cost)).toFixed(2) }</h4>
                                 </div>
                             </div>
                         </Row>
-                        <Row>
-                            <StripeCheckout
-                                description='Corduroi Club'
-                                amount= {order_items && 
-                                    ( Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0).toFixed(2)) + Number(this.state.shipping_cost)) }
-                                billingAddress
-                                zipCode
-                                image="https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713"
-                                locale="auto"
-                                name="www.corduroiclub.com"
-                                stripeKey= 'pk_test_K8hH1MLjoGyYmB6mTVgLIEf900Aop4KNCd'
-                                token={this.onToken}
-                            />
-                        </Row>
-                        
                     </Col>
                 </Col>
             </Container>

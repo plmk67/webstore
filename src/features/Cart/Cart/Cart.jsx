@@ -13,6 +13,9 @@ class Cart extends Component {
         cart_modal: false
     }
 
+    routeToCheckout = () => {
+        this.props.history.push('/checkout')
+    }
    
     handleUpdateQuantity= (event) => {
         event.preventDefault()
@@ -38,8 +41,6 @@ class Cart extends Component {
                 cart_items: updated_item
             })
         }
-        
-       
     }
 
     render() {
@@ -133,8 +134,8 @@ class Cart extends Component {
                         <Button 
                             variant="dark">
                                 <Row className={classes.Cart__CheckoutButton}
-                                as={Link}
-                                to={`/checkout`}>Checkout</Row>
+                                onClick ={this.routeToCheckout}
+                                >Checkout</Row>
                                     </Button>
                         </Row>
                     

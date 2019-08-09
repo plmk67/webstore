@@ -16,12 +16,16 @@ class Product extends Component {
     show_modal: false
   }
 
-  handleClose = () => {
+  routeToCart = () => {
     this.setState({ cart_modal: false });
+    let path = '/cart';
+    this.props.history.push(path)
   }
 
-  handleShow = () => {
-      
+  routeToCollections = () => {
+    this.setState({ cart_modal: false });
+    let path = '/collection';
+    this.props.history.push(path)
   }
 
   //for location the image
@@ -124,8 +128,8 @@ class Product extends Component {
                 <Row className={classes.Add_To_Cart}>
                   {/* TDL fix Add to Cart color */}
                   <Button onClick={()=> this.handleAddToCart({item})} variant="dark">Add to Cart</Button>
-                  <Button variant= "secondary" bsStyle="default" style={{ color: 'white' }} >
-                     <Row as={Link} to={`/cart`} >
+                  <Button variant= "secondary" >
+                     <Row onClick={this.routeToCart}>
                         Go to Checkout
                      </Row>
                   </Button>
@@ -162,10 +166,10 @@ class Product extends Component {
                   </Col>
                 </Row>
               <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}  to={`/cart`}>
+            <Button variant="secondary" onClick={this.routeToCart}>
                 Go to Cart
             </Button>
-            <Button variant="primary" onClick={this.handleClose}  to={`/collection`}>
+            <Button variant="primary" onClick={this.routeToCollections}>
                 Continue Shopping
             </Button>
             </Modal.Footer>

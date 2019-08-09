@@ -39,7 +39,6 @@ class Payment extends Component {
         const {order_items} = this.props;
         const order_id = cuid()
         
-
         let id = window.location.href.substr(-25,25)
 
         let order = ''
@@ -47,8 +46,14 @@ class Payment extends Component {
         if(this.props.order_info){
             order = this.props.order_info
         }
-            
-        let ship = JSON.parse(order.shipping_method)
+         
+        let ship = ''
+
+        if(order) { 
+           ship = JSON.parse(order.shipping_method)
+        } else {
+           ship = ''
+        }
         let shipping_cost = ship[0]
 
         let cart_total = (Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0)) + Number(shipping_cost)).toFixed(2)
