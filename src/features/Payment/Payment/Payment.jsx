@@ -120,7 +120,7 @@ class Payment extends Component {
                             <StripeCheckout
                                 description='Corduroi Club'
                                 amount= {order_items && 
-                                    ( Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0).toFixed(2)) + Number(shipping_cost)) }
+                                    ( Number(order_items.reduce( (acc, items) => acc + items.item.product_price*items.item.order_quantity, 0).toFixed(2)) + Number(shipping_cost)) }
                                 billingAddress
                                 zipCode
                                 image="https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713"
@@ -174,7 +174,7 @@ class Payment extends Component {
                                     <p>Subtotal</p>
                                 </div>
                                 <div>
-                                    <p>${order_items && order_items.reduce( (acc, items) => acc + items.item.order_cost, 0).toFixed(2)}</p>
+                                <p>${order_items && order_items.reduce( (acc, items) => acc + items.item.product_price*items.item.order_quantity, 0).toFixed(2)}</p>
                                 </div>
                             </div>
                             <div className={classes.Checkout__Shipping}>
@@ -193,7 +193,7 @@ class Payment extends Component {
                                 </div>
                                 <div>
                                     <h4>${order_items && 
-                                    cart_total}</h4>
+                                    ( Number(order_items.reduce( (acc, items) => acc + items.item.product_price*items.item.order_quantity, 0).toFixed(2)) + Number(ship[0])).toFixed(2) }</h4>
                                 </div>
                             </div>
                         </Row>

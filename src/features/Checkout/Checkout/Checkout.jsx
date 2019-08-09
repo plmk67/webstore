@@ -244,7 +244,7 @@ class Checkout extends Component {
                                     <p>Subtotal</p>
                                 </div>
                                 <div>
-                                    <p>${order_items && order_items.reduce( (acc, items) => acc + items.item.order_cost, 0).toFixed(2)}</p>
+                                    <p>${order_items && order_items.reduce( (acc, items) => acc + items.item.product_price*items.item.order_quantity, 0).toFixed(2)}</p>
                                 </div>
                             </div>
                             <div className={classes.Checkout__Shipping}>
