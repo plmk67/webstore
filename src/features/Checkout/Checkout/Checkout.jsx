@@ -19,8 +19,11 @@ class Checkout extends Component {
         shipping_type: '',
     }
 
+    routeToHome = () => {
+        this.props.history.push('')
+    }
+
     handleFormInput = (event) => {
-        
         this.setState({
             [event.target.name]: event.target.value
         })
@@ -73,7 +76,7 @@ class Checkout extends Component {
         return(
             <Container className={classes.Checkout}>
                  <Row className={classes.Checkout__ContactInfo} >
-                    <Row className={classes.Checkout__Header}>
+                    <Row onClick={this.routeToHome}className={classes.Checkout__Header}>
                             <img 
                             src='https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713'
                             alt='corduroi club logo'/>

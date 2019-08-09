@@ -34,6 +34,10 @@ class Payment extends Component {
         errorMessage:'',
     }
 
+    routeToHome = () => {
+        this.props.history.push('')
+    }
+
     render() {
         let form
         const {order_items} = this.props;
@@ -61,7 +65,7 @@ class Payment extends Component {
         return(
             <Container className={classes.Checkout}>
                 <Row className={classes.Checkout__ContactInfo} >
-                    <Row className={classes.Checkout__Header}>
+                    <Row onClick={this.routeToHome} className={classes.Checkout__Header}>
                             <img 
                             src='https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713'
                             alt='corduroi club logo'/>
