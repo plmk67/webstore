@@ -13,7 +13,7 @@ class Product extends Component {
     update_order: false,
     order: {},
     added_to_cart: this.props.cart.filter(item => item.item.product_sku === this.props.product.product_sku).length > 0,
-    show_modal: false
+    cart_modal: false
   }
 
   routeToCart = () => {
@@ -41,6 +41,12 @@ class Product extends Component {
       shopping_cart_input: parseInt(event.target.value)
     })
 
+  }
+
+  handleClose = () => {
+    this.setState({
+      cart_modal: false
+    })
   }
 
   //for pushing into Redux
@@ -126,13 +132,12 @@ class Product extends Component {
                   </Row>
                 </Row>
                 <Row className={classes.Add_To_Cart}>
-                  {/* TDL fix Add to Cart color */}
                   <Button onClick={()=> this.handleAddToCart({item})} variant="dark">Add to Cart</Button>
-                  <Button variant= "secondary" >
+                  {/* <Button variant= "secondary" >
                      <Row onClick={this.routeToCart}>
                         Go to Checkout
                      </Row>
-                  </Button>
+                  </Button> */}
                 </Row>
                 <Row>
                     <p>
