@@ -1,29 +1,27 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Row, Col, Form, Button, Card} from 'react-bootstrap'
-
-import cuid from 'cuid'
 import classes from './Payment.module.css'
 import StripeCheckout from '../../Stripe/StripeCheckout'
-import StripeElementCheckout from '../../Stripe/StripeElementCheckout'
 
-const createOptions = () => {
-    return {
-        style: {
-        base: {
-            fontSize: '16px',
-            color: '#424770',
-            letterSpacing: '0.025em',
-            '::placeholder': {
-            color: '#aab7c4',
-            },
-        },
-        invalid: {
-            color: '#c23d4b',
-        },
-        },
-    };
-};  
+
+// const createOptions = () => {
+//     return {
+//         style: {
+//         base: {
+//             fontSize: '16px',
+//             color: '#424770',
+//             letterSpacing: '0.025em',
+//             '::placeholder': {
+//             color: '#aab7c4',
+//             },
+//         },
+//         invalid: {
+//             color: '#c23d4b',
+//         },
+//         },
+//     };
+// };  
 
 class Payment extends Component {
     
@@ -39,11 +37,11 @@ class Payment extends Component {
     }
 
     render() {
-        let form
+        // let form
         const {order_items} = this.props;
-        const order_id = cuid()
+        // const order_id = cuid()
         
-        let id = window.location.href.substr(-25,25)
+        // let id = window.location.href.substr(-25,25)
 
         let order = ''
 
@@ -60,7 +58,7 @@ class Payment extends Component {
         }
         let shipping_cost = ship[0]
 
-        let cart_total = (Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0)) + Number(shipping_cost)).toFixed(2)
+        // let cart_total = (Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0)) + Number(shipping_cost)).toFixed(2)
 
         return(
             <Container className={classes.Checkout}>
