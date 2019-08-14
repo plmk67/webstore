@@ -17,6 +17,7 @@ class Checkout extends Component {
         shipping_cost: 0,
         shipping_selected: false,
         shipping_type: '',
+        discount_code: false
     }
 
     routeToHome = () => {

@@ -83,7 +83,7 @@ class Product extends Component {
       product_name: product.product_name,
       product_image: product.product_image[0],
       product_price: product.product_price,
-      order_quantity: this.state.shopping_cart_input,
+      order_quantity: Number(this.state.shopping_cart_input),
       order_cost: product.product_price * this.state.shopping_cart_input
     }
 
