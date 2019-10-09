@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Row, Col, Form, Button, Control} from 'react-bootstrap'
 import {addToCheckout} from '../checkoutActions'
-import { Link } from 'react-router-dom'
+import { NotificationManager } from "react-notifications";
 import cuid from 'cuid'
 import classes from './Checkout.module.css'
-import StripeCheckout from '../../Stripe/StripeCheckout'
-
+import { db }  from '../../../db/firestore'
 
 class Checkout extends Component {
     
@@ -17,7 +16,9 @@ class Checkout extends Component {
         shipping_cost: 0,
         shipping_selected: false,
         shipping_type: '',
-        discount_code: false
+        discount_code: false,
+        fullname: "Mr. Mittens",
+        email: "mrmittens2001@gmail.com"
     }
 
     routeToHome = () => {
@@ -33,20 +34,34 @@ class Checkout extends Component {
     handleFormSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
-        const data = {}
+        const finalOrder = {}
         for (let element of form.elements) {
             if (element.tagName === 'BUTTON') { continue; }
-            data[element.name] = element.value;
+            finalOrder[element.name] = element.value;
         }
-        data['date'] = new Date();
-        data['order_id'] = JSON.stringify(cuid())
-        data['order_items'] = this.order_items
+        finalOrder['date'] = new Date();
+        finalOrder['order_id'] = JSON.stringify(cuid())
+        finalOrder['order_items'] = this.order_items
+
+        //testing push data
+        db.collection("cities").doc("LA").set({
+            name: "Let's rewrite the ID update number 2",
+            state: "CA",
+            country: "Hong Kong"
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+        
 
       if (!event.target.checkValidity()) {
         this.setState({ displayErrors: true })
         console.log('not valid');
       } else {
-        this.props.addToCheckout(data)
+        this.props.addToCheckout(finalOrder)
         this.setState({ displayErrors: false })
 
         let path = '/payment/' + cuid();

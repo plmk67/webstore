@@ -4,7 +4,7 @@ import { ADD_TO_CHECKOUT } from './checkoutConstants'
 const initialState = [];
 
 export const addToCheckout = (state, payload) => {
-    return [...state, Object.assign({}, payload)]
+    return payload;
 }
 
 export default createReducer(initialState, {

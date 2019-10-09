@@ -6,6 +6,7 @@ import Footer from '../../app/components/layout/Footer/Footer'
 
 
 const HomePage = ({history}) => {
+
     return (
       
         <Container className={classes.HomePage}>
@@ -45,11 +46,6 @@ const HomePage = ({history}) => {
                     </li>
                 </Row>
             </Row>
-
-        
-
-           
-
             <Row className={classes.Footer}>
                 <Footer /> 
             </Row>

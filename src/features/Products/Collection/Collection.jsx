@@ -28,6 +28,7 @@ class Collection extends Component {
                 {products && products.map(product => 
                     <Col >
                       <Row className={classes.ProductList__Card }>
+                        {/* use routes as constants */}
                         <Row as={Link}
                             to={{pathname:`/collection/product/${product.product_name}`}}
                             >
