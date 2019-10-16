@@ -1,71 +1,70 @@
 .Collection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 1030px;
-    /* background-color: lightblue; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1030px;
+  /* background-color: lightblue; */
 }
 
 .Header {
-    display:flex;
-    justify-content: center;
-    padding: 30px;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
 }
 
-.Header img{
-    width: 142px;
+.Header img {
+  width: 142px;
 }
 
 .ProductList {
-    /* background-color: pink; */
-    width: 100%; 
+  /* background-color: pink; */
+  width: 100%;
 }
 
 .ProductList__Container {
-    display: flex;
-    flex-direction: row;
-    
+  display: flex;
+  flex-direction: row;
 }
 
 .ProductList__Col {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .ProductList__Card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 30px 10px 30px;
-    max-width: 289px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 30px 10px 30px;
+  max-width: 289px;
 }
 
-.ProductList__Card .card{
-    border: none;
+.ProductList__Card .card {
+  border: none;
 }
 
 .ProductList__CardDetail {
-    padding-top: 16px;
-    display:f lex;
-    flex-direction: column;
+  padding-top: 16px;
+  display: f lex;
+  flex-direction: column;
 }
 
 .ProductList__Card__Img {
-    width: 100%;
-    height: 100%;
-    max-width: 289px;
+  width: 100%;
+  height: 100%;
+  max-width: 289px;
 }
 
 .ProductList__ProductName {
-    text-align: center;
-    font-size: 11px;
-    font-color: #000000;
-    font-weight: 700;
+  text-align: center;
+  font-size: 11px;
+  font-color: #000000;
+  font-weight: 700;
 }
 
 .ProductList__ProductPrice {
-    text-align: center;
-    font-size: 9px;
-    color: #1a1a1a;
-    font-weight: 400
+  text-align: center;
+  font-size: 9px;
+  color: #1a1a1a;
+  font-weight: 400;
 }

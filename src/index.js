@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
-import App from './app/components/layout/App'
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
+import App from "./app/components/layout/App";
 
 //State that was grouped together
-import configureStore from './app/store/configureStore';
+import configureStore from "./app/store/configureStore";
 
 //Redux-Thunk configuration
 
@@ -22,12 +22,10 @@ import configureStore from './app/store/configureStore';
 const store = configureStore();
 
 ReactDOM.render(
-    (<Provider store={store}>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
-    </Provider>)
-, document.getElementById('root') || document.createElement('div')
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById("root") || document.createElement("div")
 );
-
-

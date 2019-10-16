@@ -1,25 +1,25 @@
-import React from 'react'
-import axios from 'axios';
-import StripeCheckout from 'react-stripe-checkout';
+import React from "react";
+import axios from "axios";
+import StripeCheckout from "react-stripe-checkout";
 
-import STRIPE_PUBLISHABLE from '../../constants/stripe';
-import PAYMENT_SERVER_URL from '../../constants/server';
+import STRIPE_PUBLISHABLE from "../../constants/stripe";
+import PAYMENT_SERVER_URL from "../../constants/server";
 
-const CURRENCY = 'CAD';
+const CURRENCY = "CAD";
 
 const fromCADToCent = amount => amount * 100;
 
 const successPayment = data => {
-  alert('Payment Successful');
+  alert("Payment Successful");
 };
 
 const errorPayment = data => {
-  alert('Payment Error');
+  alert("Payment Error");
 };
 
 const onToken = (amount, description) => token =>
-  axios.post(PAYMENT_SERVER_URL,
-    {
+  axios
+    .post(PAYMENT_SERVER_URL, {
       description,
       source: token.id,
       currency: CURRENCY,
@@ -28,7 +28,7 @@ const onToken = (amount, description) => token =>
     .then(successPayment)
     .catch(errorPayment);
 
-const StripeCheckoutComponent = ({ name, description, amount }) =>
+const StripeCheckoutComponent = ({ name, description, amount }) => (
   <StripeCheckout
     name={name}
     description={description}
@@ -37,5 +37,6 @@ const StripeCheckoutComponent = ({ name, description, amount }) =>
     currency={CURRENCY}
     stripeKey={STRIPE_PUBLISHABLE}
   />
+);
 
 export default StripeCheckoutComponent;
