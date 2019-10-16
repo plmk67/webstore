@@ -4,3 +4,6 @@ This is a personal project using webstore https://corduroiclub.com/ as web desig
 
 Product Image Gallery
 ![Product Gallery](Gallery.gif)
+
+Image Test
+![cat](/public/images/cat.jpg)
