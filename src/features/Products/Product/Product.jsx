@@ -115,6 +115,7 @@ class Product extends Component {
                   {images &&
                     images.map(image => (
                       <img
+
                         key={image}
                         onClick={() => this.handleImageChange({ image })}
                         src={image}
