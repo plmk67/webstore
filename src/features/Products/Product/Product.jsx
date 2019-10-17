@@ -57,7 +57,8 @@ class Product extends Component {
     });
   };
 
-  //for pushing into Redux
+  //BUG here for quantity
+  //need to clean up and update correctly
   handleAddToCart = payload => {
     if (this.state.added_to_cart === false) {
       this.setState({
@@ -67,7 +68,12 @@ class Product extends Component {
       });
       this.props.addToCart(payload);
     } else if (
+      //currently if the quantity is the same you can't input more item
+      //this should be add towards the final cart amount
       this.state.added_to_cart === true &&
+
+      //check for item sku exist in cart already
+      //check if shopping order quantity
       this.props.cart.filter(
         item => item.item.product_sku === this.props.product.product_sku
       )[0].item.order_quantity !== this.state.shopping_cart_input

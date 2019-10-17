@@ -10,12 +10,13 @@ import {
   Form
 } from "react-bootstrap";
 import classes from "./Cart.module.css";
+import { updateToCartItem } from '../../Cart/cartActions'
 import { addToCheckout } from "../../Checkout/checkoutActions";
 
 class Cart extends Component {
   state = {
     //this is grouped from props
-    cart_items: this.props.cart_items,
+    // cart_items: this.props.cart_items,
     cart_modal: false
   };
 
@@ -24,33 +25,20 @@ class Cart extends Component {
   };
 
   handleUpdateQuantity = event => {
+    //update directly to Redux
     event.preventDefault();
 
-    if (this.state.cart_items.length > 1) {
-      let other_items = this.state.cart_items.filter(
-        item => item.item.product_sku !== event.target.id
-      );
+    if (this.props.cart_items.length > 0) {
 
-      let updated_item = this.state.cart_items.filter(
+      //target item being updated
+      let target_item = this.props.cart_items.filter(
         item => item.item.product_sku === event.target.id
       );
+      
+      //replacing the target item
+      target_item[0].item.order_quantity = parseInt(event.target.value);
 
-      updated_item[0].item.order_quantity = event.target.value;
-
-      let updated_items = [...other_items, ...updated_item];
-
-      this.setState({
-        cart_items: updated_items
-      });
-    } else {
-      let updated_item = this.state.cart_items.filter(
-        item => item.item.product_sku === event.target.id
-      );
-      updated_item[0].item.order_quantity = event.target.value;
-
-      this.setState({
-        cart_items: updated_item
-      });
+      this.props.updateToCartItem(target_item[0]);
     }
   };
 
@@ -212,6 +200,7 @@ const mapToState = (state, ownProps) => {
 };
 
 const mapDispatchToProps = {
+  updateToCartItem,
   addToCheckout
 };
 
