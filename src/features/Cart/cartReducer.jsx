@@ -8,17 +8,17 @@ export const addToCart = (state, payload) => {
 };
 
 export const updateToCartItem = (state, payload) => {
-  let prevState = state.filter(
-    item => item.item.product_sku !== payload.item.product_sku
-  );
 
-  let cartItem = state.filter(
-    item => item.item.product_sku === payload.item.product_sku
-  );
+ //find index here based on matching SKU
+ //replace
 
-  cartItem[0].item["order_quantity"] = payload.item.order_quantity;
+  let targetIndex = state.findIndex( item =>item.item.product_sku === payload.item.product_sku)
 
-  return [...prevState, ...cartItem];
+  state[targetIndex].item["order_quantity"] = payload.item.order_quantity;
+
+  return [...state];
+
+  
 };
 
 export default createReducer(initialState, {

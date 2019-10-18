@@ -10,7 +10,7 @@ import {
   Form
 } from "react-bootstrap";
 import classes from "./Cart.module.css";
-import { updateToCartItem } from '../../Cart/cartActions'
+import { updateToCartItem } from "../../Cart/cartActions";
 import { addToCheckout } from "../../Checkout/checkoutActions";
 
 class Cart extends Component {
@@ -25,17 +25,13 @@ class Cart extends Component {
   };
 
   handleUpdateQuantity = event => {
-    //update directly to Redux
     event.preventDefault();
 
     if (this.props.cart_items.length > 0) {
-
-      //target item being updated
+      
       let target_item = this.props.cart_items.filter(
         item => item.item.product_sku === event.target.id
       );
-      
-      //replacing the target item
       target_item[0].item.order_quantity = parseInt(event.target.value);
 
       this.props.updateToCartItem(target_item[0]);
