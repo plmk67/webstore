@@ -4,24 +4,6 @@ import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import classes from "./Payment.module.css";
 import StripeCheckout from "../../Stripe/StripeCheckout";
 
-// const createOptions = () => {
-//     return {
-//         style: {
-//         base: {
-//             fontSize: '16px',
-//             color: '#424770',
-//             letterSpacing: '0.025em',
-//             '::placeholder': {
-//             color: '#aab7c4',
-//             },
-//         },
-//         invalid: {
-//             color: '#c23d4b',
-//         },
-//         },
-//     };
-// };
-
 class Payment extends Component {
   state = {
     order_date: new Date(),
@@ -37,9 +19,6 @@ class Payment extends Component {
   render() {
     // let form
     const { order_items } = this.props;
-    // const order_id = cuid()
-
-    // let id = window.location.href.substr(-25,25)
 
     let order = "";
 

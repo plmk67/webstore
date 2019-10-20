@@ -67,15 +67,9 @@ class Product extends Component {
         cart_modal: true
       });
       this.props.addToCart(payload);
-    } else if (
-      this.state.added_to_cart === true
-    ) {
+    } else if (this.state.added_to_cart === true) {
       this.setState({ cart_modal: true });
-
-
-      this.props.updateToCartItem(payload, );
-
-
+      this.props.updateToCartItem(payload);
     } else {
       console.log("quantity is the same");
     }
@@ -117,7 +111,6 @@ class Product extends Component {
                   {images &&
                     images.map(image => (
                       <img
-
                         key={image}
                         onClick={() => this.handleImageChange({ image })}
                         src={image}

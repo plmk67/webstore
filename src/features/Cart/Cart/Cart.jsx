@@ -28,7 +28,6 @@ class Cart extends Component {
     event.preventDefault();
 
     if (this.props.cart_items.length > 0) {
-      
       let target_item = this.props.cart_items.filter(
         item => item.item.product_sku === event.target.id
       );

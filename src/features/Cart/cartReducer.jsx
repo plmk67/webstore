@@ -9,9 +9,6 @@ export const addToCart = (state, payload) => {
 
 export const updateToCartItem = (state, payload) => {
 
- //find index here based on matching SKU
- //replace
-
   let targetIndex = state.findIndex( item =>item.item.product_sku === payload.item.product_sku)
 
   state[targetIndex].item["order_quantity"] = payload.item.order_quantity;

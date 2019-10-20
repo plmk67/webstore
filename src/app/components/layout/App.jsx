@@ -30,8 +30,6 @@ class App extends Component {
                 <Route path="/checkout" exact component={Checkout} />
                 <Route path="/checkout/:OrderId" exact component={Checkout} />
                 <Route path="/payment/:OrderId" exact component={Payment} />
-                <Route path="/test" exact component={Checkout2}/>
-                
               </Switch>
             </Container>
           </div>
