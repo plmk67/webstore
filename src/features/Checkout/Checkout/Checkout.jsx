@@ -45,7 +45,8 @@ class Checkout extends Component {
         shipping_postal_code: this.state.shipping_postal_code,
         phone_number: this.state.phone_number,
         order_items: this.state.order_items,
-        shipment_status: 'unfulfilled'
+        shipment_status: 'unfulfilled',
+        customer_type: 'guest'
       })
       .then(function() {
         console.log("Document successfully written!");

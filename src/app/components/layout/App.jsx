@@ -8,7 +8,6 @@ import Cart from '../../../features/Cart/Cart/Cart'
 import Checkout from '../../../features/Checkout/Checkout/Checkout'
 import Payment from '../../../features/Payment/Payment/Payment'
 import classes from './App.module.css';
-import Checkout2 from '../../../features/TestForm/Checkout2'
 
 class App extends Component {
   render() {
