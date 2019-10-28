@@ -29,15 +29,6 @@ class Payment extends Component {
 
     let ship = "";
 
-    // let testOrder = db
-    //   .collection("order")
-    //   .doc("3KGowNnrYigzUuHOtfTi")
-    //   .get()
-    //   .then(doc => {
-    //     const data = doc.data();
-    //     console.log(data); // LA city object with key-value pair
-    //   });
-
     return (
       <Container className={classes.Checkout}>
         <Row className={classes.Checkout__ContactInfo}>
@@ -107,20 +98,20 @@ class Payment extends Component {
             <Col md={12}>
               <StripeCheckout
                 description="Corduroi Club"
-                // amount={
-                //   0
-                //   order &&
-                //   Number(
-                //     order
-                //       .reduce(
-                //         (acc, items) =>
-                //           acc +
-                //           order_items.item.product_price * items.item.order_quantity,
-                //         0
-                //       )
-                //       .toFixed(2)
-                //   ) + Number(shipping_cost)
-                // }
+                amount=
+                  {(Number(
+                      order_items
+                        .reduce(
+                          (acc, items) =>
+                            acc +
+                            items.item.product_price *
+                              items.item.order_quantity,
+                          0
+                        )
+                        .toFixed(2)
+                    ) + Number(order.shipping_cost)
+                  ).toFixed(2)}
+                
                 billingAddress
                 zipCode
                 image="https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713"

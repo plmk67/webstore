@@ -13,7 +13,18 @@ class Checkout extends Component {
       order_items: this.props.order_items,
       errorMessage: "",
       shipping_selected: false,
-      discount_code: false
+      discount_code: false,
+      shipping_first_name: '',
+      shipping_last_name: '',
+      shipping_address1: '',
+      shipping_address2: '',
+      shipping_city: '',
+      shipping_country: '',
+      shipping_province: '',
+      shipping_postal_code: '',
+      shipping_method: '',
+      shipping_cost: '',
+      phone_number: '',
     };
   }
 
@@ -55,15 +66,15 @@ class Checkout extends Component {
       customer_type: "guest"
     };
 
-    // db.collection("order")
-    //   .doc()
-    //   .set({ order })
-    //   .then(function() {
-    //     console.log("Document successfully written!");
-    //   })
-    //   .catch(function(error) {
-    //     console.error("Error writing document: ", error);
-    //   });
+    db.collection("order")
+      .doc()
+      .set({ order })
+      .then(function() {
+        console.log("Document successfully written!");
+      })
+      .catch(function(error) {
+        console.error("Error writing document: ", error);
+      });
 
     if (!event.target.checkValidity()) {
       this.setState({ displayErrors: true });
