@@ -13,7 +13,7 @@ const HomePage = ({history}) => {
             
             <Row as={Link} to={'/collection'} className={classes.Cover}>
                 <img
-                    src="https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/slide_1.jpg?713"
+                    src='https://firebasestorage.googleapis.com/v0/b/webstore-3722d.appspot.com/o/cover.jpg?alt=media&token=349479fe-afde-484b-9be8-19b151b49dc9'
                     alt="kids"
                 />
             </Row>

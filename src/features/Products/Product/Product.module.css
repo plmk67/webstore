@@ -32,6 +32,7 @@
   max-width: 460px;
   max-height: 460px;
   padding-right: 15px;
+  cursor: pointer;
 }
 
 .Product_Info_Alt_Image {
@@ -40,6 +41,7 @@
   flex-wrap: nowrap;
   max-width: 460px;
   padding-top: 30px;
+  
 }
 
 .Product_Info_Alt_Image img {
