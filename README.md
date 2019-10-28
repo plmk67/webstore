@@ -2,7 +2,7 @@ ecommerce webstore project using React/Redux with Firebase for hosting, storing 
 
 User can add multiple products to cart and adjust final cart quality before going to checkout
 
-<img alt='select product' src='https://firebasestorage.googleapis.com/v0/b/webstore-3722d.appspot.com/o/selecting_product.gif?alt=media&token=d2e72692-1da7-4c7f-8473-22929694bb80' width="750"/>
+<img alt='select product' src='https://firebasestorage.googleapis.com/v0/b/webstore-3722d.appspot.com/o/select.gif?alt=media&token=6a7871c1-6cac-4837-85c1-c36ddebfc753' width="750"/>
 
 Payment processing is powered by Stripe API
 
