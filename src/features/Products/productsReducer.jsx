@@ -13,9 +13,9 @@ const initialState = [
       "Deadstock, Brand new in original package"
     ],
     product_image: [
-      "https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05636_1024x1024.jpg?v=1496378162",
-      "https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05640-Edit_grande.jpg?v=1496378162",
-      "https://cdn.shopify.com/s/files/1/0818/5483/products/DSC05633-Edit_grande.jpg?v=1496378178"
+      "https://firebasestorage.googleapis.com/v0/b/webstore-3722d.appspot.com/o/Pen-01.jpg?alt=media&token=942ee80e-caa3-4d15-a17f-4e4af618966d",
+      "https://firebasestorage.googleapis.com/v0/b/webstore-3722d.appspot.com/o/Pen-02.jpg?alt=media&token=da1e4d4b-728b-4cdd-ae0b-0d080703b729",
+      "https://firebasestorage.googleapis.com/v0/b/webstore-3722d.appspot.com/o/Pen-03.jpg?alt=media&token=9578cdf9-f994-498a-8f4c-c5354266fadf"
     ]
   },
   {
@@ -32,9 +32,9 @@ const initialState = [
       "Due to the age of the product, some items may have blemishes and oxidization on surface"
     ],
     product_image: [
-      "https://cdn.shopify.com/s/files/1/0818/5483/products/R0000436-Edit_1024x1024.jpg?v=1496215388",
-      "https://cdn.shopify.com/s/files/1/0818/5483/products/R0000438-Edit_grande.jpg?v=1496215403",
-      "https://cdn.shopify.com/s/files/1/0818/5483/products/R0000447-Edit_grande.jpg?v=1496215412"
+      "https://firebasestorage.googleapis.com/v0/b/webstore-3722d.appspot.com/o/belt-01.jpg?alt=media&token=69ac81a1-3b86-488a-868d-7269d86b09f4", 
+      "https://firebasestorage.googleapis.com/v0/b/webstore-3722d.appspot.com/o/belt-02.jpg?alt=media&token=98c9f81d-dedc-443b-bec8-bf47f078ff12",
+      "https://firebasestorage.googleapis.com/v0/b/webstore-3722d.appspot.com/o/belt-03.jpg?alt=media&token=6c1ebf37-3b79-41e6-b4d1-e51061cb5d72"
     ]
   },
   {
@@ -49,8 +49,8 @@ const initialState = [
       "One size (US 6-10)"
     ],
     product_image: [
-      "https://cdn.shopify.com/s/files/1/0818/5483/products/DSC04747-Edit-2_1024x1024.jpg?v=1496369761",
-      "https://cdn.shopify.com/s/files/1/0818/5483/products/DSC04753-Edit_grande.jpg?v=1496369774"
+      "https://firebasestorage.googleapis.com/v0/b/webstore-3722d.appspot.com/o/Sock-01.jpg?alt=media&token=a90f0355-cd2e-4ed1-955f-c99ae15ce62f",
+      "https://firebasestorage.googleapis.com/v0/b/webstore-3722d.appspot.com/o/Sock-02.jpg?alt=media&token=df7d40cb-c483-4d61-9e9d-bd3e59c29162"
     ]
   }
 ];

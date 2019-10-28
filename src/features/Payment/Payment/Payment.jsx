@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import classes from "./Payment.module.css";
 import StripeCheckout from "../../Stripe/StripeCheckout";
+import { db } from "../../../db/firestore";
 
 class Payment extends Component {
   state = {
@@ -28,14 +29,14 @@ class Payment extends Component {
 
     let ship = "";
 
-    if (order) {
-      ship = JSON.parse(order.shipping_method);
-    } else {
-      ship = "";
-    }
-    let shipping_cost = ship[0];
-
-    // let cart_total = (Number(order_items.reduce( (acc, items) => acc + items.item.order_cost, 0)) + Number(shipping_cost)).toFixed(2)
+    // let testOrder = db
+    //   .collection("order")
+    //   .doc("3KGowNnrYigzUuHOtfTi")
+    //   .get()
+    //   .then(doc => {
+    //     const data = doc.data();
+    //     console.log(data); // LA city object with key-value pair
+    //   });
 
     return (
       <Container className={classes.Checkout}>
@@ -90,7 +91,10 @@ class Payment extends Component {
                     <Card.Text>Method</Card.Text>
                   </Col>
                   <Col md={8}>
-                    <Card.Text>{order && order.shipping_address1}</Card.Text>
+                    <Card.Text>
+                      {order && (order.shipping_cost === "15.00" ? 'Standard Shipping' : 'Express Shipping'
+                      )}
+                    </Card.Text>
                   </Col>
                   <Col md={2}>
                     <Card.Text>Change</Card.Text>
@@ -103,19 +107,20 @@ class Payment extends Component {
             <Col md={12}>
               <StripeCheckout
                 description="Corduroi Club"
-                amount={
-                  order_items &&
-                  Number(
-                    order_items
-                      .reduce(
-                        (acc, items) =>
-                          acc +
-                          items.item.product_price * items.item.order_quantity,
-                        0
-                      )
-                      .toFixed(2)
-                  ) + Number(shipping_cost)
-                }
+                // amount={
+                //   0
+                //   order &&
+                //   Number(
+                //     order
+                //       .reduce(
+                //         (acc, items) =>
+                //           acc +
+                //           order_items.item.product_price * items.item.order_quantity,
+                //         0
+                //       )
+                //       .toFixed(2)
+                //   ) + Number(shipping_cost)
+                // }
                 billingAddress
                 zipCode
                 image="https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713"
@@ -198,7 +203,7 @@ class Payment extends Component {
                   <p>Shipping</p>
                 </div>
                 <div>
-                  <p>${shipping_cost}</p>
+                  <p>${order && order.shipping_cost}</p>
                 </div>
               </div>
             </Row>
@@ -222,7 +227,7 @@ class Payment extends Component {
                               0
                             )
                             .toFixed(2)
-                        ) + Number(ship[0])
+                        ) + Number(order.shipping_cost)
                       ).toFixed(2)}
                   </h4>
                 </div>
@@ -238,7 +243,7 @@ class Payment extends Component {
 
 const mapToState = (state, ownProps) => {
   let order_items = state.cart;
-  let order_info = state.checkout[state.checkout.length - 1];
+  let order_info = state.checkout;
 
   return {
     order_items,

@@ -5,17 +5,17 @@ import { addToCheckout } from "../checkoutActions";
 import cuid from "cuid";
 import classes from "./Checkout.module.css";
 import { db } from "../../../db/firestore";
-import { throwStatement } from "@babel/types";
 
 class Checkout extends Component {
-  state = {
-    order_items: this.props.order_items,
-    errorMessage: "",
-    shipping_cost: 0,
-    shipping_selected: false,
-    shipping_type: "",
-    discount_code: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      order_items: this.props.order_items,
+      errorMessage: "",
+      shipping_selected: false,
+      discount_code: false
+    };
+  }
 
   routeToHome = () => {
     this.props.history.push("");
@@ -25,37 +25,46 @@ class Checkout extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+
+    if ([event.target.name] === 'shipping_method' && this.state.shipping_method === "Standard") {
+        this.setState({ shipping_cost: Number(15.0).toFixed(2) });
+    } else if ([event.target.name] === 'shipping_method' && this.state.shipping_method === "Express") {
+        this.setState({ shipping_cost: Number(25.0).toFixed(2) });
+    }
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    //testing push data
-    db.collection("order")
-      .doc()
-      .set({
-        order_date: new Date(),
-        email: this.state.email,
-        shipping_first_name: this.state.shipping_first_name,
-        shipping_last_name: this.state.shipping_last_name,
-        shipping_address1: this.state.shipping_address1,
-        shipping_address2: this.state.shipping_address2,
-        shipping_city: this.state.shipping_city,
-        shipping_country: this.state.shipping_country,
-        shipping_province: this.state.shipping_province,
-        shipping_postal_code: this.state.shipping_postal_code,
-        phone_number: this.state.phone_number,
-        order_items: this.state.order_items,
-        shipment_status: 'unfulfilled',
-        customer_type: 'guest'
-      })
-      .then(function() {
-        console.log("Document successfully written!");
-      })
-      .catch(function(error) {
-        console.error("Error writing document: ", error);
-      });
 
-    console.log(this.state.email)
+    let order = {
+      order_date: new Date(),
+      email: this.state.email,
+      shipping_first_name: this.state.shipping_first_name,
+      shipping_last_name: this.state.shipping_last_name,
+      shipping_address1: this.state.shipping_address1,
+      shipping_address2: this.state.shipping_address2,
+      shipping_city: this.state.shipping_city,
+      shipping_country: this.state.shipping_country,
+      shipping_province: this.state.shipping_province,
+      shipping_postal_code: this.state.shipping_postal_code,
+      shipping_method: this.state.shipping_method,
+      shipping_cost: this.state.shipping_cost,
+      phone_number: this.state.phone_number,
+      order_items: this.state.order_items,
+      shipment_status: "unfulfilled",
+      customer_type: "guest"
+    };
+
+    // db.collection("order")
+    //   .doc()
+    //   .set({ order })
+    //   .then(function() {
+    //     console.log("Document successfully written!");
+    //   })
+    //   .catch(function(error) {
+    //     console.error("Error writing document: ", error);
+    //   });
+
     if (!event.target.checkValidity()) {
       this.setState({ displayErrors: true });
       console.log("not valid");
@@ -63,7 +72,7 @@ class Checkout extends Component {
       this.setState({ displayErrors: false });
 
       let path = "/payment/" + cuid();
-
+      this.props.addToCheckout(order);
       this.props.history.push(path);
     }
   };
@@ -73,11 +82,6 @@ class Checkout extends Component {
     const { validated } = this.state;
     let form;
     const { order_items } = this.props;
-    let order_id = cuid();
-    const order = {
-      [order_id]: this.state
-    };
-
     let shipping = "";
 
     if (this.state.shipping_selected === false) {
@@ -102,7 +106,7 @@ class Checkout extends Component {
             onChange={this.handleFormInput}
             noValidate
           >
-            <Form.Group >
+            <Form.Group>
               <Form.Label>Contact Information</Form.Label>
               <Form.Control
                 name="email"
@@ -205,25 +209,13 @@ class Checkout extends Component {
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlSelect1">
               <Form.Label>Shipping Method</Form.Label>
-              <Form.Control as="select" name="shipping_method" required>
+              <Form.Control as="select" name="shipping_cost" required>
                 <option placeholder="Select Shipping Method"></option>
-                <option
-                  value={JSON.stringify([
-                    new Number(12).toFixed(2),
-                    new String("Standard")
-                  ])}
-                  required
-                >
-                  Standard
+                <option value={Number(15).toFixed(2)} required>
+                  Standard (5-7 business days) - $15.00
                 </option>
-                <option
-                  value={JSON.stringify([
-                    new Number(30).toFixed(2),
-                    new String("Express")
-                  ])}
-                  required
-                >
-                  Express
+                <option value={Number(25).toFixed(2)} required>
+                  Express (2-3 business days) - $25.00
                 </option>
               </Form.Control>
             </Form.Group>
@@ -322,19 +314,15 @@ class Checkout extends Component {
                   <h4>
                     $
                     {order_items &&
-                      (
-                        Number(
-                          order_items
-                            .reduce(
-                              (acc, items) =>
-                                acc +
-                                items.item.product_price *
-                                  items.item.order_quantity,
-                              0
-                            )
-                            .toFixed(2)
-                        ) + Number(this.state.shipping_cost)
-                      ).toFixed(2)}
+                      order_items
+                        .reduce(
+                          (acc, items) =>
+                            acc +
+                            items.item.product_price *
+                              items.item.order_quantity,
+                          0
+                        )
+                        .toFixed(2)}
                   </h4>
                 </div>
               </div>

@@ -14,7 +14,7 @@ import classes from "./Product.module.css";
 
 class Product extends Component {
   state = {
-    hero_image: this.props.product.product_image,
+    hero_image: this.props.product.product_image[0],
     shopping_cart_input: 1,
     update_order: false,
     order: {},

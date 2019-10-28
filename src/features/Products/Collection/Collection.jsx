@@ -33,7 +33,7 @@ class Collection extends Component {
                       >
                         <CardImg
                           className={classes.ProductList__Card__Img}
-                          src={product.product_image}
+                          src={product.product_image[0]}
                           alt="blue hat"
                         />
                       </Row>
