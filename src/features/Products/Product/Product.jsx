@@ -11,19 +11,48 @@ import {
 import { Link } from "react-router-dom";
 import { addToCart, updateToCartItem } from "../../Cart/cartActions";
 import classes from "./Product.module.css";
+import { db } from "../../../db/firestore";
 
 class Product extends Component {
-  state = {
-    hero_image: this.props.product.product_image[0],
-    shopping_cart_input: 1,
-    update_order: false,
-    order: {},
-    added_to_cart:
-      this.props.cart.filter(
-        item => item.item.product_sku === this.props.product.product_sku
-      ).length > 0,
-    cart_modal: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      hero_image: 0,
+      shopping_cart_input: 1,
+      update_order: false,
+      order: {},
+      // added_to_cart:
+      //   this.props.cart.filter(
+      //     item => item.item.product_sku === this.props.product.product_sku
+      //   ).length > 0,
+      cart_modal: false,
+      product_price: 0,
+      product_sku:'',
+      product_description:'',
+      product_image:[''],
+      bulletpoint:[''],
+    };
+  }
+
+  //mounting 
+  componentDidMount() {
+    let productId =this.props.match.params.ProductName
+    console.log(productId.ProductName)
+
+    db.collection("products")
+      .where("product_name", "==", productId)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach( doc => {
+          this.setState(doc.data())
+        });
+      })
+      .catch(error => {
+        console.log("Error getting documents: ", error);
+      });
+
+    
+  }
 
   routeToCart = () => {
     this.setState({ cart_modal: false });
@@ -37,10 +66,9 @@ class Product extends Component {
     this.props.history.push(path);
   };
 
-  //for location the image
   handleImageChange = payload => {
     this.setState({
-      hero_image: payload.image
+      hero_image: payload.index
     });
   };
 
@@ -57,8 +85,6 @@ class Product extends Component {
     });
   };
 
-  //BUG here for quantity
-  //need to clean up and update correctly
   handleAddToCart = payload => {
     if (this.state.added_to_cart === false) {
       this.setState({
@@ -76,17 +102,8 @@ class Product extends Component {
   };
 
   render() {
-    const images = this.props.product.product_image;
-    const { product } = this.props;
-    const { cart } = this.props;
-    const item = {
-      product_sku: product.product_sku,
-      product_name: product.product_name,
-      product_image: product.product_image[0],
-      product_price: product.product_price,
-      order_quantity: Number(this.state.shopping_cart_input),
-      order_cost: product.product_price * this.state.shopping_cart_input
-    };
+
+    console.log(this.props.productId)
 
     return (
       <Container className={classes.Product}>
@@ -103,16 +120,16 @@ class Product extends Component {
               <Col>
                 <Row>
                   <img
-                    src={this.state.hero_image}
-                    alt={this.state.hero_image}
+                    src={this.state.product_image[this.state.hero_image]}
+                    alt={this.state.product_image[this.state.hero_image]}
                   ></img>
                 </Row>
                 <Row className={classes.Product_Info_Alt_Image}>
-                  {images &&
-                    images.map(image => (
+                  {this.state.product_image &&
+                    this.state.product_image.map((image, index) => (
                       <img
-                        key={image}
-                        onClick={() => this.handleImageChange({ image })}
+                        key={index}
+                        onClick={() => this.handleImageChange({index})}
                         src={image}
                       ></img>
                     ))}
@@ -122,10 +139,10 @@ class Product extends Component {
             <Row className={classes.Product_Info__Detail}>
               <Col>
                 <Row>
-                  <h5>{product.product_name}</h5>
+                  <h5>{this.state.product_name}</h5>
                 </Row>
                 <Row className={classes.Price}>
-                  <span>${product.product_price.toFixed(2)}</span>
+                  <span>${this.state.product_price.toFixed(2)}</span>
                 </Row>
                 <Row className={classes.Quantity}>
                   <Row>
@@ -143,24 +160,19 @@ class Product extends Component {
                   </Row>
                 </Row>
                 <Row className={classes.Add_To_Cart}>
-                  <Button
+                  {/* <Button
                     onClick={() => this.handleAddToCart({ item })}
                     variant="dark"
                   >
                     Add to Cart
-                  </Button>
-                  {/* <Button variant= "secondary" >
-                     <Row onClick={this.routeToCart}>
-                        Go to Checkout
-                     </Row>
                   </Button> */}
                 </Row>
                 <Row>
-                  <p>{product.product_description}</p>
+                  <p>{this.state.product_description}</p>
                 </Row>
                 <Row>
                   <ul>
-                    {product.bulletpoint.map(bulletpoint => (
+                    {this.state.bulletpoint.map(bulletpoint => (
                       <li>{bulletpoint}</li>
                     ))}
                   </ul>
@@ -183,22 +195,22 @@ class Product extends Component {
           </Modal.Header>
           <Row>
             <Col md={8}>
-              <Modal.Body>
+              {/* <Modal.Body>
                 {" "}
                 <strong>Subtotal || </strong>{" "}
                 {cart.reduce((acc, item) => acc + item.item.order_quantity, 0)}{" "}
                 item(s){" "}
-              </Modal.Body>
+              </Modal.Body> */}
             </Col>
             <Col md={4}>
               <Modal.Body>
                 {" "}
-                <strong>
+                {/* <strong>
                   CAD $
                   {cart
                     .reduce((acc, item) => acc + item.item.order_cost, 0)
                     .toFixed(2)}
-                </strong>
+                </strong> */}
               </Modal.Body>
             </Col>
           </Row>
@@ -217,29 +229,18 @@ class Product extends Component {
 }
 
 const mapToState = (state, ownProps) => {
-  const productId = ownProps.match.params.ProductName;
+  const productId = ownProps.match.ProductName;
 
-  let product = {};
-  let cart = state.cart;
-
-  if (productId && state.product.length > 0) {
-    product = state.product.filter(
-      product => productId === product.product_name
-    )[0];
-  }
-
-  return {
-    product,
-    cart
-  };
+ return(
+   productId
+ )
 };
+
 
 const mapDispatchToProps = {
   addToCart,
   updateToCartItem
+ 
 };
 
-export default connect(
-  mapToState,
-  mapDispatchToProps
-)(Product);
+export default Product;

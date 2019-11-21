@@ -8,6 +8,7 @@ import Cart from '../../../features/Cart/Cart/Cart'
 import Checkout from '../../../features/Checkout/Checkout/Checkout'
 import Payment from '../../../features/Payment/Payment/Payment'
 import classes from './App.module.css';
+import CreateProduct from '../../../features/Products/CreateProducts/createProduct'
 
 class App extends Component {
   render() {
@@ -29,6 +30,7 @@ class App extends Component {
                 <Route path="/checkout" exact component={Checkout} />
                 <Route path="/checkout/:OrderId" exact component={Checkout} />
                 <Route path="/payment/:OrderId" exact component={Payment} />
+                <Route path="/create" exact component={CreateProduct} />
               </Switch>
             </Container>
           </div>
