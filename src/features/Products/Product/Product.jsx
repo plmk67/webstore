@@ -17,41 +17,47 @@ class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      added_to_cart: false,
+      cart_modal: false,
+      order: {},
       hero_image: 0,
       shopping_cart_input: 1,
       update_order: false,
-      order: {},
-      // added_to_cart:
-      //   this.props.cart.filter(
-      //     item => item.item.product_sku === this.props.product.product_sku
-      //   ).length > 0,
       cart_modal: false,
       product_price: 0,
-      product_sku:'',
-      product_description:'',
-      product_image:[''],
-      bulletpoint:[''],
+      product_sku: "",
+      product_description: "",
+      product_image: [""],
+      bulletpoint: [""]
     };
   }
 
-  //mounting 
+  //mounting
   componentDidMount() {
-    let productId =this.props.match.params.ProductName
-    console.log(productId.ProductName)
+    let productName = this.props.match.params.ProductName;
+    console.log(productName);
 
     db.collection("products")
-      .where("product_name", "==", productId)
+      .where("product_name", "==", productName)
       .get()
       .then(querySnapshot => {
-        querySnapshot.forEach( doc => {
-          this.setState(doc.data())
+        querySnapshot.forEach(doc => {
+          this.setState(doc.data());
         });
       })
       .catch(error => {
         console.log("Error getting documents: ", error);
       });
 
-    
+    //checking if item has already been added to cart previous
+    if (
+      this.props.cart.filter(items => items.item.product_name === productName)
+        .length > 0
+    ) {
+      this.setState({ added_to_cart: true });
+    } else {
+      this.setState({ added_to_cart: false });
+    }
   }
 
   routeToCart = () => {
@@ -88,7 +94,6 @@ class Product extends Component {
   handleAddToCart = payload => {
     if (this.state.added_to_cart === false) {
       this.setState({
-        order: payload,
         added_to_cart: true,
         cart_modal: true
       });
@@ -102,8 +107,19 @@ class Product extends Component {
   };
 
   render() {
+    console.log(this.state);
 
-    console.log(this.props.productId)
+    console.log(this.props.cart);
+
+    const { cart } = this.props;
+    const item = {
+      product_sku: this.state.product_sku,
+      product_name: this.state.product_name,
+      product_image: this.state.product_image[0],
+      product_price: this.state.product_price,
+      order_quantity: Number(this.state.shopping_cart_input),
+      order_cost: this.state.product_price * this.state.shopping_cart_input
+    };
 
     return (
       <Container className={classes.Product}>
@@ -129,7 +145,7 @@ class Product extends Component {
                     this.state.product_image.map((image, index) => (
                       <img
                         key={index}
-                        onClick={() => this.handleImageChange({index})}
+                        onClick={() => this.handleImageChange({ index })}
                         src={image}
                       ></img>
                     ))}
@@ -160,12 +176,12 @@ class Product extends Component {
                   </Row>
                 </Row>
                 <Row className={classes.Add_To_Cart}>
-                  {/* <Button
+                  <Button
                     onClick={() => this.handleAddToCart({ item })}
                     variant="dark"
                   >
                     Add to Cart
-                  </Button> */}
+                  </Button>
                 </Row>
                 <Row>
                   <p>{this.state.product_description}</p>
@@ -195,22 +211,22 @@ class Product extends Component {
           </Modal.Header>
           <Row>
             <Col md={8}>
-              {/* <Modal.Body>
+              <Modal.Body>
                 {" "}
                 <strong>Subtotal || </strong>{" "}
                 {cart.reduce((acc, item) => acc + item.item.order_quantity, 0)}{" "}
                 item(s){" "}
-              </Modal.Body> */}
+              </Modal.Body>
             </Col>
             <Col md={4}>
               <Modal.Body>
                 {" "}
-                {/* <strong>
+                <strong>
                   CAD $
                   {cart
                     .reduce((acc, item) => acc + item.item.order_cost, 0)
                     .toFixed(2)}
-                </strong> */}
+                </strong>
               </Modal.Body>
             </Col>
           </Row>
@@ -230,17 +246,17 @@ class Product extends Component {
 
 const mapToState = (state, ownProps) => {
   const productId = ownProps.match.ProductName;
+  let cart = state.cart;
 
- return(
-   productId
- )
+  return {
+    productId,
+    cart
+  };
 };
-
 
 const mapDispatchToProps = {
   addToCart,
   updateToCartItem
- 
 };
 
-export default Product;
+export default connect(mapToState, mapDispatchToProps)(Product);

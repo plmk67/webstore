@@ -8,14 +8,13 @@ export const addToCart = (state, payload) => {
 };
 
 export const updateToCartItem = (state, payload) => {
-
-  let targetIndex = state.findIndex( item =>item.item.product_sku === payload.item.product_sku)
+  let targetIndex = state.findIndex(
+    item => item.item.product_sku === payload.item.product_sku
+  );
 
   state[targetIndex].item["order_quantity"] = payload.item.order_quantity;
 
   return [...state];
-
-  
 };
 
 export default createReducer(initialState, {

@@ -83,8 +83,10 @@ class Payment extends Component {
                   </Col>
                   <Col md={8}>
                     <Card.Text>
-                      {order && (order.shipping_cost === "15.00" ? 'Standard Shipping' : 'Express Shipping'
-                      )}
+                      {order &&
+                        (order.shipping_cost === "15.00"
+                          ? "Standard Shipping"
+                          : "Express Shipping")}
                     </Card.Text>
                   </Col>
                   <Col md={2}>
@@ -98,20 +100,18 @@ class Payment extends Component {
             <Col md={12}>
               <StripeCheckout
                 description="Corduroi Club"
-                amount=
-                  {(Number(
-                      order_items
-                        .reduce(
-                          (acc, items) =>
-                            acc +
-                            items.item.product_price *
-                              items.item.order_quantity,
-                          0
-                        )
-                        .toFixed(2)
-                    ) + Number(order.shipping_cost)
-                  ).toFixed(2)}
-                
+                amount={(
+                  Number(
+                    order_items
+                      .reduce(
+                        (acc, items) =>
+                          acc +
+                          items.item.product_price * items.item.order_quantity,
+                        0
+                      )
+                      .toFixed(2)
+                  ) + Number(order.shipping_cost)
+                ).toFixed(2)}
                 billingAddress
                 zipCode
                 image="https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713"
