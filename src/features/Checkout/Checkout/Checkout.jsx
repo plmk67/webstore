@@ -89,9 +89,7 @@ class Checkout extends Component {
   };
 
   render() {
-    const { displayErrors } = this.state;
     const { validated } = this.state;
-    let form;
     const { order_items } = this.props;
     let shipping = "";
 

@@ -23,7 +23,6 @@ class Product extends Component {
       hero_image: 0,
       shopping_cart_input: 1,
       update_order: false,
-      cart_modal: false,
       product_price: 0,
       product_sku: "",
       product_description: "",
@@ -147,6 +146,7 @@ class Product extends Component {
                         key={index}
                         onClick={() => this.handleImageChange({ index })}
                         src={image}
+                        alt={'image' + index }
                       ></img>
                     ))}
                 </Row>

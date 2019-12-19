@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import classes from "./Collection.module.css";
-import { Container, Row, Col, Card, CardImg, CardText } from "react-bootstrap";
+import { Container, Row, Col, Card, CardImg} from "react-bootstrap";
 import Footer from "../../../app/components/layout/Footer/Footer";
 import { Link } from "react-router-dom";
 import { db } from "../../../db/firestore";
@@ -29,12 +29,6 @@ class Collection extends Component {
   }
 
   render() {
-    //this is taken from Redux
-    const { products } = this.props;
-
-    console.log(this.state.products)  
-
-    //test to generate an object that will render in Console.log from Firestore
     return (
       <div>
         <Container className={classes.Collection}>

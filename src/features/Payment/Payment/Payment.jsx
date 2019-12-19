@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import classes from "./Payment.module.css";
 import StripeCheckout from "../../Stripe/StripeCheckout";
-import { db } from "../../../db/firestore";
 
 class Payment extends Component {
   state = {
@@ -26,8 +25,6 @@ class Payment extends Component {
     if (this.props.order_info) {
       order = this.props.order_info;
     }
-
-    let ship = "";
 
     return (
       <Container className={classes.Checkout}>
