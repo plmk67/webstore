@@ -3,6 +3,7 @@ import axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
 
 import STRIPE_PUBLISHABLE from "../../constants/stripe";
+//URL post
 import PAYMENT_SERVER_URL from "../../constants/server";
 
 const CURRENCY = "CAD";
@@ -19,12 +20,15 @@ const errorPayment = data => {
 
 const onToken = (amount, description) => token =>
   axios
-    .post(PAYMENT_SERVER_URL, {
-      description,
-      source: token.id,
-      currency: CURRENCY,
-      amount: fromCADToCent(amount)
-    })
+    .post(
+      `https://us-central1-socialmonkey-bea78.cloudfunctions.net/api/stripe_payment`,
+      {
+        description: description,
+        source: token.id,
+        currency: CURRENCY,
+        amount: fromCADToCent(amount)
+      }
+    )
     .then(successPayment)
     .catch(errorPayment);
 

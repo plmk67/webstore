@@ -4,6 +4,7 @@ import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import classes from "./Payment.module.css";
 import StripeCheckout from "../../Stripe/StripeCheckout";
 
+
 class Payment extends Component {
   state = {
     order_date: new Date(),
