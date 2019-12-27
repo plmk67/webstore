@@ -115,7 +115,6 @@ class Payment extends Component {
                 image="https://cdn.shopify.com/s/files/1/0818/5483/t/10/assets/logo.png?713"
                 locale="auto"
                 name="www.corduroiclub.com"
-                stripeKey="pk_test_K8hH1MLjoGyYmB6mTVgLIEf900Aop4KNCd"
                 token={this.onToken}
               />
             </Col>
