@@ -6,7 +6,8 @@ import {
   Col,
   FormControl,
   Button,
-  Modal
+  Modal,
+  Image
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { addToCart, updateToCartItem } from "../../Cart/cartActions";
@@ -123,35 +124,35 @@ class Product extends Component {
     return (
       <Container className={classes.Product}>
         <Row className={classes.Header} as={Link} to={`/collection`}>
-          <img
+          <Image
             src="//cdn.shopify.com/s/files/1/0818/5483/t/10/assets/cc-logo.svg?713"
             alt="Store Logo"
-          ></img>
+          ></Image>
         </Row>
-
         <Row>
-          <Container className={classes.Product_Info}>
-            <Row className={classes.Product_Info__Gallery}>
-              <Col>
-                <Row>
-                  <img
-                    src={this.state.product_image[this.state.hero_image]}
-                    alt={this.state.product_image[this.state.hero_image]}
-                  ></img>
-                </Row>
-                <Row className={classes.Product_Info_Alt_Image}>
-                  {this.state.product_image &&
-                    this.state.product_image.map((image, index) => (
-                      <img
-                        key={index}
-                        onClick={() => this.handleImageChange({ index })}
-                        src={image}
-                        alt={'image' + index }
-                      ></img>
-                    ))}
-                </Row>
-              </Col>
-            </Row>
+          <Col className={classes.Product_Info}>
+            <Col className={classes.Product_Info__Gallery}>
+              <Row className={classes.Product_Info__Gallery__Hero}>
+                <Image
+                  src={this.state.product_image[this.state.hero_image]}
+                  alt={this.state.product_image[this.state.hero_image]}
+                  fluid
+                ></Image>
+              </Row>
+              <Row className={classes.Product_Info_Alt_Images}>
+                {this.state.product_image &&
+                  this.state.product_image.map((image, index) => (
+                    <Image
+                      key={index}
+                      onClick={() => this.handleImageChange({ index })}
+                      src={image}
+                      alt={"image" + index}
+                      fluid
+                      className={classes.Product_Info_Alt_Image}
+                    ></Image>
+                  ))}
+              </Row>
+            </Col>
             <Row className={classes.Product_Info__Detail}>
               <Col>
                 <Row>
@@ -195,7 +196,7 @@ class Product extends Component {
                 </Row>
               </Col>
             </Row>
-          </Container>
+          </Col>
         </Row>
         <Row className={classes.Product__PreviousPage}>
           <Col as={Link} to={`/collection`}>

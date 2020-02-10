@@ -1,7 +1,8 @@
 .Product {
-  max-width: 1020px;
+  max-width: 1200px;
 }
 
+/* Header */
 .Header {
   display: flex;
   justify-content: center;
@@ -12,47 +13,63 @@
   width: 142px;
 }
 
+/* Image Gallery */
+
 .Product_Info {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media screen and (min-width: 776px) {
+  .Product_Info {
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 .Product_Info__Gallery {
   display: flex;
-  justify-content: center;
-  /* background-color: pink; */
-  width: 50%;
-  padding-right: 60px;
+  flex-direction: column;
 }
 
-.Product_Info__Gallery img {
-  width: 100%;
-  height: 100%;
-  max-width: 460px;
-  max-height: 460px;
-  padding-right: 15px;
-  cursor: pointer;
+@media screen and (min-width: 776px) {
+  .Product_Info__Gallery {
+    width: 50%;
+  }
 }
 
-.Product_Info_Alt_Image {
+.Product_Info__Gallery__Hero {
+  padding-bottom: 30px;
+}
+
+.Product_Info_Alt_Images {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  max-width: 460px;
-  padding-top: 30px;
-  
+  justify-content: flex-start;
 }
 
-.Product_Info_Alt_Image img {
-  max-width: 117px;
-  max-height: 117px;
+.Product_Info_Alt_Image{
+  width: 30%;
+  margin-bottom: 30px;
 }
+
+.Product_Info_Alt_Image:not(:first-child){
+  width: 30%;
+  margin-left: 5%;
+}
+
+/* Product Detail */
 
 .Product_Info__Detail {
-  /* background-color: lightblue; */
-  width: 50%;
   padding-left: 20px;
+}
+
+@media screen and (min-width: 776px) {
+  .Product_Info__Detail {
+    width: 50%;
+    padding-left: 50px;
+  }
 }
 
 .Price {
@@ -65,7 +82,6 @@
 .Quantity {
   display: flex;
   flex-direction: column;
-
   font-size: 10px;
   line-height: 1.7;
   font-weight: bold;
@@ -75,7 +91,13 @@
 }
 
 .Quantity_InputField {
-  width: 70px;
+  width: 100%;
+}
+
+@media screen and (min-width: 776px) {
+  .Quantity_InputField {
+    width: 100px;
+  }
 }
 
 .Add_To_Cart {

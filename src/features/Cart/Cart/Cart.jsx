@@ -199,7 +199,4 @@ const mapDispatchToProps = {
   addToCheckout
 };
 
-export default connect(
-  mapToState,
-  mapDispatchToProps
-)(Cart);
+export default connect(mapToState, mapDispatchToProps)(Cart);

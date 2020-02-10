@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import classes from "./Collection.module.css";
-import { Container, Row, Col, Card, CardImg} from "react-bootstrap";
+import { Container, Row, Col, Card, CardImg } from "react-bootstrap";
 import Footer from "../../../app/components/layout/Footer/Footer";
 import { Link } from "react-router-dom";
 import { db } from "../../../db/firestore";
@@ -15,13 +15,13 @@ class Collection extends Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     db.collection("products")
       .get()
-      .then((data) => {
-        data.forEach( (doc) => {
-            this.setState({products: [...this.state.products, doc.data()]})
-        })
+      .then(data => {
+        data.forEach(doc => {
+          this.setState({ products: [...this.state.products, doc.data()] });
+        });
       })
       .catch(function(error) {
         console.log("Error getting documents: ", error);
@@ -30,83 +30,49 @@ class Collection extends Component {
 
   render() {
     return (
-      <div>
-        <Container className={classes.Collection}>
-          <Row className={classes.Header} as={Link} to={`/`}>
-            <img
-              src="//cdn.shopify.com/s/files/1/0818/5483/t/10/assets/cc-logo.svg?713"
-              alt="Store Logo"
-            ></img>
-          </Row>
-          <Row className={classes.ProductList}>
-            <Container className={classes.ProductList__Container}>
-              {/* {products &&
-                products.map(product => (
-                  <Col>
-                    <Row className={classes.ProductList__Card}>
-                      <Row
-                        as={Link}
-                        to={{
-                          pathname: `/collection/product/${product.product_name}`
-                        }}
-                      >
-                        <CardImg
-                          className={classes.ProductList__Card__Img}
-                          src={product.product_image[0]}
-                          alt="blue hat"
-                        />
-                      </Row>
-                      <Row className={classes.ProductList__CardDetail}>
-                        <Card.Text className={classes.ProductList__ProductName}>
-                          {product.product_name}
-                        </Card.Text>
-                        <Card.Text
-                          className={classes.ProductList__ProductPrice}
-                        >
-                          ${product.product_price.toFixed(2)}
-                        </Card.Text>
-                      </Row>
+      <Container className={classes.Collection}>
+        <Row className={classes.Header} as={Link} to={`/`}>
+          <img
+            src="//cdn.shopify.com/s/files/1/0818/5483/t/10/assets/cc-logo.svg?713"
+            alt="Store Logo"
+          ></img>
+        </Row>
+        <Row className={classes.ProductList}>
+          <Row className={classes.ProductList__Container}>
+            {this.state.products &&
+              this.state.products.map(product => (
+                <Col>
+                  <Row className={classes.ProductList__Card}>
+                    {/* use routes as constants */}
+                    <Row
+                      as={Link}
+                      to={{
+                        pathname: `/collection/product/${product.product_name}`
+                      }}
+                    >
+                      <CardImg
+                        className={classes.ProductList__Card__Img}
+                        src={product.product_image[0]}
+                        alt={product.product_name}
+                      />
                     </Row>
-                  </Col>
-                ))} */}
-
-                {this.state.products &&
-                this.state.products.map(product => (
-                  <Col>
-                    <Row className={classes.ProductList__Card}>
-                      {/* use routes as constants */}
-                      <Row
-                        as={Link}
-                        to={{
-                          pathname: `/collection/product/${product.product_name}`
-                        }}
-                      >
-                        <CardImg
-                          className={classes.ProductList__Card__Img}
-                          src={product.product_image[0]}
-                          alt={product.product_name}
-                        />
-                      </Row>
-                      <Row className={classes.ProductList__CardDetail}>
-                        <Card.Text className={classes.ProductList__ProductName}>
-                          {product.product_name}
-                        </Card.Text>
-                        <Card.Text
-                          className={classes.ProductList__ProductPrice}
-                        >
-                          ${product.product_price.toFixed(2)}
-                        </Card.Text>
-                      </Row>
+                    <Row className={classes.ProductList__CardDetail}>
+                      <Card.Text className={classes.ProductList__ProductName}>
+                        {product.product_name}
+                      </Card.Text>
+                      <Card.Text className={classes.ProductList__ProductPrice}>
+                        ${product.product_price.toFixed(2)}
+                      </Card.Text>
                     </Row>
-                  </Col>
-                ))}
-            </Container>
+                  </Row>
+                </Col>
+              ))}
           </Row>
-          <Row>
-            <Footer />
-          </Row>
-        </Container>
-      </div>
+        </Row>
+        <Row>
+          <Footer />
+        </Row>
+      </Container>
     );
   }
 }

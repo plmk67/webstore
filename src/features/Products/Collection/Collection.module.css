@@ -26,6 +26,13 @@
   flex-direction: row;
 }
 
+@media screen and (max-width: 375px) {
+  .ProductList__Container {
+    display: flex;
+    flex-direction: column
+  }
+}
+
 .ProductList__Col {
   display: flex;
   width: 100%;
@@ -45,7 +52,7 @@
 
 .ProductList__CardDetail {
   padding-top: 16px;
-  display: f lex;
+  display: flex;
   flex-direction: column;
 }
 
