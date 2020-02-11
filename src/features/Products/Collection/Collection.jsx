@@ -38,13 +38,12 @@ class Collection extends Component {
           ></img>
         </Row>
         <Row className={classes.ProductList}>
-          <Row className={classes.ProductList__Container}>
-            {this.state.products &&
-              this.state.products.map(product => (
-                <Col>
-                  <Row className={classes.ProductList__Card}>
+            <Col className={classes.ProductList__Container}>
+              {this.state.products &&
+                this.state.products.map(product => (
+                  <Col className={classes.ProductList__Card}>
                     {/* use routes as constants */}
-                    <Row
+                    <Col
                       as={Link}
                       to={{
                         pathname: `/collection/product/${product.product_name}`
@@ -55,19 +54,18 @@ class Collection extends Component {
                         src={product.product_image[0]}
                         alt={product.product_name}
                       />
-                    </Row>
-                    <Row className={classes.ProductList__CardDetail}>
+                    </Col>
+                    <Col className={classes.ProductList__CardDetail}>
                       <Card.Text className={classes.ProductList__ProductName}>
                         {product.product_name}
                       </Card.Text>
                       <Card.Text className={classes.ProductList__ProductPrice}>
                         ${product.product_price.toFixed(2)}
                       </Card.Text>
-                    </Row>
-                  </Row>
-                </Col>
-              ))}
-          </Row>
+                    </Col>
+                  </Col>
+                ))}
+            </Col>
         </Row>
         <Row>
           <Footer />
