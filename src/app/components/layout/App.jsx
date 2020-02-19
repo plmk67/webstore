@@ -16,30 +16,18 @@ class App extends Component {
       <Container className={classes.Main}>
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route path="/collection" exact component={Collection} />
+          <Route
+            path="/collection/product/:ProductName"
+            exact
+            component={Product}
+          />
+          <Route path="/cart" exact component={Cart} />
+          <Route path="/checkout" exact component={Checkout} />
+          <Route path="/checkout/:OrderId" exact component={Checkout} />
+          <Route path="/payment/:OrderId" exact component={Payment} />
+          <Route path="/create" exact component={CreateProduct} />
         </Switch>
-
-        <Route
-          path="/(.+)"
-          render={() => (
-            <div>
-              <Container className={classes.Main}>
-                <Switch>
-                  <Route path="/collection" exact component={Collection} />
-                  <Route
-                    path="/collection/product/:ProductName"
-                    exact
-                    component={Product}
-                  />
-                  <Route path="/cart" exact component={Cart} />
-                  <Route path="/checkout" exact component={Checkout} />
-                  <Route path="/checkout/:OrderId" exact component={Checkout} />
-                  <Route path="/payment/:OrderId" exact component={Payment} />
-                  <Route path="/create" exact component={CreateProduct} />
-                </Switch>
-              </Container>
-            </div>
-          )}
-        />
       </Container>
     );
   }
